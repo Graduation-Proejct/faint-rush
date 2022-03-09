@@ -6,11 +6,9 @@ function App() {
   return (
     <div className="App">
       <Routes>
-        
-        <Route path="/splash" element={<Splash />}>
-          <Route path="/about" element={<h1>About</h1>} />
-          <Route path="/contact" element={<h1>Contact</h1>} />
-        </Route>
+        <Route path="/" element={<Splash />} />
+        <Route path="/about" element={<h1>About</h1>} />
+        <Route path="/contact" element={<h1>Contact</h1>} />\
       </Routes>
     </div>
   );
