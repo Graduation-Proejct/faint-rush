@@ -1,8 +1,18 @@
 import "./App.css";
+import Splash from "./pages/Splash";
+import { Routes, Route } from "react-router-dom";
 
 function App() {
   return (
-    <h1 className="text-3xl font-bold text-red-200">tailwind is working.</h1>
+    <div className="App">
+      <Routes>
+        
+        <Route path="/splash" element={<Splash />}>
+          <Route path="/about" element={<h1>About</h1>} />
+          <Route path="/contact" element={<h1>Contact</h1>} />
+        </Route>
+      </Routes>
+    </div>
   );
 }
 
