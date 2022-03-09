@@ -1,3 +1,17 @@
-[![Netlify Status](https://api.netlify.com/api/v1/badges/be92bc17-f44f-4c33-8b2c-706f114933de/deploy-status)](https://app.netlify.com/sites/faint-rush/deploys)
+https://faint-rush.vercel.app/
+
+
+
 # faint-rush
 Home Alone Faint detection system. To keep an eye on your loved ones even when you're not there.
+
+# Getting started:
+
+
+## frontend: 
+from the root directory
+- `cd frontend ; yarn start`
+
+## backend: 
+from the root directory
+- `cd backend ; npm start`
