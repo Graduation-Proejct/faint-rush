@@ -1,0 +1,12 @@
+<svg id="Icons_Main_App_Icon" data-name="Icons/ Main App Icon" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="73" height="34" viewBox="0 0 73 34">
+  <defs>
+    <radialGradient id="radial-gradient" cx="0.229" cy="0" r="1.137" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#7be495"/>
+      <stop offset="1" stop-color="#329d9c"/>
+    </radialGradient>
+  </defs>
+  <g id="Main_App_Icon" data-name="Main App Icon">
+    <path id="Plus-1" d="M20.6,30.233v-3.08a6.68,6.68,0,0,1,6.7-6.663h3.1a3.582,3.582,0,1,0,0-7.165h-3.1a6.68,6.68,0,0,1-6.7-6.663V3.582a3.6,3.6,0,0,0-7.2,0v3.08a6.68,6.68,0,0,1-6.7,6.663H3.6a3.582,3.582,0,1,0,0,7.165H6.7a6.68,6.68,0,0,1,6.7,6.663v3.08a3.6,3.6,0,0,0,7.2,0Z" fill="url(#radial-gradient)"/>
+    <path id="Plus-2" d="M20.6,30.233v-3.08a6.68,6.68,0,0,1,6.7-6.663h3.1a3.582,3.582,0,1,0,0-7.165h-3.1a6.68,6.68,0,0,1-6.7-6.663V3.582a3.6,3.6,0,0,0-7.2,0v3.08a6.68,6.68,0,0,1-6.7,6.663H3.6a3.582,3.582,0,1,0,0,7.165H6.7a6.68,6.68,0,0,1,6.7,6.663v3.08a3.6,3.6,0,0,0,7.2,0Z" transform="translate(38.755)" fill="url(#radial-gradient)"/>
+  </g>
+</svg>
