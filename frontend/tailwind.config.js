@@ -7,6 +7,9 @@ module.exports = {
         mon: "'Montserrat', 'sans-serif'",
         new: "'Take Me One', 'sans-serif'",
       },
+      colors: {
+        prim: "#3CAA78",
+      },
     },
   },
   plugins: [],
