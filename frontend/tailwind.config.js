@@ -9,6 +9,7 @@ module.exports = {
       },
       colors: {
         prim: "#3CAA78",
+        sec: "#205072",
       },
     },
   },

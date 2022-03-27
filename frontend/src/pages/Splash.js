@@ -5,8 +5,8 @@ export default function Splash() {
     <div className="pt-16 font-mon flex flex-col gap-10 lg:flex-row items-center lg:items-start lg:justify-center  ">
       <Logo />
       <h1>
-        <span className="text-xl font-bold text-gray-700">
-          Welcome to <span className="text-prim">Faint Rush</span>
+        <span className="text-xl font-bold text-sec">
+          Welcome to <span className="text-prim text-2xl ">Faint Rush</span>
         </span>
       </h1>
     </div>
