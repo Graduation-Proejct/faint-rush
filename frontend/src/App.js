@@ -1,5 +1,5 @@
 import "./App.css";
-import Splash from "./pages/Splash";
+import Splash from "./pages/splash";
 import { Routes, Route } from "react-router-dom";
 import Login from "./pages/Login";
 
