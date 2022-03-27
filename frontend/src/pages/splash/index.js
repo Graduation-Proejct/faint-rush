@@ -5,7 +5,7 @@ import Header from "./Header";
 import CTA from "./CTA";
 export default function Splash() {
   return (
-    <div className="pt-16 font-mon flex flex-col gap-10 lg:flex-row items-center lg:items-start lg:justify-center  ">
+    <div className="pt-10 h-screen font-mon flex flex-col gap-5 2xs:gap-10 items-center  ">
       <Logo />
       <Header />
       <section className="flex  justify-center">

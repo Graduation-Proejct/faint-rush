@@ -3,7 +3,7 @@ import Button from "../../components/library/Button";
 
 export default function CTA() {
   return (
-    <section className="flex flex-col justify-center items-center mt-16">
+    <section className="flex flex-col justify-center items-center mt-8 2xs:mt-16">
       <Button text="GET STARTED" />
       <p className="mt-2">
         <span className="text-sm font-semibold text-prim text-center">
