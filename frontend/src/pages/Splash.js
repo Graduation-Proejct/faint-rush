@@ -1,9 +1,14 @@
 import React from "react";
-import { ReactComponent as Logo } from "../assets/logo.svg";
+import Logo from "../components/shared/Logo";
 export default function Splash() {
   return (
-    <div>
+    <div className="pt-16 font-mon flex flex-col gap-10 lg:flex-row items-center lg:items-start lg:justify-center  ">
       <Logo />
+      <h1>
+        <span className="text-xl font-bold text-gray-700">
+          Welcome to <span className="text-green-600">Faint Rush</span>
+        </span>
+      </h1>
     </div>
   );
 }
