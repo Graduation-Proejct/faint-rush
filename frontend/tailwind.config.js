@@ -10,6 +10,7 @@ module.exports = {
       colors: {
         prim: "#3CAA78",
         sec: "#205072",
+        grdstart: "#7BE495",
       },
       fontSize: {
         "1.5xl": "1.32rem",
