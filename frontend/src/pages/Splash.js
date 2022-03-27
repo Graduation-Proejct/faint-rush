@@ -6,7 +6,7 @@ export default function Splash() {
       <Logo />
       <h1>
         <span className="text-xl font-bold text-sec">
-          Welcome to <span className="text-prim text-2xl ">Faint Rush</span>
+          Welcome to <span className="text-prim text-1.5xl">Faint Rush</span>
         </span>
       </h1>
     </div>
