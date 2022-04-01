@@ -1,10 +1,11 @@
 import "./App.css";
 import { Routes, Route } from "react-router-dom";
-import Login from "./pages/Login";
+
 import { lazy, Suspense } from "react";
 
 const Splash = lazy(() => import("./pages/splash"));
 const GetStarted = lazy(() => import("./pages/getstarted"));
+const Login = lazy(() => import("./pages/login"));
 
 function App() {
   return (

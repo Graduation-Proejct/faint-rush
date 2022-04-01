@@ -1,0 +1,30 @@
+
+.dash span:after,
+.dash span:before{
+    content:"\00a0\00a0\00a0\00a0\00a0 \00a0\00a0\00a0\00a0\00a0 \00a0\00a0\00a0\00a0\00a0";
+    text-decoration:line-through;
+}
+
+.fa-lock {
+  position: absolute;
+  left: 12px;
+  top: 15px;
+  cursor: pointer;
+  font-size: 15px
+}
+
+.input-text .fa-eye-slash {
+  position: absolute;
+  right: 10px;
+  top: 15px;
+  font-size: 15px;
+  cursor: pointer
+}
+
+.fa-eye {
+  position: absolute;
+  right: 10px;
+  top: 15px;
+  font-size: 15px;
+  cursor: pointer
+}
