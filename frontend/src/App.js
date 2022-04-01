@@ -5,7 +5,7 @@ import { lazy, Suspense } from "react";
 
 const Splash = lazy(() => import("./pages/splash"));
 const GetStarted = lazy(() => import("./pages/getstarted"));
-const Login = lazy(() => import("./pages/login"));
+const Login = lazy(() => import("./pages/login/index"));
 
 function App() {
   return (
