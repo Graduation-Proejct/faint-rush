@@ -1,6 +1,5 @@
 import React from "react";
 import "./Footer.css";
-import { ReactComponent as FB } from "../../assets/svgs/facebook.svg";
 
 import { useState } from "react";
 import Button from "../../components/library/Button";

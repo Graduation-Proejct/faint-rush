@@ -11,7 +11,7 @@ export default function GetStarted() {
     //todo dispatch action to set user type to patient
   };
   const getStartedForCaretaker = () => {
-    navigate("/signup");
+    navigate("/login");
     //todo dispatch action to set user type to caretaker
   };
   return (
