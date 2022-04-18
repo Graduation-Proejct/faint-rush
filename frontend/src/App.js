@@ -6,13 +6,10 @@ import { lazy, Suspense } from "react";
 const Splash = lazy(() => import("./pages/splash"));
 const GetStarted = lazy(() => import("./pages/getstarted"));
 const Login = lazy(() => import("./pages/login"));
-<<<<<<< Updated upstream
-=======
 const PatientHome = lazy(() => import("./pages/patienthome"));
 const Edit = lazy(() => import("./pages/edit"));
 
 
->>>>>>> Stashed changes
 
 function App() {
   return (
@@ -22,11 +19,9 @@ function App() {
           <Route path="/" element={<Splash />} />
           <Route path="/getstarted" element={<GetStarted />} />
           <Route path="/login" element={<Login />} />
-<<<<<<< Updated upstream
-=======
+
           <Route path="/patienthome" element={<PatientHome />} />
           <Route path="/edit" element={<Edit />} />
->>>>>>> Stashed changes
         </Routes>
       </Suspense>
     </div>
