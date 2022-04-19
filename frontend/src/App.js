@@ -8,6 +8,11 @@ const GetStarted = lazy(() => import("./pages/getstarted"));
 const Login = lazy(() => import("./pages/login"));
 const PatientHome = lazy(() => import("./pages/patienthome"));
 const Edit = lazy(() => import("./pages/edit"));
+const SignUp = lazy(() => import("./pages/signup"));
+const CareTaker = lazy(() => import("./pages/caretaker"));
+
+
+
 
 
 
@@ -22,6 +27,10 @@ function App() {
 
           <Route path="/patienthome" element={<PatientHome />} />
           <Route path="/edit" element={<Edit />} />
+          <Route path="/signup" element={<SignUp />} />
+          <Route path="/caretaker" element={<CareTaker />} />
+
+
         </Routes>
       </Suspense>
     </div>
