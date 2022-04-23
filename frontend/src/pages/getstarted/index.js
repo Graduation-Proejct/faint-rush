@@ -7,11 +7,12 @@ import { useNavigate } from "react-router-dom";
 export default function GetStarted() {
   const navigate = useNavigate();
   const getStartedForPatient = () => {
-    navigate("/signup");
+    navigate("/signup",{state:{dis:false}});
     //todo dispatch action to set user type to patient
   };
   const getStartedForCaretaker = () => {
-    navigate("/login");
+    // for disply relation input in signup page
+    navigate("/signup",{state:{dis:true}});
     //todo dispatch action to set user type to caretaker
   };
   return (

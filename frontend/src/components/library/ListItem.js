@@ -1,7 +1,7 @@
 import React from "react";
 
 export default function ListItem(props) {
-  const { relation,name,phone  } = props;
+  const { relation,name,phone, handles  } = props;
   return (
     <>
       <div className="flex flex-row relative">
@@ -13,7 +13,7 @@ export default function ListItem(props) {
             <span className="text-gray-400">{phone}</span>
 
           </div>
-          <button className="rounded-2xl float-right border-2 ml-12 w-24 h-10 m-auto mr-2">EDIT</button>
+          <button className="rounded-2xl float-right border-2 ml-12 w-24 h-10 m-auto mr-2 hover:bg-lime-50" onClick={handles}>EDIT</button>
         </div>
 
       </div>
