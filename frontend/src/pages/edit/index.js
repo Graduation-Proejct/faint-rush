@@ -7,15 +7,18 @@ import Logo from "../../components/SVG/Logo";
 import {useLocation} from 'react-router-dom';
 import { useState } from "react";
 
+import { useSelector, useDispatch } from 'react-redux'
+import { setEmail,setPassword, setUsername,setValid,setItemName,setItemRlation,setItemPhone,setPhone } from "../../redux/userSlice"
+
 
 
 
 export default function GetStarted() {
+  const user = useSelector((state) => state.user)
+  const dispatch = useDispatch();
+
   const location = useLocation();
- 
-  const [itemName, setItemName] =useState(location.state.name);
- const [itemPhone, setItemPhone] =useState( location.state.phone);
-  const [itemRelation, setItemRlation] =useState( location.state.relation);
+  
 
   const navigate = useNavigate();
   
@@ -25,7 +28,7 @@ export default function GetStarted() {
     
     
     
-    navigate("/patienthome",{state:{id:location.state.id,name:itemName ,relation:itemRelation,phone:itemPhone}});
+    navigate("/patienthome");
   };
   
   
@@ -35,7 +38,7 @@ export default function GetStarted() {
       <div className="pt-10 h-screen flex flex-col items-center">
         <Logo/>
         <Header />
-        <h2>{location.state.name}</h2>
+        <h2>{user.list[location.state.id-1].relation}</h2>
 
       <form
         onSubmit={(e) => {
@@ -47,30 +50,30 @@ export default function GetStarted() {
         
           <input
             required
-            className="mb-3  justify-center text-center placeholder:italic placeholder:text-slate-400 block w-80 h-14 drop-shadow-md rounded-2xl"
+            className=" border-4 mb-3  justify-center text-center placeholder:italic placeholder:text-slate-400 block w-80 h-14 drop-shadow-md rounded-2xl"
             type="text"
             id="relation_edit"
-            value={itemRelation}
-            onChange={(e) => setItemRlation(e.target.value)}
+            value={user.list[location.state.id-1].relation}
+            onChange={(e) => dispatch(setItemRlation({id:location.state.id,relation:e.target.value}))}
             name="relation"
             placeholder="Enter the relation"
           />
            <input
             required
-            className=" mb-3 justify-center text-center placeholder:italic placeholder:text-slate-400 block w-80 h-14 drop-shadow-md rounded-2xl"
+            className=" border-4 mb-3 justify-center text-center placeholder:italic placeholder:text-slate-400 block w-80 h-14 drop-shadow-md rounded-2xl"
             type="text"
             name="name"
-            value={itemName}
-            onChange={(e) => setItemName(e.target.value)}
+            value={user.list[location.state.id-1].name}
+            onChange={(e) => dispatch(setItemName({id:location.state.id,name:e.target.value}))}
             placeholder="Enter name"
           />
            <input
             required
-            className=" mb-3 justify-center text-center placeholder:italic placeholder:text-slate-400 block w-80 h-14 drop-shadow-md rounded-2xl"
+            className="border-4 mb-3 justify-center text-center placeholder:italic placeholder:text-slate-400 block w-80 h-14 drop-shadow-md rounded-2xl"
             type="number"
             name="phone"
-            value={itemPhone}
-            onChange={(e) => setItemPhone(e.target.value)}
+            value={user.list[location.state.id-1].phone}
+            onChange={(e) => dispatch(setItemPhone({id:location.state.id,phone:e.target.value}))}
 
             placeholder="Enter phone"
           />
