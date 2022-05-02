@@ -9,6 +9,7 @@ module.exports = {
       },
       colors: {
         prim: "#3CAA78",
+        prim2:"#68B2A0",
         sec: "#205072",
         grdstart: "#7BE495",
         patienthome:"#E0ECDE",

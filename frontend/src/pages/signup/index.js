@@ -1,11 +1,11 @@
 import React from "react";
-import Button from "../../components/library/Button";
-import Card from "../../components/library/Card";
+
 import Logo from "../../components/SVG/Logo";
 import Header from "./Header";
 import Main from "./Main";
 
-
+import { useSelector, useDispatch } from 'react-redux'
+import { setEmail,setPassword, setUsername,setValid,setItemName,setItemRlation,setItemPhone } from "../../redux/userSlice"
 import { useNavigate } from "react-router-dom";
 export default function SignUp() {
   return (

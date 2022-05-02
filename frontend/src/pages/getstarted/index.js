@@ -4,15 +4,25 @@ import Card from "../../components/library/Card";
 import Logo from "../../components/SVG/Logo";
 import Header from "./Header";
 import { useNavigate } from "react-router-dom";
+
+import { useSelector, useDispatch } from 'react-redux'
+import { setEmail,setPassword, setUsername,setValid,setItemName,setItemRlation,setItemPhone,setPhone,setType } from "../../redux/userSlice"
+
+
 export default function GetStarted() {
+  const user = useSelector((state) => state.user)
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const getStartedForPatient = () => {
-    navigate("/signup",{state:{dis:false}});
+    dispatch(setType("patient"));
+    navigate("/signup");
     //todo dispatch action to set user type to patient
   };
   const getStartedForCaretaker = () => {
     // for disply relation input in signup page
-    navigate("/signup",{state:{dis:true}});
+    dispatch(setType("caretaker"));
+    
+    navigate("/signup");
     //todo dispatch action to set user type to caretaker
   };
   return (
