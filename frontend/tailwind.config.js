@@ -6,6 +6,7 @@ module.exports = {
         pop: "'Poppins', 'sans-serif'",
         mon: "'Montserrat', 'sans-serif'",
         new: "'Take Me One', 'sans-serif'",
+        hel:"Helvetica",
       },
       colors: {
         prim: "#3CAA78",

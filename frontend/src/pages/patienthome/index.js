@@ -1,6 +1,8 @@
 import React from "react";
 
 import Header from "./Header";
+import Modal from "../../components/library/Modal";
+
 //import ListItem from "./ListItem";
 import ListItem from "../../components/library/ListItem";
 import { useNavigate } from "react-router-dom";
@@ -51,6 +53,7 @@ export default function PatientHome() {
 
   return (
     <div className=" h-screen font-mon flex flex-col items-center w-auto gap-5 2xs:gap-10 bg-scroll">
+
      <Header/>
      
 
@@ -67,7 +70,7 @@ export default function PatientHome() {
 
 </ul>}
 
-{(list.length<4)&&<Button text="add"handles={addTakecarer}/>
+{(list.length<4)&&<Button text="add"handles={addTakecarer} type="button" data-modal-toggle="defaultModal"/>
 }
     </div>
   );
