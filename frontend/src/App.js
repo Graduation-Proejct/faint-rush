@@ -1,4 +1,8 @@
 import "./App.css";
+import "@material-tailwind/react/tailwind.css";
+import { ToastContainer} from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 import { Routes, Route } from "react-router-dom";
 
 import { lazy, Suspense } from "react";
@@ -9,7 +13,11 @@ const Login = lazy(() => import("./pages/login"));
 const PatientHome = lazy(() => import("./pages/patienthome"));
 const Edit = lazy(() => import("./pages/edit"));
 const SignUp = lazy(() => import("./pages/signup"));
+const SignUpNext = lazy(() => import("./pages/signupnext"));
+
 const CareTaker = lazy(() => import("./pages/caretaker"));
+const Test = lazy(() => import("./pages/test"));
+
 
 
 
@@ -28,11 +36,15 @@ function App() {
           <Route path="/patienthome" element={<PatientHome />} />
           <Route path="/edit" element={<Edit />} />
           <Route path="/signup" element={<SignUp />} />
+          <Route path="/signupnext" element={<SignUpNext />} />
+          <Route path="/test" element={<Test />} />
+
           <Route path="/caretaker" element={<CareTaker />} />
 
 
         </Routes>
       </Suspense>
+      <ToastContainer/>
     </div>
   );
 }
