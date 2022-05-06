@@ -69,40 +69,11 @@ app.post("/signupdata", function (req, res) {
       console.error(error);
     });
 
-  // if (signup(my_user)) {
-  //   res.send(true);
-  // } else {
-  //   res.send(false);
-  // }
+
 
   //   res.send(JSON.parse(JSON.stringify(user)));
 });
-async function signup(my_user) {
-  const dbRef = ref(getDatabase());
-  let my_users = [];
-  get(child(dbRef, `users`))
-    .then((snapshot) => {
-      if (snapshot.exists()) {
-        my_users = snapshot.val();
-        let flag = 0;
-        for (let i = 0; i < my_users.length; i++) {
-          if (my_users[i].email === my_user.email) flag = 1;
-        }
-        if (flag == 1) {
-          return false;
-        } else {
-          writeUserData(my_users.length, my_user);
-          return true;
-        }
-      } else {
-        console.log("No data available");
-        return NaN;
-      }
-    })
-    .catch((error) => {
-      console.error(error);
-    });
-}
+
 // data here is the user the same as the frontend
 app.get("/signupdata", function (req, res) {
   const dbRef = ref(getDatabase());
