@@ -34,14 +34,13 @@ app.use(function (req, res, next) {
   next();
 });
 
-const user = { id: "1", name: "sayed", email: "ahmed" };
 app.post("/signupdata", function (req, res) {
   console.log(req.body);
   const my_user = {
     name: req.body.name,
     email: req.body.email,
     phone: req.body.phone,
-    pass: req.body.password,
+    password: req.body.password,
     type: req.body.type,
   };
   const dbRef = ref(getDatabase());
@@ -59,6 +58,7 @@ app.post("/signupdata", function (req, res) {
         } else {
           writeUserData(my_users.length, my_user);
           res.send(true);
+          my_logedin_user = my_user.email;
         }
       } else {
         console.log("No data available");
@@ -113,10 +113,9 @@ app.get("/signupdata", function (req, res) {
         my_users = snapshot.val();
         console.log(my_users);
         for (let i = 0; i < my_users.length; i++) {
-             if(my_users[i].email==my_logedin_user){
-              res.send(JSON.parse(JSON.stringify(my_users[i])));
-             }
-
+          if (my_users[i].email == my_logedin_user) {
+            res.send(JSON.parse(JSON.stringify(my_users[i])));
+          }
         }
       } else {
         console.log("No data available");
@@ -154,7 +153,7 @@ app.post("/logindata", function (req, res) {
               console.log(
                 "0my pass is" + my_users[i].password + "pass is" + password
               );
-              my_logedin_user=email;
+              my_logedin_user = email;
             } else {
               flag = 1;
               console.log(
