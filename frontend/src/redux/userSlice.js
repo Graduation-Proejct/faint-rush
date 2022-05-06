@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import axios from 'axios';
 
 const initialState = {
   email: "",
@@ -45,6 +46,8 @@ export const userSlice = createSlice({
     addItem: (state) => {
      
       state.list.push({id:state.list.length+1,relation: 'ddv', name: 'ahmed', phone:'0123',});
+      const article = { name:state.username, email:state.email ,password:state.password , phone:state.phone , type:state.type, list:state.list};
+      axios.put('http://localhost:8080/signupdata/', article)
     },
    
   },
