@@ -24,18 +24,7 @@ export default function Main() {
   const location = useLocation();
   const navigateToPatienOrTakeCaretHome = (e) => {
     e.preventDefault();
-    //  const myuser={};
 
-    // console.log(myuser);
-
-    //  const myData="ahmed";
-    // const requestOptions = {
-    //   method: 'post',
-    //   headers: { "Content-Type": "application/json" },
-    //   body: JSON.stringify(myData),
-    // };
-    // fetch('http://localhost:8080/signupdata', requestOptions);
-    // const article =  {name:user.username  };
     const article = {
       name: user.username,
       email: user.email,
@@ -49,31 +38,27 @@ export default function Main() {
         if (user.type == "caretaker") {
           navigate("/caretaker");
         } else {
-          navigate("/patienthome");
+          navigate("/signupnext");
         }
       } else {
-        
+
       }
     });
 
-    // fetch("http://localhost:8080/signupdata", {
-    //   method: "POST",
-    //   mode: "cors", // this cannot be 'no-cors'
-    //   headers: {
-    //     Accept: "application/json",
-    //     "Content-Type": "application/json",
-    //   },
-    //   body: JSON.stringify({
-    //     user: {
-    //       email: "ses",
-    //       password: "assl",
-    //     },
-    //   }),
-    // });
+   
   };
+  function getText(){
+    if (user.type == "caretaker") {
+      return"sign up";
+    } else {
+      return"next";
+
+    }
+        
+  }
 
   //const [name, setName] = useState("");
-  const handleSubmit = (event) => {};
+  const handleSubmit = (event) => { };
 
   return (
     <>
@@ -122,7 +107,7 @@ export default function Main() {
           />
         </div>
 
-        <Button text="Sign Up" />
+        <Button text={getText()} />
       </form>
     </>
   );

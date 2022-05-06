@@ -16,7 +16,9 @@ export default function Main() {
             qestions.splice(qestions.indexOf(obj.txt), 1)
 
         }
-    }
+         
+    } 
+    
 
     return (
 

@@ -19,12 +19,17 @@ import { setEmail,setPassword, addItem,setUsername,setValid } from "../../redux/
 
 
 export default function PatientHome() { 
-  const user = useSelector((state) => state.user)
-  const dispatch = useDispatch()
+
 
 
   
+  const user = useSelector((state) => state.user)
+  const dispatch = useDispatch()
+  const navigate = useNavigate();
 
+
+  
+  
 
 
   let list = user.list;
@@ -37,7 +42,6 @@ export default function PatientHome() {
     console.log(user.list);
  
   }
-  const navigate = useNavigate();
   const PatientEdit = (item) => {
     
   navigate("/edit",{state:{id:item.id}});
@@ -45,7 +49,18 @@ export default function PatientHome() {
 };
 
 
-  
+
+const nev =()=>{
+  console.log("inlog")
+
+  navigate("/login");
+}
+
+  if(user.valid==false){
+   nev();
+
+
+  }
 
 //navigate("/edit",{state:{id:1,name:'sabaoon'}});
 //todo dispatch action to set user type to caretaker

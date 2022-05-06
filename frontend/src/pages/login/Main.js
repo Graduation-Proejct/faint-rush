@@ -7,8 +7,11 @@ import { useSelector, useDispatch } from "react-redux";
 import {
   setEmail,
   setPassword,
+  setPhone,
+  setType,
   setUsername,
   setValid,
+  setList,
 } from "../../redux/userSlice";
 
 export default function Main() {
@@ -22,15 +25,32 @@ export default function Main() {
   };
   async function check() {
     let result = await isValid();
+    dispatch(setValid(result))
     if (result) {
       fetch("http://localhost:8080/signupdata")
       .then((response) => response.json())
       .then((data) => {
       dispatch(setUsername(data.name))
+      dispatch(setEmail(data.email))
+      dispatch(setPassword(data.password))
+      dispatch(setPhone(data.phone))
+      dispatch(setType(data.type))
+     // dispatch(setList(data.list))
+
+
+
+
+
         // myuser=data;
         console.log(data);
+        console.log("hi:"+data.name);
+        if(data.type==='patient'){navigate("/patienthome");}else{
+          navigate("/caretaker")
+        }
       });
-      navigate("/patienthome");
+          
+        
+      
     }
   }
   //const [name, setName] = useState("");
