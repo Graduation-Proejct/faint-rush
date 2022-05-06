@@ -32,7 +32,8 @@ export default function PatientHome() {
   const addTakecarer=()=>{
    // window.alert(user.list.length);
     dispatch(addItem());
-
+    console.log(user.list);
+ 
   }
   const navigate = useNavigate();
   const PatientEdit = (item) => {

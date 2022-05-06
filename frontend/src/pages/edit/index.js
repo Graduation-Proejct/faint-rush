@@ -5,6 +5,8 @@ import Button from "../../components/library/Button";
 import Header from "./Header";
 import Logo from "../../components/SVG/Logo";
 import {useLocation} from 'react-router-dom';
+import axios from 'axios';
+
 import { useState } from "react";
 
 import { useSelector, useDispatch } from 'react-redux'
@@ -24,7 +26,8 @@ export default function GetStarted() {
   
   const navigateToPatientHome = (e) => {
     e.preventDefault();
-    
+    const article = { name:user.username, email:user.email ,password:user.password , phone:user.phone , type:user.type, list:user.list};
+    axios.put('http://localhost:8080/signupdata/', article)
     
     
     
