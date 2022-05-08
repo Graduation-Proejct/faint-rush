@@ -43,7 +43,7 @@ export default function Header() {
          <div className="flex flex-col items-start ml-10 ">
           <h4 className="flex font-mono text-3xl font-extrabold text-crazyblue mb-2  " >Good Evening,
             <br></br>
-            {user.username}</h4>
+              {user.username}</h4>
           
             <span className="text-prim2 block" >Your target for today is to keep positive</span>
             <span className="text-prim2 block"> mindset and smile to everyone you meet.</span>
