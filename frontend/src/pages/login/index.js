@@ -8,6 +8,7 @@ import Footer from "./Footer";
 
 import { useNavigate } from "react-router-dom";
 export default function Login() {
+  
   return (
     <div className="pt-10 h-screen font-mon flex flex-col gap-5 2xs:gap-10 items-center  ">
       <Logo />

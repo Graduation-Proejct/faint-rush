@@ -22,58 +22,56 @@ export default function Main() {
 
   const navigate = useNavigate();
   const location = useLocation();
+
+  //  navigate To sign up next  Or TakeCare Home and post data to user if is caretaker
   const navigateToPatienOrTakeCaretHome = (e) => {
     e.preventDefault();
-    //  const myuser={};
 
-    // console.log(myuser);
+    if(user.type=="caretaker"){
 
-    //  const myData="ahmed";
-    // const requestOptions = {
-    //   method: 'post',
-    //   headers: { "Content-Type": "application/json" },
-    //   body: JSON.stringify(myData),
-    // };
-    // fetch('http://localhost:8080/signupdata', requestOptions);
-    // const article =  {name:user.username  };
-    const article = {
-      name: user.username,
-      email: user.email,
-      password: user.password,
-      phone: user.phone,
-      type: user.type,
-      list: user.list,
-    };
-    axios.post("http://localhost:8080/signupdata", article).then((response) => {
-      if (response.data === true) {
-        if (user.type == "caretaker") {
-          navigate("/caretaker");
+      const article = {
+        name: user.username,
+        email: user.email,
+        password: user.password,
+        phone: user.phone,
+        type: user.type,
+        list: user.list,
+      };
+      axios.post("http://localhost:8080/signupdata", article).then((response) => {
+        if (response.data === true) {
+          if (user.type == "caretaker") {
+            dispatch(setValid(true));
+            navigate("/caretaker");
+          } 
+  
+          
         } else {
-          navigate("/patienthome");
+  
         }
-      } else {
-        
-      }
-    });
+      });
 
-    // fetch("http://localhost:8080/signupdata", {
-    //   method: "POST",
-    //   mode: "cors", // this cannot be 'no-cors'
-    //   headers: {
-    //     Accept: "application/json",
-    //     "Content-Type": "application/json",
-    //   },
-    //   body: JSON.stringify({
-    //     user: {
-    //       email: "ses",
-    //       password: "assl",
-    //     },
-    //   }),
-    // });
+
+    }else{
+        dispatch(setValid(true));
+        navigate("/signupnext");
+      
+    }
+
+   
   };
+   // set text of button based on type of user 
+  function getText(){
+    if (user.type == "caretaker") {
+      return"sign up";
+    } else {
+      return"next";
+
+    }
+        
+  }
 
   //const [name, setName] = useState("");
-  const handleSubmit = (event) => {};
+  const handleSubmit = (event) => { };
 
   return (
     <>
@@ -122,7 +120,7 @@ export default function Main() {
           />
         </div>
 
-        <Button text="Sign Up" />
+        <Button text={getText()} />
       </form>
     </>
   );

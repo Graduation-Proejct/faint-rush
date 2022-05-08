@@ -7,21 +7,28 @@ import { useNavigate } from "react-router-dom";
 
 import { useSelector, useDispatch } from 'react-redux'
 import { setEmail,setPassword, setUsername,setValid,setItemName,setItemRlation,setItemPhone,setPhone,setType } from "../../redux/userSlice"
-
+import {setSignUpValue,setEditValue} from "../../redux/counterSlice"
 
 export default function GetStarted() {
   const user = useSelector((state) => state.user)
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+
+  // navigate to patient 
   const getStartedForPatient = () => {
     dispatch(setType("patient"));
+    dispatch(setSignUpValue(true))
     navigate("/signup");
     //todo dispatch action to set user type to patient
   };
+
+    // navigate to caretaker 
+
   const getStartedForCaretaker = () => {
     // for disply relation input in signup page
     dispatch(setType("caretaker"));
-    
+    dispatch(setSignUpValue(true))
     navigate("/signup");
     //todo dispatch action to set user type to caretaker
   };

@@ -1,6 +1,8 @@
 import React from "react";
 
 import Header from "./Header";
+import Modal from "../../components/library/Modal";
+
 //import ListItem from "./ListItem";
 import ListItem from "../../components/library/ListItem";
 import { useNavigate } from "react-router-dom";
@@ -17,25 +19,31 @@ import { setEmail,setPassword, addItem,setUsername,setValid } from "../../redux/
 
 
 export default function PatientHome() { 
-  const user = useSelector((state) => state.user)
-  const dispatch = useDispatch()
+
 
 
   
+  const user = useSelector((state) => state.user)
+  const dispatch = useDispatch()
+  const navigate = useNavigate();
 
+
+  
+  
 
 
   let list = user.list;
   
  // window.alert(user.list.length);
-
+// add caretaker to list
   const addTakecarer=()=>{
    // window.alert(user.list.length);
     dispatch(addItem());
     console.log(user.list);
  
   }
-  const navigate = useNavigate();
+
+  // nev to edit page 
   const PatientEdit = (item) => {
     
   navigate("/edit",{state:{id:item.id}});
@@ -43,15 +51,13 @@ export default function PatientHome() {
 };
 
 
-  
 
-//navigate("/edit",{state:{id:1,name:'sabaoon'}});
-//todo dispatch action to set user type to caretaker
 
 
 
   return (
     <div className=" h-screen font-mon flex flex-col items-center w-auto gap-5 2xs:gap-10 bg-scroll">
+
      <Header/>
      
 
@@ -68,7 +74,7 @@ export default function PatientHome() {
 
 </ul>}
 
-{(list.length<4)&&<Button text="add"handles={addTakecarer}/>
+{(list.length<4)&&<Button text="add"handles={addTakecarer} type="button" data-modal-toggle="defaultModal"/>
 }
     </div>
   );

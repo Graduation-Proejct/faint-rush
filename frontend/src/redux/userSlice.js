@@ -49,11 +49,16 @@ export const userSlice = createSlice({
       const article = { name:state.username, email:state.email ,password:state.password , phone:state.phone , type:state.type, list:state.list};
       axios.put('http://localhost:8080/signupdata/', article)
     },
+
+    setList:(state, action) => {
+      state.list = action.payload;
+    },
+    
    
   },
 });
 
 // Action creators are generated for each case reducer function
-export const { setEmail, setUsername,setValid,setPassword,setItemName,setItemRlation,addItem,setItemPhone,setPhone ,setType} = userSlice.actions;
+export const { setList,setEmail, setUsername,setValid,setPassword,setItemName,setItemRlation,addItem,setItemPhone,setPhone ,setType} = userSlice.actions;
 
 export default userSlice.reducer;
