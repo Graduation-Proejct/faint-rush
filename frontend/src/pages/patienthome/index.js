@@ -35,13 +35,15 @@ export default function PatientHome() {
   let list = user.list;
   
  // window.alert(user.list.length);
-
+// add caretaker to list
   const addTakecarer=()=>{
    // window.alert(user.list.length);
     dispatch(addItem());
     console.log(user.list);
  
   }
+
+  // nev to edit page 
   const PatientEdit = (item) => {
     
   navigate("/edit",{state:{id:item.id}});
@@ -50,20 +52,6 @@ export default function PatientHome() {
 
 
 
-const nev =()=>{
-  console.log("inlog")
-
-  navigate("/login");
-}
-
-  if(user.valid==false){
-   nev();
-
-
-  }
-
-//navigate("/edit",{state:{id:1,name:'sabaoon'}});
-//todo dispatch action to set user type to caretaker
 
 
 

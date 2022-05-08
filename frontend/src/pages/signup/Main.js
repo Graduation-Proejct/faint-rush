@@ -22,31 +22,44 @@ export default function Main() {
 
   const navigate = useNavigate();
   const location = useLocation();
+
+  //  navigate To sign up next  Or TakeCare Home and post data to user if is caretaker
   const navigateToPatienOrTakeCaretHome = (e) => {
     e.preventDefault();
 
-    const article = {
-      name: user.username,
-      email: user.email,
-      password: user.password,
-      phone: user.phone,
-      type: user.type,
-      list: user.list,
-    };
-    axios.post("http://localhost:8080/signupdata", article).then((response) => {
-      if (response.data === true) {
-        if (user.type == "caretaker") {
-          navigate("/caretaker");
-        } else {
-          navigate("/signupnext");
-        }
-      } else {
+    if(user.type=="caretaker"){
 
-      }
-    });
+      const article = {
+        name: user.username,
+        email: user.email,
+        password: user.password,
+        phone: user.phone,
+        type: user.type,
+        list: user.list,
+      };
+      axios.post("http://localhost:8080/signupdata", article).then((response) => {
+        if (response.data === true) {
+          if (user.type == "caretaker") {
+            dispatch(setValid(true));
+            navigate("/caretaker");
+          } 
+  
+          
+        } else {
+  
+        }
+      });
+
+
+    }else{
+        dispatch(setValid(true));
+        navigate("/signupnext");
+      
+    }
 
    
   };
+   // set text of button based on type of user 
   function getText(){
     if (user.type == "caretaker") {
       return"sign up";

@@ -23,6 +23,8 @@ export default function Main() {
     e.preventDefault();
     check();
   };
+
+  //  if user valid  set props of user 
   async function check() {
     let result = await isValid();
     dispatch(setValid(result))
@@ -53,7 +55,7 @@ export default function Main() {
       
     }
   }
-  //const [name, setName] = useState("");
+// check  if user valid in login page
   function isValid() {
     const article = { email: user.email, password: user.password };
     return axios

@@ -17,6 +17,8 @@ import {
   setValid,
   setList,
 } from "./redux/userSlice";
+import PrivateRoute from "./components/PrivateRoute";
+import PrivateRouteSignUp from "./components/PrivateRouteSignUp";
 
 const Splash = lazy(() => import("./pages/splash"));
 const GetStarted = lazy(() => import("./pages/getstarted"));
@@ -42,20 +44,10 @@ function App() {
 
   const dispatch = useDispatch();
 
-  const nev =()=>{
-    console.log("inlog")
-
-    navigate("/login");
-  }
-  function check(){
-    if(user.valid==false){
-     nev();
-
-    }
+ 
     
     
-return true;
-  }
+
   return (
     <div className="App">
       <Suspense fallback={<div>Loading...</div>}>
@@ -64,14 +56,25 @@ return true;
           <Route path="/getstarted" element={<GetStarted />} />
           <Route path="/login" element={<Login />} />
 
-          {true&&<Route path="/patienthome" element={<PatientHome />} />}
-          <Route path="/edit" element={<Edit />} />
-          <Route path="/signup" element={<SignUp />} />
-          <Route path="/signupnext" element={<SignUpNext />} />
+          <Route path="/patienthome" element={
+            <PrivateRoute><PatientHome /></PrivateRoute>
+          } />
+          
+          <Route path="/edit" element={
+            <PrivateRoute><Edit /></PrivateRoute>
+          } />
+          <Route path="/signup" element={
+          <PrivateRouteSignUp><SignUp /></PrivateRouteSignUp>
+          } />
+          <Route path="/signupnext" element={
+            <PrivateRoute><SignUpNext /></PrivateRoute>
+          } />
+
           <Route path="/test" element={<Test />} />
 
-          <Route path="/caretaker" element={<CareTaker />} />
-
+          <Route path="/caretaker" element={
+            <PrivateRoute><CareTaker /></PrivateRoute>
+          } />
 
         </Routes>
       </Suspense>
