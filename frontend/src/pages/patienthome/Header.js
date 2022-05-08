@@ -2,7 +2,7 @@ import React from "react";
 import { ReactComponent as TG } from "../../assets/svgs/togglex.svg"
 import dd from "../../assets/svgs/patient.png"
 
-import { useNavigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from 'react-redux'
 import { setEmail,setPassword, setUsername,setValid } from "../../redux/userSlice"
 
@@ -12,9 +12,13 @@ import Modal2 from "../../components/library/Modal2";
 export default function Header() {
   const [showModal, setShowModal] = React.useState(false);
   const user = useSelector((state) => state.user);
+  const navigate = useNavigate();
+
   //notify every one in the list
   const notifyEmergencylist =()=>{
     window.alert("hi mo")
+    navigate("/sos")
+    
   }
   
   const cancel =()=>{

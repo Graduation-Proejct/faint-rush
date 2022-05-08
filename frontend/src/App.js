@@ -29,6 +29,9 @@ const SignUp = lazy(() => import("./pages/signup"));
 const SignUpNext = lazy(() => import("./pages/signupnext"));
 
 const CareTaker = lazy(() => import("./pages/caretaker"));
+const Faint = lazy(() => import("./pages/faint"));
+const SOS = lazy(() => import("./pages/sos"));
+
 const Test = lazy(() => import("./pages/test"));
 
 
@@ -70,7 +73,15 @@ function App() {
             <PrivateRoute><SignUpNext /></PrivateRoute>
           } />
 
-          <Route path="/test" element={<Test />} />
+          <Route path="/test" element={
+          <Test />}/>
+          <Route path="/faint" element={
+          <Faint />} />
+          <Route path="/sos" element={
+          <PrivateRoute><SOS /></PrivateRoute>
+          } />
+
+
 
           <Route path="/caretaker" element={
             <PrivateRoute><CareTaker /></PrivateRoute>
