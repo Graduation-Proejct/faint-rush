@@ -2,7 +2,11 @@ import express from "express";
 import bodyParser from "body-parser";
 import cors from "cors";
 import { initializeApp } from "firebase/app";
-
+import {
+  getAuth,
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+} from "firebase/auth";
 import { getDatabase, ref, set, onValue, get, child } from "firebase/database";
 const app = express();
 
@@ -36,44 +40,47 @@ app.use(function (req, res, next) {
 
 app.post("/signupdata", function (req, res) {
   console.log(req.body);
-  const my_user = {
-    name: req.body.name,
-    email: req.body.email,
-    phone: req.body.phone,
-    password: req.body.password,
-    type: req.body.type,
-  };
-  const dbRef = ref(getDatabase());
-  let my_users = [];
-  get(child(dbRef, `users`))
-    .then((snapshot) => {
-      if (snapshot.exists()) {
-        my_users = snapshot.val();
-        let flag = 0;
-        for (let i = 0; i < my_users.length; i++) {
-          if (my_users[i].email === my_user.email) flag = 1;
-        }
-        if (flag == 1) {
-          res.send(false);
+ // getDatabaseData(req,res);
+  
+  (async () => {
+    const my_user = {
+      name: req.body.name,
+      email: req.body.email,
+      phone: req.body.phone,
+      type: req.body.type,
+    };
+    const dbRef = ref(getDatabase());
+    let my_users = [];
+    get(child(dbRef, `users`))
+      .then(async (snapshot) => {
+        if (snapshot.exists()) {
+          my_users = snapshot.val();
+          let flag = 0;
+          for (let i = 0; i < my_users.length; i++) {
+            if (my_users[i].email === my_user.email) flag = 1;
+          }
+          if (flag == 1) {
+            res.send(false);
+          } else {
+           const val= await writeUserData(my_users.length, my_user, req.body.password,res);
+           res.send(val);
+            my_logedin_user = my_user.email;
+          }
         } else {
-          writeUserData(my_users.length, my_user);
-          res.send(true);
-          my_logedin_user = my_user.email;
+          console.log("No data available");
+          return NaN;
         }
-      } else {
-        console.log("No data available");
-        return NaN;
-      }
-    })
-    .catch((error) => {
-      console.error(error);
-    });
-
-
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+ })();
 
   //   res.send(JSON.parse(JSON.stringify(user)));
 });
+async function getDatabaseData(req,res){
 
+}
 // data here is the user the same as the frontend
 app.get("/signupdata", function (req, res) {
   const dbRef = ref(getDatabase());
@@ -100,10 +107,7 @@ app.get("/signupdata", function (req, res) {
 app.listen(8080, function () {
   console.log("Server running");
 });
-app.put("/signupdata", function (req, res) {
-  console.log(req.body);
-  //   res.send(JSON.parse(JSON.stringify(user)));
-});
+
 app.post("/logindata", function (req, res) {
   console.log(req.body);
   let email = req.body.email;
@@ -152,8 +156,26 @@ app.post("/logindata", function (req, res) {
   //   res.send(JSON.parse(JSON.stringify(user)));
 });
 
-function writeUserData(userId, user) {
+function writeUserData(userId, user, userPass,res) {
+  console.log(user);
   set(ref(db, "users/" + userId), user);
+  const auth = getAuth();
+  createUserWithEmailAndPassword(auth, user.email, userPass)
+    .then((userCredential) => {
+      // Signed in
+      const use2 = userCredential.user;
+      // console.log(use2);
+      console.log(use2.uid);
+      return true;
+
+    })
+    .catch((error) => {
+      const errorCode = error.code;
+      const errorMessage = error.message;
+      console.log(error);
+      return false;
+
+    });
   console.log("added");
 }
 function getDatabaseSize() {

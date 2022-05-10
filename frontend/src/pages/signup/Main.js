@@ -38,6 +38,7 @@ export default function Main() {
         list: user.list,
       };
       axios.post("http://localhost:8080/signupdata", article).then((response) => {
+        console.log(response.data);
         if (response.data === true) {
           if (user.type == "caretaker") {
             dispatch(setValid(true));

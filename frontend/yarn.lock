@@ -1447,7 +1447,7 @@
     "@jridgewell/resolve-uri" "^3.0.3"
     "@jridgewell/sourcemap-codec" "^1.4.10"
 
-"@material-tailwind/react@0.3.4":
+"@material-tailwind/react@^0.3.4":
   "integrity" "sha512-ri5nMD6Wv4WT5x+3B3jt1A8ZwHijprY8R3EmI5eXnmCNe+Wzyn0AeKcB6IIHhP7fcZVMjSpMBrn5XO700LhO5Q=="
   "resolved" "https://registry.npmjs.org/@material-tailwind/react/-/react-0.3.4.tgz"
   "version" "0.3.4"
