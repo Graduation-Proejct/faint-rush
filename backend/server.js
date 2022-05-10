@@ -41,47 +41,73 @@ app.use(function (req, res, next) {
 app.post("/signupdata", function (req, res) {
   console.log(req.body);
   // getDatabaseData(req,res);
+  if (req.body === "caretaker") {
+    (async () => {
+      const my_user = {
+        name: req.body.name,
+        email: req.body.email,
+        phone: req.body.phone,
+        type: req.body.type,
+      };
+      const dbRef = ref(getDatabase());
+      let my_users = [];
+      get(child(dbRef, `users`))
+        .then(async (snapshot) => {
+          if (snapshot.exists()) {
+            my_users = snapshot.val();
+            let flag = 0;
+            for (let i = 0; i < my_users.length; i++) {
+              if (my_users[i].email === my_user.email) flag = 1;
+            }
+            if (flag == 1) {
+              res.send(false);
+            } else {
+              const val = await writeUserData(
+                my_users.length,
+                my_user,
+                req.body.password,
+                res
+              );
 
-  (async () => {
-    const my_user = {
-      name: req.body.name,
-      email: req.body.email,
-      phone: req.body.phone,
-      type: req.body.type,
-    };
-    const dbRef = ref(getDatabase());
-    let my_users = [];
-    get(child(dbRef, `users`))
-      .then(async (snapshot) => {
-        if (snapshot.exists()) {
-          my_users = snapshot.val();
-          let flag = 0;
-          for (let i = 0; i < my_users.length; i++) {
-            if (my_users[i].email === my_user.email) flag = 1;
-          }
-          if (flag == 1) {
-            res.send(false);
+              // res.send(val);
+              my_logedin_user = my_user.email;
+            }
           } else {
-            const val = await writeUserData(
-              my_users.length,
-              my_user,
-              req.body.password,
-              res
-            );
-
-           // res.send(val);
-            my_logedin_user = my_user.email;
+            console.log("No data available");
+            return NaN;
           }
-        } else {
-          console.log("No data available");
-          return NaN;
-        }
-      })
-      .catch((error) => {
-        console.error(error);
-      });
-  })();
-
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    })();
+  } else {
+    (async () => {
+      const dbRef = ref(getDatabase());
+      let my_users = [];
+      get(child(dbRef, `users`))
+        .then(async (snapshot) => {
+          if (snapshot.exists()) {
+            my_users = snapshot.val();
+            let flag = 0;
+            for (let i = 0; i < my_users.length; i++) {
+              if (my_users[i].email === my_user.email) flag = 1;
+            }
+            if (flag == 1) {
+              res.send(false);
+            } else {
+              res.send(true);
+            }
+          } else {
+            console.log("No data available");
+            return NaN;
+          }
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    })();
+  }
   //   res.send(JSON.parse(JSON.stringify(user)));
 });
 async function getDatabaseData(req, res) {}
