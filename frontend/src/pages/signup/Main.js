@@ -15,9 +15,15 @@ import {
   setItemPhone,
   setPhone,
 } from "../../redux/userSlice";
+import {ReactComponent as Spinner} from "../../assets/svgs/spinner.svg";
+import {
+  setSignUpValue,setEditValue,setLoading
+} from "../../redux/counterSlice";
 
 export default function Main() {
   const user = useSelector((state) => state.user);
+  const items = useSelector((state) => state.items);
+
   const dispatch = useDispatch();
 
   const navigate = useNavigate();
@@ -37,12 +43,14 @@ export default function Main() {
         type: user.type,
         list: user.list,
       };
+      dispatch(setLoading(true));
        await axios.post("http://localhost:8080/signupdata", article).then((response) => {
         console.log("d "+response.data);
         
         if (response.data === true) {
           if (user.type == "caretaker") {
             dispatch(setValid(true));
+            dispatch(setLoading(false));
             navigate("/caretaker");
           } 
   
@@ -54,8 +62,30 @@ export default function Main() {
 
 
     }else{
-        dispatch(setValid(true));
-        navigate("/signupnext");
+      const article = {
+        name: user.username,
+        email: user.email,
+        password: user.password,
+        phone: user.phone,
+        type: user.type,
+        list: user.list,
+      };
+      await axios.post("http://localhost:8080/signupdata", article).then((response) => {
+        console.log("d "+response.data);
+        
+        if (response.data === true) {
+          if (user.type == "patient") {
+            dispatch(setValid(true));
+            navigate("/signupnext");
+          } 
+  
+          
+        } else {
+  
+        }
+      });
+        //dispatch(setValid(true));
+        //navigate("/signupnext");
       
     }
 
@@ -74,6 +104,11 @@ export default function Main() {
 
   //const [name, setName] = useState("");
   const handleSubmit = (event) => { };
+  if (items.loading) {
+  console.log(items.loading)
+
+    return <Spinner />;
+  }
 
   return (
     <>
