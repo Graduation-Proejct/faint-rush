@@ -24,7 +24,7 @@ export default function Main() {
   const location = useLocation();
 
   //  navigate To sign up next  Or TakeCare Home and post data to user if is caretaker
-  const navigateToPatienOrTakeCaretHome = (e) => {
+  const navigateToPatienOrTakeCaretHome = async (e) => {
     e.preventDefault();
 
     if(user.type=="caretaker"){
@@ -37,8 +37,9 @@ export default function Main() {
         type: user.type,
         list: user.list,
       };
-      axios.post("http://localhost:8080/signupdata", article).then((response) => {
-        console.log(response.data);
+       await axios.post("http://localhost:8080/signupdata", article).then((response) => {
+        console.log("d "+response.data);
+        
         if (response.data === true) {
           if (user.type == "caretaker") {
             dispatch(setValid(true));

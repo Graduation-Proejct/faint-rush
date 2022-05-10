@@ -40,8 +40,8 @@ app.use(function (req, res, next) {
 
 app.post("/signupdata", function (req, res) {
   console.log(req.body);
- // getDatabaseData(req,res);
-  
+  // getDatabaseData(req,res);
+
   (async () => {
     const my_user = {
       name: req.body.name,
@@ -62,8 +62,14 @@ app.post("/signupdata", function (req, res) {
           if (flag == 1) {
             res.send(false);
           } else {
-           const val= await writeUserData(my_users.length, my_user, req.body.password,res);
-           res.send(val);
+            const val = await writeUserData(
+              my_users.length,
+              my_user,
+              req.body.password,
+              res
+            );
+
+           // res.send(val);
             my_logedin_user = my_user.email;
           }
         } else {
@@ -74,13 +80,11 @@ app.post("/signupdata", function (req, res) {
       .catch((error) => {
         console.error(error);
       });
- })();
+  })();
 
   //   res.send(JSON.parse(JSON.stringify(user)));
 });
-async function getDatabaseData(req,res){
-
-}
+async function getDatabaseData(req, res) {}
 // data here is the user the same as the frontend
 app.get("/signupdata", function (req, res) {
   const dbRef = ref(getDatabase());
@@ -97,7 +101,7 @@ app.get("/signupdata", function (req, res) {
         }
       } else {
         console.log("No data available");
-        return NaN;
+        return false;
       }
     })
     .catch((error) => {
@@ -156,7 +160,7 @@ app.post("/logindata", function (req, res) {
   //   res.send(JSON.parse(JSON.stringify(user)));
 });
 
-function writeUserData(userId, user, userPass,res) {
+function writeUserData(userId, user, userPass, res) {
   console.log(user);
   set(ref(db, "users/" + userId), user);
   const auth = getAuth();
@@ -166,15 +170,16 @@ function writeUserData(userId, user, userPass,res) {
       const use2 = userCredential.user;
       // console.log(use2);
       console.log(use2.uid);
+      res.send(true);
       return true;
-
     })
     .catch((error) => {
       const errorCode = error.code;
       const errorMessage = error.message;
       console.log(error);
-      return false;
+      res.send(false);
 
+      return false;
     });
   console.log("added");
 }
