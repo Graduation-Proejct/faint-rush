@@ -34,6 +34,18 @@ export default function GetStarted() {
     navigate("/patienthome");
   };
   
+  let idc
+  if (location.state==null){
+      console.log(location.state)
+      console.log(user.list.length)
+
+      idc = user.list.length
+      console.log( "id:"+idc)
+
+
+  }else{
+    idc= location.state.id
+  }
   
   return (
     
@@ -41,7 +53,7 @@ export default function GetStarted() {
       <div className="pt-10 h-screen flex flex-col items-center">
         <Logo/>
         <Header />
-        <h2>{user.list[location.state.id-1].relation}</h2>
+        <h2>{user.list[idc-1].relation}</h2>
 
       <form
         onSubmit={(e) => {
@@ -56,8 +68,8 @@ export default function GetStarted() {
             className=" border-4 mb-3  justify-center text-center placeholder:italic placeholder:text-slate-400 block w-80 h-14 drop-shadow-md rounded-2xl"
             type="text"
             id="relation_edit"
-            value={user.list[location.state.id-1].relation}
-            onChange={(e) => dispatch(setItemRlation({id:location.state.id,relation:e.target.value}))}
+            value={user.list[idc-1].relation}
+            onChange={(e) => dispatch(setItemRlation({id:idc,relation:e.target.value}))}
             name="relation"
             placeholder="Enter the relation"
           />
@@ -66,8 +78,8 @@ export default function GetStarted() {
             className=" border-4 mb-3 justify-center text-center placeholder:italic placeholder:text-slate-400 block w-80 h-14 drop-shadow-md rounded-2xl"
             type="text"
             name="name"
-            value={user.list[location.state.id-1].name}
-            onChange={(e) => dispatch(setItemName({id:location.state.id,name:e.target.value}))}
+            value={user.list[idc-1].name}
+            onChange={(e) => dispatch(setItemName({id:idc,name:e.target.value}))}
             placeholder="Enter name"
           />
            <input
@@ -75,8 +87,8 @@ export default function GetStarted() {
             className="border-4 mb-3 justify-center text-center placeholder:italic placeholder:text-slate-400 block w-80 h-14 drop-shadow-md rounded-2xl"
             type="number"
             name="phone"
-            value={user.list[location.state.id-1].phone}
-            onChange={(e) => dispatch(setItemPhone({id:location.state.id,phone:e.target.value}))}
+            value={user.list[idc-1].phone}
+            onChange={(e) => dispatch(setItemPhone({id:idc,phone:e.target.value}))}
 
             placeholder="Enter phone"
           />

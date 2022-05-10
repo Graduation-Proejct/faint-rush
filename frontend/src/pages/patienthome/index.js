@@ -38,8 +38,12 @@ export default function PatientHome() {
 // add caretaker to list
   const addTakecarer=()=>{
    // window.alert(user.list.length);
+   
     dispatch(addItem());
-    console.log(user.list);
+      //console.log(user.list);
+
+    navigate("/edit");
+    //console.log(user.list);
  
   }
 

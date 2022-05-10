@@ -1,6 +1,6 @@
 import "./App.css";
 import "@material-tailwind/react/tailwind.css";
-import { ToastContainer} from 'react-toastify';
+import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 import { Routes, Route } from "react-router-dom";
@@ -41,15 +41,15 @@ const Test = lazy(() => import("./pages/test"));
 
 
 function App() {
-  
+
   const user = useSelector((state) => state.user);
   const navigate = useNavigate();
 
   const dispatch = useDispatch();
+  
 
- 
-    
-    
+
+
 
   return (
     <div className="App">
@@ -62,23 +62,23 @@ function App() {
           <Route path="/patienthome" element={
             <PrivateRoute><PatientHome /></PrivateRoute>
           } />
-          
+
           <Route path="/edit" element={
             <PrivateRoute><Edit /></PrivateRoute>
           } />
           <Route path="/signup" element={
-          <PrivateRouteSignUp><SignUp /></PrivateRouteSignUp>
+            <PrivateRouteSignUp><SignUp /></PrivateRouteSignUp>
           } />
           <Route path="/signupnext" element={
             <PrivateRoute><SignUpNext /></PrivateRoute>
           } />
 
           <Route path="/test" element={
-          <Test />}/>
+            <Test />} />
           <Route path="/faint" element={
-          <Faint />} />
+            <Faint />} />
           <Route path="/sos" element={
-          <PrivateRoute><SOS /></PrivateRoute>
+            <PrivateRoute><SOS /></PrivateRoute>
           } />
 
 
@@ -89,7 +89,7 @@ function App() {
 
         </Routes>
       </Suspense>
-      <ToastContainer/>
+      <ToastContainer />
     </div>
   );
 }
