@@ -7,7 +7,5 @@ export default function Header() {
         <span className="text-xl font-bold text-sec">Get Started as ...</span>
       </h1>
     </header>
-
-    
   );
 }

@@ -1,10 +1,10 @@
-import React, { useEffect ,useState } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 
 import Button from "../../components/library/Button";
 import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { toast } from 'react-toastify';
+import { toast } from "react-toastify";
 
 import {
   setEmail,
@@ -15,11 +15,12 @@ import {
   setValid,
   setList,
 } from "../../redux/userSlice";
-import {ReactComponent as Spinner} from "../../assets/svgs/spinner.svg";
+import { ReactComponent as Spinner } from "../../assets/svgs/spinner.svg";
 import {
-  setSignUpValue,setEditValue,setLoading
+  setSignUpValue,
+  setEditValue,
+  setLoading,
 } from "../../redux/counterSlice";
-
 
 export default function Main() {
   const user = useSelector((state) => state.user);
@@ -32,40 +33,41 @@ export default function Main() {
     check();
   };
 
-  //  if user valid  set props of user 
+  //  if user valid  set props of user
   async function check() {
-    dispatch(setLoading(true))
+    dispatch(setLoading(true));
 
     //setLoading(true);
 
     let result = await isValid();
-    if(!result){ toast.error('something wrong')}
+    if (!result) {
+      toast.error("something wrong");
+    }
     console.log("hi" + result);
-    dispatch(setValid(result))
+    dispatch(setValid(result));
     if (result) {
       await fetch("http://localhost:8080/signupdata")
         .then((response) => response.json())
         .then((data) => {
-          dispatch(setUsername(data.name))
-          dispatch(setEmail(data.email))
-          dispatch(setPassword(data.password))
-          dispatch(setPhone(data.phone))
-          dispatch(setType(data.type))
+          dispatch(setUsername(data.name));
+          dispatch(setEmail(data.email));
+          dispatch(setPassword(data.password));
+          dispatch(setPhone(data.phone));
+          dispatch(setType(data.type));
           // dispatch(setList(data.list))
 
-
-            dispatch(setLoading(false))
+          dispatch(setLoading(false));
           //setLoading(false);
-
 
           // myuser=data;
           console.log(data);
           console.log("hi:" + data.name);
-          if (data.type === 'patient') { navigate("/patienthome"); } else {
-            navigate("/caretaker")
+          if (data.type === "patient") {
+            navigate("/patienthome");
+          } else {
+            navigate("/caretaker");
           }
         });
-
     }
   }
   // check  if user valid in login page
@@ -80,13 +82,9 @@ export default function Main() {
   }
 
   useEffect(() => {
-    // if user data is complete and validated navigate ... 
+    // if user data is complete and validated navigate ...
+  }, [user]);
 
-   
-  }, [user])
-
-
-  
   return (
     <>
       <form
