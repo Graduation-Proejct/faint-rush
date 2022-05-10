@@ -20,7 +20,11 @@ export default function Login() {
   const items = useSelector((state) => state.items);
 
   if (items.loading) {
-    return <Spinner />;
+    return (
+      <div className="h-full w-full flex justify-center items-center">
+        <Spinner />
+      </div>
+    );
   }
 
   return (
