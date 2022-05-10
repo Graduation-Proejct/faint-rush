@@ -17,8 +17,9 @@ import {
 } from "../../redux/userSlice";
 import {ReactComponent as Spinner} from "../../assets/svgs/spinner.svg";
 import {
-  setSignUpValue,setEditValue,setLoading
-} from "../../redux/counterSlice";
+  setSignUpValue,setEditValue,setLoading,setList
+} from "../../redux/counterSlice";  
+
 
 export default function Main() {
   const user = useSelector((state) => state.user);
@@ -43,14 +44,13 @@ export default function Main() {
         type: user.type,
         list: user.list,
       };
-      dispatch(setLoading(true));
        await axios.post("http://localhost:8080/signupdata", article).then((response) => {
         console.log("d "+response.data);
+        console.log(items.loading)
         
         if (response.data === true) {
           if (user.type == "caretaker") {
             dispatch(setValid(true));
-            dispatch(setLoading(false));
             navigate("/caretaker");
           } 
   

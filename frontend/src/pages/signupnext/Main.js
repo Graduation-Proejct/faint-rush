@@ -2,22 +2,40 @@ import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faCheck } from "@fortawesome/free-solid-svg-icons";
 import Header from "./Header";
+import {
+    setSignUpValue,setEditValue,setLoading,setList,addItem,delItem
+  } from "../../redux/counterSlice";
+  import { useSelector, useDispatch } from "react-redux";
 
+
+  
 export default function Main() {
-    const qestions = [];
-    console.log(qestions);
+    const items = useSelector((state) => state.items);
+    const dispatch = useDispatch();
+
+    let qestions = [];
+   //console.log(qestions);
 
     //handles checked box then add to list 
     const handlesCheckedBox = (obj) => {
-        if (obj.checked) { qestions.push(obj.txt) }
+        if (obj.checked) { qestions.push(obj.txt)
+                            dispatch(addItem(obj.txt));
+        }
 
         else {
-            window.alert(qestions.indexOf(obj.txt))
-            qestions.splice(qestions.indexOf(obj.txt), 1)
+           // window.alert(qestions.indexOf(obj.txt))
+            qestions.splice(qestions.indexOf(obj.txt), 1);
+            dispatch(delItem(obj.txt));
+
 
         }
          
-    } 
+        //dispatch(setList(qestions));
+       console.log("fff:"+items.list)
+       console.log("qqq:"+qestions)
+
+    }
+    
     
 
     return (
