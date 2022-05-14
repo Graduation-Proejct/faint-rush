@@ -83,8 +83,9 @@ app.post("/signup_patient_files", function (req, res) {
 app.post("/signupdata", function (req, res) {
   console.log(req.body);
   // getDatabaseData(req,res);
-  if (req.body === "caretaker") {
+  if (req.body.type === "caretaker") {
     (async () => {
+      console.log("ah");
       const my_user = {
         name: req.body.name,
         email: req.body.email,
@@ -93,9 +94,10 @@ app.post("/signupdata", function (req, res) {
       };
       const dbRef = ref(getDatabase());
       let my_users = [];
-      get(child(dbRef, `users`))
+      await get(child(dbRef, `users`))
         .then(async (snapshot) => {
           if (snapshot.exists()) {
+            console.log("hey");
             my_users = snapshot.val();
             let flag = 0;
             for (let i = 0; i < my_users.length; i++) {
@@ -104,6 +106,7 @@ app.post("/signupdata", function (req, res) {
             if (flag == 1) {
               res.send(false);
             } else {
+              console.log("true");
               const val = await writeUserData(
                 my_users.length,
                 my_user,
@@ -251,11 +254,12 @@ async function sign_in(req, res) {
       res.send(false);
     });
 }
-function writeUserData(userId, user, userPass, res) {
+async function writeUserData(userId, user, userPass, res) {
+  console.log("hello");
   console.log(user);
-  set(ref(db, "users/" + userId), user);
+  await set(ref(db, "users/" + userId), user);
   const auth = getAuth();
-  createUserWithEmailAndPassword(auth, user.email, userPass)
+  await createUserWithEmailAndPassword(auth, user.email, userPass)
     .then((userCredential) => {
       // Signed in
       const use2 = userCredential.user;
