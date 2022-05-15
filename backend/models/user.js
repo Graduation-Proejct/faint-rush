@@ -1,11 +1,12 @@
-export default class UserDb {
-  constructor(name, email, password, idList, phone, type) {
+let UserDb=class UserDb {
+  constructor(name, email, phone, type, idList, questions, medicalHistory) {
     this._name = name;
     this._email = email;
-    this._password = password;
-    this._idList = idList;
     this._phone = phone;
     this._type = type;
+    this._idList = idList;
+    this._questions=questions;
+    this._medicalHistory=medicalHistory;
   }
 
   get name() {
@@ -24,22 +25,6 @@ export default class UserDb {
     this._email = value;
   }
 
-  get password() {
-    return this._password;
-  }
-
-  set password(value) {
-    this._password = value;
-  }
-
-  get idList() {
-    return this._idList;
-  }
-
-  set idList(value) {
-    this._idList = value;
-  }
-
   get phone() {
     return this._phone;
   }
@@ -55,4 +40,20 @@ export default class UserDb {
   set type(value) {
     this._type = value;
   }
+  get idList() {
+    return this._idList;
+  }
+
+  set idList(value) {
+    this._idList = value;
+  }
+
+  get questions() {
+    return this._questions;
+  }
+
+  set medicalHistory(value) {
+    this._medicalHistory = value;
+  }
 }
+module.exports.UserDb=UserDb;
