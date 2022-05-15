@@ -6,7 +6,7 @@ const auth_controller = require("../controllers/auth_controller");
 exports.signup = async (req, res) => {
   console.log(req.body);
   if (req.body.type === "caretaker") {
-    await caretakerSignup(req, res);
+    await userSignup(req, res);
   } else {
     await patientSignupValidate(req, res);
   }
@@ -21,7 +21,7 @@ async function patientSignupValidate(req, res) {
     res.send(false);
   }
 }
-async function caretakerSignup(req, res) {
+async function userSignup(req, res) {
   const users = await getDatabaseUsers();
   const val = isUserInDb(users, req.body.email);
   if (!val) {
@@ -30,9 +30,9 @@ async function caretakerSignup(req, res) {
       req.body.email,
       req.body.phone,
       req.body.type,
-      [],
-      [],
-      ""
+      typeof req.body.list === "undefined" ? [] : req.body.list,
+      typeof req.body.questions === "undefined" ? [] : req.body.questions,
+      typeof req.body.medicalHistory === "undefined" ? "" : req.body.medicalHistory,
     );
     await writeUserData(users.length, my_user, req.body.password, res);
   } else {
