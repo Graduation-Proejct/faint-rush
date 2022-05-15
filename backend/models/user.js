@@ -1,12 +1,20 @@
-let UserDb=class UserDb {
-  constructor(name, email, phone, type, idList, questions, medicalHistory) {
-    this._name = name;
-    this._email = email;
-    this._phone = phone;
-    this._type = type;
-    this._idList = idList;
-    this._questions=questions;
-    this._medicalHistory=medicalHistory;
+let UserDb = class UserDb {
+  constructor(
+    _name,
+    _email,
+    _phone,
+    _type,
+    _idList,
+    _questions,
+    _medicalHistory
+  ) {
+    this.name = _name;
+    this.email = _email;
+    this.phone = _phone;
+    this.type = _type;
+    this.idList = _idList;
+    this.questions = _questions;
+    this.medicalHistory = _medicalHistory;
   }
 
   get name() {
@@ -51,9 +59,14 @@ let UserDb=class UserDb {
   get questions() {
     return this._questions;
   }
-
+  set questions(value) {
+    this._questions = value;
+  }
+  get medicalHistory() {
+    return this._medicalHistory;
+  }
   set medicalHistory(value) {
     this._medicalHistory = value;
   }
-}
-module.exports.UserDb=UserDb;
+};
+module.exports.UserDb = UserDb;

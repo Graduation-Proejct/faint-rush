@@ -11,7 +11,9 @@ exports.signup = async (req, res) => {
     await patientSignupValidate(req, res);
   }
 };
-exports.login = async (req, res) => {};
+exports.login = async (req, res) => {
+  await auth_controller.login(req, res);
+};
 async function patientSignupValidate(req, res) {
   const users = await getDatabaseUsers();
   const val = isUserInDb(users, req.body.email);
@@ -32,7 +34,9 @@ async function userSignup(req, res) {
       req.body.type,
       typeof req.body.list === "undefined" ? [] : req.body.list,
       typeof req.body.questions === "undefined" ? [] : req.body.questions,
-      typeof req.body.medicalHistory === "undefined" ? "" : req.body.medicalHistory,
+      typeof req.body.medicalHistory === "undefined"
+        ? ""
+        : req.body.medicalHistory
     );
     await writeUserData(users.length, my_user, req.body.password, res);
   } else {
@@ -59,14 +63,14 @@ function isUserInDb(users, email) {
   let flag = 0;
 
   for (let i = 0; i < users.length; i++) {
-    if (users[i].email === email) flag = 1;
+    if (users[i]._email === email) flag = 1;
   }
   if (flag == 1) {
-    console.log("false");
+    console.log("true");
 
     return true;
   } else {
-    console.log("true");
+    console.log("false");
     return false;
   }
 }
@@ -74,6 +78,22 @@ async function writeUserData(userId, user, password, res) {
   console.log("writing users data");
   console.log(user);
   await set(ref(db, "users/" + userId), user);
-  auth_controller.addUserToFbAuth(res, user.email, password);
+  await auth_controller.addUserToFbAuth(res, user.email, password);
   console.log("added");
 }
+exports.getDatabaseUser = async (req, res) => {
+  const users = await getDatabaseUsers();
+  let index = -1;
+  console.log("required email to find is: " + req.body.email);
+  console.log("database length is " + users.length);
+  for (let i = 0; i < users.length; i++) {
+    if (users[i]._email === req.body.email) index = i;
+  }
+  if (index >= 0) {
+    console.log("found user in database and returning it");
+    res.send(users[index]);
+  } else {
+    console.log("didn't find user in database and returning false");
+    return false;
+  }
+};

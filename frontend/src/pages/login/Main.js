@@ -25,42 +25,45 @@ export default function Main() {
   };
   async function check() {
     let result = await isValid();
-    dispatch(setValid(result))
+    dispatch(setValid(result));
     if (result) {
-      fetch("http://localhost:8080/signupdata")
-      .then((response) => response.json())
-      .then((data) => {
-      dispatch(setUsername(data.name))
-      dispatch(setEmail(data.email))
-      dispatch(setPassword(data.password))
-      dispatch(setPhone(data.phone))
-      dispatch(setType(data.type))
-     // dispatch(setList(data.list))
+      console.log("required email to send" + user.email);
+      await axios
+        .post("http://localhost:8080/user_data", { email: user.email })
+        .then((response) => {
+          console.log(response.data);
+          dispatch(setUsername(response.data.name));
+          dispatch(setEmail(response.data.email));
+          dispatch(setPassword(response.data.password));
+          dispatch(setPhone(response.data.phone));
+          dispatch(setType(response.data.type));
+          dispatch(
+            setList(
+              typeof response.data.list === "undefined"
+                ? []
+                : response.data.list
+            )
+          );
 
-
-
-
-
-        // myuser=data;
-        console.log(data);
-        console.log("hi:"+data.name);
-        if(data.type==='patient'){navigate("/patienthome");}else{
-          navigate("/caretaker")
-        }
-      });
-          
-        
-      
+          console.log("user returned:\n" + response.data.name);
+          navigating(response);
+        });
+    }
+  }
+  function navigating(response) {
+    if (response.data.type === "patient") {
+      navigate("/patienthome");
+    } else {
+      navigate("/caretaker");
     }
   }
   //const [name, setName] = useState("");
-  function isValid() {
+  async function isValid() {
     const article = { email: user.email, password: user.password };
-    return axios
-      .post("http://localhost:8080/logindata", article)
+    return await axios
+      .post("http://localhost:8080/login", article)
       .then((response) => {
         console.log(response.data);
-
         return response.data;
       });
   }
