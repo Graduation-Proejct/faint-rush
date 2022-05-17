@@ -22,6 +22,7 @@ import {
   setLoading,
   setList,
 } from "../../redux/counterSlice";
+import { toast } from "react-toastify";
 
 export default function Main() {
   const user = useSelector((state) => state.user);
@@ -46,7 +47,7 @@ export default function Main() {
         list: user.list,
       };
       await axios
-        .post("http://localhost:8080/signupdata", article)
+        .post("http://localhost:8080/signup", article)
         .then((response) => {
           console.log("d " + response.data);
           console.log(items.loading);
@@ -57,6 +58,7 @@ export default function Main() {
               navigate("/caretaker");
             }
           } else {
+            toast.error("Minimum Password length should be 6 characters ");
           }
         });
     } else {

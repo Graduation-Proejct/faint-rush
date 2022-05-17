@@ -77,9 +77,14 @@ function isUserInDb(users, email) {
 async function writeUserData(userId, user, password, res) {
   console.log("writing users data");
   console.log(user);
-  await set(ref(db, "users/" + userId), user);
-  await auth_controller.addUserToFbAuth(res, user.email, password);
-  console.log("added");
+
+  let val = await auth_controller.addUserToFbAuth(res, user.email, password);
+  if (!val) {
+    console.log("not added");
+  } else {
+    await set(ref(db, "users/" + userId), user);
+    console.log("added");
+  }
 }
 exports.getDatabaseUser = async (req, res) => {
   const users = await getDatabaseUsers();

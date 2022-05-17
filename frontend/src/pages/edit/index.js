@@ -31,7 +31,7 @@ export default function GetStarted() {
 
   const navigateToPatientHome = (e) => {
     e.preventDefault();
-    const article = {
+    const patient_user = {
       name: user.username,
       email: user.email,
       password: user.password,
@@ -39,7 +39,9 @@ export default function GetStarted() {
       type: user.type,
       list: user.list,
     };
-    axios.put("http://localhost:8080/signupdata/", article);
+    axios.put("http://localhost:8080/add_caretaker", patient_user, {
+      timeout: 1000,
+    });
 
     navigate("/patienthome");
   };

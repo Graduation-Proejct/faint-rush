@@ -46,35 +46,54 @@ export default function Main() {
     console.log("hi" + result);
     dispatch(setValid(result));
     if (result) {
-      await fetch("http://localhost:8080/signupdata")
-        .then((response) => response.json())
-        .then((data) => {
-          dispatch(setUsername(data.name));
-          dispatch(setEmail(data.email));
-          dispatch(setPassword(data.password));
-          dispatch(setPhone(data.phone));
-          dispatch(setType(data.type));
-          // dispatch(setList(data.list))
-
+      await axios
+        .post(
+          "http://localhost:8080/user_data",
+          { email: user.email },
+          { timeout: 2000 }
+        )
+        .then((response) => {
+          console.log(response.data);
+          dispatch(setUsername(response.data._name));
+          dispatch(setEmail(response.data._email));
+          dispatch(setPassword(response.data._password));
+          dispatch(setPhone(response.data._phone));
+          dispatch(setType(response.data._type));
+          dispatch(
+            setList(
+              typeof response.data._list === "undefined"
+                ? []
+                : response.data._list
+            )
+          );
           dispatch(setLoading(false));
-          //setLoading(false);
 
-          // myuser=data;
-          console.log(data);
-          console.log("hi:" + data.name);
-          if (data.type === "patient") {
-            navigate("/patienthome");
-          } else {
-            navigate("/caretaker");
+          console.log("user returned:\n" + response.data.name);
+          navigating(response);
+        })
+        .catch((err) => {
+          console.log("55" + err.code);
+          console.log("33" + err.message);
+          console.log("111" + err.stack);
+          if (err.code == "ECONNABORTED") {
+            dispatch(setLoading(false));
+            toast.error("Connection Timed out");
           }
         });
     }
   }
+  function navigating(response) {
+    if (response.data._type === "patient") {
+      navigate("/patienthome");
+    } else {
+      navigate("/caretaker");
+    }
+  }
   // check  if user valid in login page
-  function isValid() {
+  async function isValid() {
     const article = { email: user.email, password: user.password };
-    return axios
-      .post("http://localhost:8080/logindata", article)
+    return await axios
+      .post("http://localhost:8080/login", article)
       .then((response) => {
         console.log(response.data);
         return response.data;
