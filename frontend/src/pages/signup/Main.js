@@ -33,6 +33,7 @@ export default function Main() {
       type: user.type,
       list: user.list,
     };
+    
     axios.post("http://localhost:8080/signup", article).then((response) => {
       if (response.data === true) {
         if (user.type == "caretaker") {
