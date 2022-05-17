@@ -4,7 +4,7 @@ import userReducer from "./userSlice";
 
 export const store = configureStore({
   reducer: {
-    items: counterReducer,
+    counter: counterReducer,
     user: userReducer,
   },
 });

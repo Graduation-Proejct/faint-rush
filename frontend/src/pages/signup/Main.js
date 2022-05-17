@@ -15,92 +15,50 @@ import {
   setItemPhone,
   setPhone,
 } from "../../redux/userSlice";
-import { ReactComponent as Spinner } from "../../assets/svgs/spinner.svg";
-import {
-  setSignUpValue,
-  setEditValue,
-  setLoading,
-  setList,
-} from "../../redux/counterSlice";
 
 export default function Main() {
   const user = useSelector((state) => state.user);
-  const items = useSelector((state) => state.items);
-
   const dispatch = useDispatch();
 
   const navigate = useNavigate();
   const location = useLocation();
-
-  //  navigate To sign up next  Or TakeCare Home and post data to user if is caretaker
-  const navigateToPatienOrTakeCaretHome = async (e) => {
+  const navigateToPatienOrTakeCaretHome = (e) => {
     e.preventDefault();
 
-    if (user.type == "caretaker") {
-      const article = {
-        name: user.username,
-        email: user.email,
-        password: user.password,
-        phone: user.phone,
-        type: user.type,
-        list: user.list,
-      };
-      await axios
-        .post("http://localhost:8080/signupdata", article)
-        .then((response) => {
-          console.log("d " + response.data);
-          console.log(items.loading);
+    const article = {
+      name: user.username,
+      email: user.email,
+      password: user.password,
+      phone: user.phone,
+      type: user.type,
+      list: user.list,
+    };
+    axios.post("http://localhost:8080/signup", article).then((response) => {
+      if (response.data === true) {
+        if (user.type == "caretaker") {
+          navigate("/caretaker");
+        } else {
+          navigate("/signupnext");
+        }
+      } else {
 
-          if (response.data === true) {
-            if (user.type == "caretaker") {
-              dispatch(setValid(true));
-              navigate("/caretaker");
-            }
-          } else {
-          }
-        });
-    } else {
-      const article = {
-        name: user.username,
-        email: user.email,
-        password: user.password,
-        phone: user.phone,
-        type: user.type,
-        list: user.list,
-      };
-      await axios
-        .post("http://localhost:8080/signupdata", article)
-        .then((response) => {
-          console.log("d " + response.data);
+      }
+    });
 
-          if (response.data === true) {
-            if (user.type == "patient") {
-              dispatch(setValid(true));
-              navigate("/signupnext");
-            }
-          } else {
-          }
-        });
-      //dispatch(setValid(true));
-      //navigate("/signupnext");
-    }
+   
   };
-  // set text of button based on type of user
-  function getText() {
+  function getText(){
     if (user.type == "caretaker") {
-      return "sign up";
+      return"sign up";
     } else {
-      return "next";
+      return"next";
+
     }
+        
   }
 
   //const [name, setName] = useState("");
-  const handleSubmit = (event) => {};
-  if (items.loading) {
-    console.log(items.loading);
-
-    return <Spinner />;
-  }
+  const handleSubmit = (event) => { };
 
   return (
     <>

@@ -2,7 +2,7 @@ import React from "react";
 import { ReactComponent as TG } from "../../assets/svgs/togglex.svg"
 import dd from "../../assets/svgs/patient.png"
 
-import { Navigate, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from 'react-redux'
 import { setEmail,setPassword, setUsername,setValid } from "../../redux/userSlice"
 
@@ -12,13 +12,9 @@ import Modal2 from "../../components/library/Modal2";
 export default function Header() {
   const [showModal, setShowModal] = React.useState(false);
   const user = useSelector((state) => state.user);
-  const navigate = useNavigate();
-
   //notify every one in the list
   const notifyEmergencylist =()=>{
     window.alert("hi mo")
-    navigate("/sos")
-    
   }
   
   const cancel =()=>{
@@ -47,7 +43,7 @@ export default function Header() {
          <div className="flex flex-col items-start ml-10 ">
           <h4 className="flex font-mono text-3xl font-extrabold text-crazyblue mb-2  " >Good Evening,
             <br></br>
-              {user.username}</h4>
+            mohamed{user.username}</h4>
           
             <span className="text-prim2 block" >Your target for today is to keep positive</span>
             <span className="text-prim2 block"> mindset and smile to everyone you meet.</span>

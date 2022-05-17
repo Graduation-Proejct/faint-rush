@@ -1,6 +1,6 @@
 import "./App.css";
 import "@material-tailwind/react/tailwind.css";
-import { ToastContainer } from 'react-toastify';
+import { ToastContainer} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 import { Routes, Route } from "react-router-dom";
@@ -17,8 +17,6 @@ import {
   setValid,
   setList,
 } from "./redux/userSlice";
-import PrivateRoute from "./components/PrivateRoute";
-import PrivateRouteSignUp from "./components/PrivateRouteSignUp";
 
 const Splash = lazy(() => import("./pages/splash"));
 const GetStarted = lazy(() => import("./pages/getstarted"));
@@ -29,9 +27,6 @@ const SignUp = lazy(() => import("./pages/signup"));
 const SignUpNext = lazy(() => import("./pages/signupnext"));
 
 const CareTaker = lazy(() => import("./pages/caretaker"));
-const Faint = lazy(() => import("./pages/faint"));
-const SOS = lazy(() => import("./pages/sos"));
-
 const Test = lazy(() => import("./pages/test"));
 
 
@@ -41,16 +36,26 @@ const Test = lazy(() => import("./pages/test"));
 
 
 function App() {
-
+  
   const user = useSelector((state) => state.user);
   const navigate = useNavigate();
 
   const dispatch = useDispatch();
-  
 
+  const nev =()=>{
+    console.log("inlog")
 
+    navigate("/login");
+  }
+  function check(){
+    if(user.valid==false){
+     nev();
 
-
+    }
+    
+    
+return true;
+  }
   return (
     <div className="App">
       <Suspense fallback={<div>Loading...</div>}>
@@ -59,37 +64,18 @@ function App() {
           <Route path="/getstarted" element={<GetStarted />} />
           <Route path="/login" element={<Login />} />
 
-          <Route path="/patienthome" element={
-            <PrivateRoute><PatientHome /></PrivateRoute>
-          } />
+          {true&&<Route path="/patienthome" element={<PatientHome />} />}
+          <Route path="/edit" element={<Edit />} />
+          <Route path="/signup" element={<SignUp />} />
+          <Route path="/signupnext" element={<SignUpNext />} />
+          <Route path="/test" element={<Test />} />
 
-          <Route path="/edit" element={
-            <PrivateRoute><Edit /></PrivateRoute>
-          } />
-          <Route path="/signup" element={
-            <PrivateRouteSignUp><SignUp /></PrivateRouteSignUp>
-          } />
-          <Route path="/signupnext" element={
-            <PrivateRoute><SignUpNext /></PrivateRoute>
-          } />
+          <Route path="/caretaker" element={<CareTaker />} />
 
-          <Route path="/test" element={
-            <Test />} />
-          <Route path="/faint" element={
-            <Faint />} />
-          <Route path="/sos" element={
-            <PrivateRoute><SOS /></PrivateRoute>
-          } />
-
-
-
-          <Route path="/caretaker" element={
-            <PrivateRoute><CareTaker /></PrivateRoute>
-          } />
 
         </Routes>
       </Suspense>
-      <ToastContainer />
+      <ToastContainer/>
     </div>
   );
 }

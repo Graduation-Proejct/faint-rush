@@ -7,5 +7,7 @@ export default function Header() {
         <span className="text-xl font-bold text-sec">Medical History</span>
       </h1>
     </header>
+
+    
   );
 }

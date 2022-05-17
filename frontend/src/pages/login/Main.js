@@ -1,11 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import axios from "axios";
 
 import Button from "../../components/library/Button";
 import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { toast } from "react-toastify";
-
 import {
   setEmail,
   setPassword,
@@ -15,16 +13,9 @@ import {
   setValid,
   setList,
 } from "../../redux/userSlice";
-import { ReactComponent as Spinner } from "../../assets/svgs/spinner.svg";
-import {
-  setSignUpValue,
-  setEditValue,
-  setLoading,
-} from "../../redux/counterSlice";
 
 export default function Main() {
   const user = useSelector((state) => state.user);
-  const items = useSelector((state) => state.items);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -32,58 +23,50 @@ export default function Main() {
     e.preventDefault();
     check();
   };
-
-  //  if user valid  set props of user
   async function check() {
-    dispatch(setLoading(true));
-
-    //setLoading(true);
-
     let result = await isValid();
-    if (!result) {
-      toast.error("something wrong");
-    }
-    console.log("hi" + result);
     dispatch(setValid(result));
     if (result) {
-      await fetch("http://localhost:8080/signupdata")
-        .then((response) => response.json())
-        .then((data) => {
-          dispatch(setUsername(data.name));
-          dispatch(setEmail(data.email));
-          dispatch(setPassword(data.password));
-          dispatch(setPhone(data.phone));
-          dispatch(setType(data.type));
-          // dispatch(setList(data.list))
+      console.log("required email to send" + user.email);
+      await axios
+        .post("http://localhost:8080/user_data", { email: user.email })
+        .then((response) => {
+          console.log(response.data);
+          dispatch(setUsername(response.data.name));
+          dispatch(setEmail(response.data.email));
+          dispatch(setPassword(response.data.password));
+          dispatch(setPhone(response.data.phone));
+          dispatch(setType(response.data.type));
+          dispatch(
+            setList(
+              typeof response.data.list === "undefined"
+                ? []
+                : response.data.list
+            )
+          );
 
-          dispatch(setLoading(false));
-          //setLoading(false);
-
-          // myuser=data;
-          console.log(data);
-          console.log("hi:" + data.name);
-          if (data.type === "patient") {
-            navigate("/patienthome");
-          } else {
-            navigate("/caretaker");
-          }
+          console.log("user returned:\n" + response.data.name);
+          navigating(response);
         });
     }
   }
-  // check  if user valid in login page
-  function isValid() {
+  function navigating(response) {
+    if (response.data.type === "patient") {
+      navigate("/patienthome");
+    } else {
+      navigate("/caretaker");
+    }
+  }
+  //const [name, setName] = useState("");
+  async function isValid() {
     const article = { email: user.email, password: user.password };
-    return axios
-      .post("http://localhost:8080/logindata", article)
+    return await axios
+      .post("http://localhost:8080/login", article)
       .then((response) => {
         console.log(response.data);
         return response.data;
       });
   }
-
-  useEffect(() => {
-    // if user data is complete and validated navigate ...
-  }, [user]);
 
   return (
     <>
