@@ -19,10 +19,10 @@ export default function Header() {
           <div className="">
             <img
               src={dd}
-              className="  rounded-full border-white bg-black w-12 h-12 border-4 m-auto absolute  right-0 top-0"
+              className="  rounded-full border-white bg-black w-12 h-12 border-4 m-auto absolute  right-5 top-5"
             ></img>
 
-            <button className=" pl-2 rounded-full  w-12 h-12 m-auto absolute  left-0 top-0">
+            <button className=" pl-2 rounded-full  w-12 h-12 m-auto absolute  left-5 top-5">
               <TG />
             </button>
           </div>

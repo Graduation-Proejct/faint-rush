@@ -46,6 +46,13 @@ export default function Main() {
         type: user.type,
         list: user.list,
       };
+
+
+      // set local data 
+     // console.log(" jhjk"+response.data._password)
+      localStorage.setItem('email', user.email)
+      localStorage.setItem('password', user.password)
+      ///////////
       await axios
         .post("http://localhost:8080/signup", article)
         .then((response) => {

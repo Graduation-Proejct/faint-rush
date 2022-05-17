@@ -25,11 +25,39 @@ import {
 export default function Main() {
   const user = useSelector((state) => state.user);
   const items = useSelector((state) => state.items);
+    var isNew=false;
+    const [value, setValue] = useState('initial');
+ // const [password, setPassword] = useState("");
+
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const loggedInUser = localStorage.getItem("email");
+    const loggedInUserPass = localStorage.getItem("password");
+      console.log("useEffect")
+    if (loggedInUser && loggedInUserPass) {
+      isNew=false;
+      console.log(loggedInUser);
+      console.log(loggedInUserPass);
+
+      dispatch(setEmail(loggedInUser));
+      dispatch(setPassword(loggedInUserPass));
+
+      check();
+      //const foundUser = JSON.parse(loggedInUser.toString);
+      //const foundUser2 = JSON.parse(loggedInUserPass.toString);
+
+      // console.log(foundUser)
+      // setUser({username:loggedInUser,password:loggedInUserPass});
+    }
+  }, [value]);
+
   const navigateToPatientHome = (e) => {
     e.preventDefault();
+   isNew=true;
+    console.log("in"+isNew)
     check();
   };
 
@@ -37,26 +65,31 @@ export default function Main() {
   async function check() {
     dispatch(setLoading(true));
 
-    //setLoading(true);
-
     let result = await isValid();
     if (!result) {
       toast.error("something wrong");
     }
     console.log("hi" + result);
     dispatch(setValid(result));
+    console.log("hisNewDatai" + isNew);
+
+    if (isNew) {
+      localStorage.setItem("email", user.email);
+      localStorage.setItem("password", user.password);
+    }
     if (result) {
       await axios
         .post(
           "http://localhost:8080/user_data",
           { email: user.email },
-          { timeout: 2000 }
+          { timeout:1000 }
         )
         .then((response) => {
           console.log(response.data);
           dispatch(setUsername(response.data._name));
           dispatch(setEmail(response.data._email));
           dispatch(setPassword(response.data._password));
+
           dispatch(setPhone(response.data._phone));
           dispatch(setType(response.data._type));
           dispatch(
@@ -72,9 +105,9 @@ export default function Main() {
           navigating(response);
         })
         .catch((err) => {
-          console.log("55" + err.code);
-          console.log("33" + err.message);
-          console.log("111" + err.stack);
+          //console.log("55" + err.code);
+          //console.log("33" + err.message);
+          //console.log("111" + err.stack);
           if (err.code == "ECONNABORTED") {
             dispatch(setLoading(false));
             toast.error("Connection Timed out");
@@ -91,7 +124,14 @@ export default function Main() {
   }
   // check  if user valid in login page
   async function isValid() {
-    const article = { email: user.email, password: user.password };
+    var emailx=user.email;
+    var passwordx=user.password;
+
+    if(!isNew){
+      emailx = localStorage.getItem("email");
+   passwordx = localStorage.getItem("password");}
+    const article = { email: emailx, password: passwordx };
+    console.log(article)
     return await axios
       .post("http://localhost:8080/login", article)
       .then((response) => {
@@ -99,10 +139,6 @@ export default function Main() {
         return response.data;
       });
   }
-
-  useEffect(() => {
-    // if user data is complete and validated navigate ...
-  }, [user]);
 
   return (
     <>

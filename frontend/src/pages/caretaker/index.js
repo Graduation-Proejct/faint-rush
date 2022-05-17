@@ -19,9 +19,8 @@ export default function Caretaker() {
   const list = user.list;
 
   return (
-    <div className="h-screen font-mon flex flex-col items-center  ">
-      <Header />
-
+    <div className="h-screen font-mon flex flex-col items-center   ">
+    <Header />
       {list.length > 0 && (
         <ul>
           {list.map((item) => (
@@ -39,8 +38,8 @@ export default function Caretaker() {
       )}
 
       {list.length == 0 && (
-        <div>
-          <section className="flex  flex-col items-center  ">
+        <div className="flex flex-grow flex-col justify-center items-center ">
+          <section className="flex  flex-col   ">
             <FemaleDoctor />
           </section>
           <h1>
