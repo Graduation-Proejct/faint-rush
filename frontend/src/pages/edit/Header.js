@@ -11,7 +11,9 @@ export default function Header() {
         </h1>
       </header>
       <section className="flex justify-center ">
-        <p className="w-4/6 text-sm font-semibold text-prim text-center ">please fill all fields.</p>
+        <p className="w-4/6 text-sm font-semibold text-prim text-center ">
+          please fill all fields.
+        </p>
       </section>
     </>
   );

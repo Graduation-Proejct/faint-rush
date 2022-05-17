@@ -14,7 +14,7 @@ export default function Footer() {
         <h1 class="dash">
           <span>or</span>
           <br />{" "}
-        </h1 >
+        </h1>
         <div className="flex flex-col  gap-4 mt-8">
           <button className=" w-full  flex flex-row justify-between gap-3 items-center bg-blue-500 rounded-xl px-5 py-1">
             <p className="text-white uppercase font-semibold text-sm">
@@ -26,7 +26,9 @@ export default function Footer() {
             <p className="text-white uppercase font-semibold text-sm">
               Login with Google
             </p>{" "}
-            <p className="font-bold text-white text-4xl font-pop capitalize">G</p>
+            <p className="font-bold text-white text-4xl font-pop capitalize">
+              G
+            </p>
           </button>
         </div>
       </div>
