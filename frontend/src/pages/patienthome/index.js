@@ -53,7 +53,7 @@ export default function PatientHome() {
           {list.map((item) => (
             <li key={item.id}>
               <ListItem
-                relation={item.relation}
+                relation={item.email}
                 name={item.name}
                 phone={item.phone}
                 buttonName="Edit"

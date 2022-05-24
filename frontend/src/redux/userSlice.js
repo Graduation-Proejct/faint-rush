@@ -38,14 +38,14 @@ export const userSlice = createSlice({
       state.list[action.payload.id-1].name = action.payload.name;
     },
     setItemRlation: (state, action) => {
-      state.list[action.payload.id-1].relation = action.payload.relation;
+      state.list[action.payload.id-1].email = action.payload.email;
     },
     setItemPhone: (state, action) => {
       state.list[action.payload.id-1].phone = action.payload.phone;
     },
     addItem: (state) => {
      
-      state.list.push({id:state.list.length+1,relation: 'ddv', name: 'ahmed', phone:'0123',});
+      state.list.push({id:state.list.length+1,email: 'youremail@gmail.com', name: 'ahmed', phone:'0123',});
       const article = { name:state.username, email:state.email ,password:state.password , phone:state.phone , type:state.type, list:state.list};
       axios.put('http://localhost:8080/signupdata/', article)
     },

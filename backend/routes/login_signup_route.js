@@ -14,7 +14,9 @@ router.post('/user_data',dbController.getDatabaseUser);
 //takes the login credentials and checks if it's true and then login and sends true
 router.post('/login',dbController.login);
 
-// //takes the user's data of type patient and modifies it in the database (adding a caretaker related to this patient) and sends true if it's added.
-// router.post('/add_caretaker',);
+//takes the user's data of type patient and modifies it in the database (adding a caretaker related to this patient) and sends true if it's added.
+router.post('/add_caretaker',dbController.addCareTaker);
+
+router.post('/user_by_email',dbController.getUserForFD);
 
 module.exports = router

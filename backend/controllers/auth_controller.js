@@ -20,6 +20,7 @@ exports.addUserToFbAuth = async (res, email, password) => {
 
       return false;
     });
+    return true;
 };
 exports.login = async (req, res) => {
   await signInWithEmailAndPassword(auth, req.body.email, req.body.password)

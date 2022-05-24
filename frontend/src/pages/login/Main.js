@@ -25,10 +25,9 @@ import {
 export default function Main() {
   const user = useSelector((state) => state.user);
   const items = useSelector((state) => state.items);
-    var isNew=false;
-    const [value, setValue] = useState('initial');
- // const [password, setPassword] = useState("");
-
+  var isNew = false;
+  const [value, setValue] = useState("initial");
+  // const [password, setPassword] = useState("");
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -36,9 +35,9 @@ export default function Main() {
   useEffect(() => {
     const loggedInUser = localStorage.getItem("email");
     const loggedInUserPass = localStorage.getItem("password");
-      console.log("useEffect")
+    console.log("useEffect");
     if (loggedInUser && loggedInUserPass) {
-      isNew=false;
+      isNew = false;
       console.log(loggedInUser);
       console.log(loggedInUserPass);
 
@@ -56,8 +55,8 @@ export default function Main() {
 
   const navigateToPatientHome = (e) => {
     e.preventDefault();
-   isNew=true;
-    console.log("in"+isNew)
+    isNew = true;
+    console.log("in" + isNew);
     check();
   };
 
@@ -69,9 +68,9 @@ export default function Main() {
     if (!result) {
       toast.error("something wrong");
     }
-    console.log("hi" + result);
+    console.log("is login valid? " + result);
     dispatch(setValid(result));
-    console.log("hisNewDatai" + isNew);
+    console.log("is it new data? " + isNew);
 
     if (isNew) {
       localStorage.setItem("email", user.email);
@@ -82,27 +81,21 @@ export default function Main() {
         .post(
           "http://localhost:8080/user_data",
           { email: user.email },
-          { timeout:1000 }
+          { timeout: 5000 }
         )
-        .then((response) => {
+        .then(async (response) => {
           console.log(response.data);
-          dispatch(setUsername(response.data._name));
-          dispatch(setEmail(response.data._email));
-          dispatch(setPassword(response.data._password));
+          dispatch(setUsername(response.data.name));
+          dispatch(setEmail(response.data.email));
+          dispatch(setPassword(response.data.password));
 
-          dispatch(setPhone(response.data._phone));
-          dispatch(setType(response.data._type));
-          dispatch(
-            setList(
-              typeof response.data._list === "undefined"
-                ? []
-                : response.data._list
-            )
-          );
-          dispatch(setLoading(false));
+          dispatch(setPhone(response.data.phone));
+          dispatch(setType(response.data.type));
 
-          console.log("user returned:\n" + response.data.name);
-          navigating(response);
+          const list = [];
+          const emailList = response.data.emailList;
+          await getUsers(emailList,response);
+
         })
         .catch((err) => {
           //console.log("55" + err.code);
@@ -115,8 +108,30 @@ export default function Main() {
         });
     }
   }
+  async function getUsers(emailList, oldRes) {
+    let list = [];
+    console.log(emailList.length);
+    for (let i = 0; i < emailList.length; i++) {
+      await axios
+        .post(
+          "http://localhost:8080/user_by_email",
+          { email: emailList[i] },
+          { timeout: 2000 }
+        )
+        .then((response) => {
+          console.log(i + " user");
+          console.log(response.data);
+          list[i] = response.data;
+        });
+    }
+    console.log("returning list");
+    dispatch(setList(list));
+    dispatch(setLoading(false));
+    console.log("user returned:\n" + oldRes.data.name);
+    navigating(oldRes);
+  }
   function navigating(response) {
-    if (response.data._type === "patient") {
+    if (response.data.type === "patient") {
       navigate("/patienthome");
     } else {
       navigate("/caretaker");
@@ -124,14 +139,15 @@ export default function Main() {
   }
   // check  if user valid in login page
   async function isValid() {
-    var emailx=user.email;
-    var passwordx=user.password;
+    var emailx = user.email;
+    var passwordx = user.password;
 
-    if(!isNew){
+    if (!isNew) {
       emailx = localStorage.getItem("email");
-   passwordx = localStorage.getItem("password");}
+      passwordx = localStorage.getItem("password");
+    }
     const article = { email: emailx, password: passwordx };
-    console.log(article)
+    console.log(article);
     return await axios
       .post("http://localhost:8080/login", article)
       .then((response) => {

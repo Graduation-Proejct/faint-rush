@@ -29,7 +29,7 @@ export default function GetStarted() {
 
   const navigate = useNavigate();
 
-  const navigateToPatientHome = (e) => {
+  const navigateToPatientHome = async (e) => {
     e.preventDefault();
     const patient_user = {
       name: user.username,
@@ -39,10 +39,9 @@ export default function GetStarted() {
       type: user.type,
       list: user.list,
     };
-    axios.put("http://localhost:8080/add_caretaker", patient_user, {
-      timeout: 1000,
-    });
-
+    console.log(patient_user);
+    await axios.post("http://localhost:8080/add_caretaker", patient_user);
+    //catch
     navigate("/patienthome");
   };
 
@@ -74,13 +73,13 @@ export default function GetStarted() {
             <input
               required
               className=" border-4 mb-3  justify-center text-center placeholder:italic placeholder:text-slate-400 block w-80 h-14 drop-shadow-md rounded-2xl"
-              type="text"
+              type="email"
               id="relation_edit"
               value={user.list[idc - 1].relation}
               onChange={(e) =>
-                dispatch(setItemRlation({ id: idc, relation: e.target.value }))
+                dispatch(setItemRlation({ id: idc, email: e.target.value }))
               }
-              name="relation"
+              name="email"
               placeholder="Enter the relation"
             />
             <input

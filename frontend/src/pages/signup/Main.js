@@ -56,8 +56,8 @@ export default function Main() {
       await axios
         .post("http://localhost:8080/signup", article)
         .then((response) => {
-          console.log("d " + response.data);
-          console.log(items.loading);
+          console.log("returned value is " + response.data);
+          console.log("is loading or not?"+items.loading);
 
           if (response.data === true) {
             if (user.type == "caretaker") {
