@@ -1,12 +1,22 @@
 import React from "react";
 
 import { useSelector, useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 export default function SOS() {
   const user = useSelector((state) => state.user);
   const date = new Date();
+  const navigate = useNavigate();
   const showTime =
     date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
+
+  const handleCancle = () => {
+    if (user.type === "caretaker") {
+      navigate("/caretaker");
+    } else {
+      navigate("/patienthome");
+    }
+  };
   return (
     <div className="flex flex-col items-center ">
       <div className=" pt-8  pb-6 h-screen font-mon flex flex-col items-center max-w-md w-full bg-[#F75010]">
@@ -39,16 +49,18 @@ export default function SOS() {
           </span>
         </div>
         <div className="flex flex-row gap-5">
-        
-          <button className="w-24 h-10 rounded-2xl bg-red-900  text-black font-bold font-mon">
+          <button
+            onClick={handleCancle}
+            className="w-24 h-10 rounded-2xl bg-red-900  text-black font-bold font-mon"
+          >
             Cancel
           </button>
-        
-        {user.type == "patient" && (
-          <button className="w-24 h-10 rounded-2xl bg-red-900  text-black font-bold font-mon">
-            Reset
-          </button>
-        )}
+
+          {user.type == "patient" && (
+            <button className="w-24 h-10 rounded-2xl bg-red-900  text-black font-bold font-mon">
+              Reset
+            </button>
+          )}
         </div>
       </div>
     </div>

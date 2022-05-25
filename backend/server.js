@@ -29,7 +29,7 @@ app.use(cors()); // Use this after the variable declaration
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 let my_logedin_user;
-app.use(function (req, res, next) {
+app.use(function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
   res.header(
     "Access-Control-Allow-Headers",
@@ -38,7 +38,7 @@ app.use(function (req, res, next) {
   next();
 });
 
-app.post("/signupdata", function (req, res) {
+app.post("/signupdata", function(req, res) {
   console.log(req.body);
   // getDatabaseData(req,res);
   if (req.body === "caretaker") {
@@ -91,7 +91,7 @@ app.post("/signupdata", function (req, res) {
             my_users = snapshot.val();
             let flag = 0;
             for (let i = 0; i < my_users.length; i++) {
-              if (my_users[i].email === my_user.email) flag = 1;
+              if (my_users[i].email === req.body.email) flag = 1;
             }
             if (flag == 1) {
               res.send(false);
@@ -112,7 +112,7 @@ app.post("/signupdata", function (req, res) {
 });
 async function getDatabaseData(req, res) {}
 // data here is the user the same as the frontend
-app.get("/signupdata", function (req, res) {
+app.get("/signupdata", function(req, res) {
   const dbRef = ref(getDatabase());
   let my_users = [];
   get(child(dbRef, `users`))
@@ -134,11 +134,11 @@ app.get("/signupdata", function (req, res) {
       console.error(error);
     });
 });
-app.listen(8080, function () {
+app.listen(8080, function() {
   console.log("Server running");
 });
 
-app.post("/logindata", function (req, res) {
+app.post("/logindata", function(req, res) {
   console.log(req.body);
   let email = req.body.email;
   let password = req.body.password;

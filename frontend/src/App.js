@@ -8,17 +8,9 @@ import { useNavigate } from "react-router-dom";
 
 import { lazy, Suspense } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import {
-  setEmail,
-  setPassword,
-  setPhone,
-  setType,
-  setUsername,
-  setValid,
-  setList,
-} from "./redux/userSlice";
 import PrivateRoute from "./components/PrivateRoute";
 import PrivateRouteSignUp from "./components/PrivateRouteSignUp";
+import { io } from "socket.io-client";
 
 const Splash = lazy(() => import("./pages/splash"));
 const GetStarted = lazy(() => import("./pages/getstarted"));
@@ -37,8 +29,15 @@ const Test = lazy(() => import("./pages/test"));
 function App() {
   const user = useSelector((state) => state.user);
   const navigate = useNavigate();
-
   const dispatch = useDispatch();
+
+  const socket = io("https://faintrush.herokuapp.com/");
+  socket.on("sos-activated", function() {
+    navigate("/sos");
+  });
+  socket.on("faint-alarm", function() {
+    navigate("/faint");
+  });
 
   return (
     <div className="App">
