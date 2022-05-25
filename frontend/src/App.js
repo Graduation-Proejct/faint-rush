@@ -1,5 +1,8 @@
 import "./App.css";
-import "@material-tailwind/react/tailwind.css";
+
+//! @MohamedKhaled999 this line is error prone. fix it or consider using an alternative library!
+// import "@material-tailwind/react/tailwind.css";
+
 import { ToastContainer } from "react-toastify";
 
 //! @MohamedKhaled999 this line is error prone. fix it or consider using an alternative library!
