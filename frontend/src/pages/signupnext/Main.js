@@ -46,7 +46,7 @@ export default function Main() {
           }}
           id="check-box-1"
           className="appearance-none rounded border-2 border-prim h-5 w-5 "
-        ></input>
+        />
         <FontAwesomeIcon
           icon={faCheck}
           className="text-8xl h-5 w-5 text-prim  absolute left-0 top-0 text-opacity-0 check-1"
@@ -61,7 +61,7 @@ export default function Main() {
           }}
           id="check-box-1"
           className="appearance-none rounded border-2 border-prim h-5 w-5 "
-        ></input>
+        />
         <FontAwesomeIcon
           icon={faCheck}
           className="text-8xl h-5 w-5 text-prim  absolute left-0 top-0 text-opacity-0 check-1"
@@ -80,7 +80,7 @@ export default function Main() {
           }}
           id="check-box-1"
           className="appearance-none rounded border-2 border-prim h-5 w-5 "
-        ></input>
+        />
         <FontAwesomeIcon
           icon={faCheck}
           className="text-8xl h-5 w-5 text-prim  absolute left-0 top-0 text-opacity-0 check-1"
@@ -99,7 +99,7 @@ export default function Main() {
           }}
           id="check-box-1"
           className="appearance-none rounded border-2 border-prim h-5 w-5 "
-        ></input>
+        />
         <FontAwesomeIcon
           icon={faCheck}
           className="text-8xl h-5 w-5 text-prim  absolute left-0 top-0 text-opacity-0 check-1"
@@ -114,7 +114,7 @@ export default function Main() {
           }}
           id="check-box-1"
           className="appearance-none rounded border-2 border-prim h-5 w-5 "
-        ></input>
+        />
         <FontAwesomeIcon
           icon={faCheck}
           className="text-8xl h-5 w-5 text-prim  absolute left-0 top-0 text-opacity-0 check-1"
@@ -132,7 +132,7 @@ export default function Main() {
           }}
           id="check-box-1"
           className="appearance-none rounded border-2 border-prim h-5 w-5 "
-        ></input>
+        />
         <FontAwesomeIcon
           icon={faCheck}
           className="text-8xl h-5 w-5 text-prim  absolute left-0 top-0 text-opacity-0 check-1"
@@ -150,7 +150,7 @@ export default function Main() {
           }}
           id="check-box-1"
           className="appearance-none rounded border-2 border-prim h-5 w-5 "
-        ></input>
+        />
         <FontAwesomeIcon
           icon={faCheck}
           className="text-8xl h-5 w-5 text-prim  absolute left-0 top-0 text-opacity-0 check-1"

@@ -39,16 +39,15 @@ export default function Faint() {
           </span>
         </div>
         <div className="flex flex-row gap-5">
-        
           <button className="w-24 h-10 rounded-2xl bg-red-900  text-black font-bold font-mon">
             Cancel
           </button>
-        
-        {user.type == "patient" && (
-          <button className="w-24 h-10 rounded-2xl bg-red-900  text-black font-bold font-mon">
-            Reset
-          </button>
-              )}
+
+          {user.type == "patient" && (
+            <button className="w-24 h-10 rounded-2xl bg-red-900  text-black font-bold font-mon">
+              Reset
+            </button>
+          )}
         </div>
       </div>
     </div>
