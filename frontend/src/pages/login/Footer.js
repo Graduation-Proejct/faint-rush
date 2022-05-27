@@ -11,7 +11,7 @@ export default function Footer() {
   return (
     <>
       <div className=" flex justify-center flex-col  items-center">
-        <h1 class="dash">
+        <h1 className="dash">
           <span>or</span>
           <br />{" "}
         </h1>

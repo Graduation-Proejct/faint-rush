@@ -40,32 +40,32 @@ function App() {
   const dispatch = useDispatch();
   const [ localSocket, setLocalSocket ] = useState(null);
   const socket = useSelector((state) => state.user.socket);
-  useEffect(
-    () => {
-      const newSocket = io("https://faintrush.herokuapp.com/");
-      dispatch(setSocket(newSocket));
-      return () => newSocket.close();
-    },
-    [ setLocalSocket, dispatch ]
-  );
+  // useEffect(
+  //   () => {
+  //     const newSocket = io("https://faintrush.herokuapp.com/");
+  //     dispatch(setSocket(newSocket));
+  //     return () => newSocket.close();
+  //   },
+  //   [ setLocalSocket, dispatch ]
+  // );
 
-  useEffect(
-    (socket) => {
-      const navigateToSOS = () => {
-        navigate("/sos");
-      };
-      const navigateToFaint = () => {
-        navigate("/faint");
-      };
-      socket.on("sos-activated", navigateToSOS);
-      socket.on("faint-alarm", navigateToFaint);
-      return () => {
-        socket.off("sos-activated", navigateToSOS);
-        socket.off("faint-alarm", navigateToFaint);
-      };
-    },
-    [ socket, navigate ]
-  );
+  // useEffect(
+  //   (socket) => {
+  //     const navigateToSOS = () => {
+  //       navigate("/sos");
+  //     };
+  //     const navigateToFaint = () => {
+  //       navigate("/faint");
+  //     };
+  //     socket.on("sos-activated", navigateToSOS);
+  //     socket.on("faint-alarm", navigateToFaint);
+  //     return () => {
+  //       socket.off("sos-activated", navigateToSOS);
+  //       socket.off("faint-alarm", navigateToFaint);
+  //     };
+  //   },
+  //   [ socket, navigate ]
+  // );
   return (
     <div className="App">
       <Suspense fallback={<div>Loading...</div>}>
