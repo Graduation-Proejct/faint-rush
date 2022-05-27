@@ -1,8 +1,4 @@
 import "./App.css";
-<<<<<<< Updated upstream
-=======
-
->>>>>>> Stashed changes
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -35,7 +31,6 @@ const Test = lazy(() => import("./pages/test"));
 
 function App() {
   const user = useSelector((state) => state.user);
-  const dispatch =useDispatch();
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
