@@ -10,6 +10,7 @@ const initialState = {
   phone: "",
   valid: false,
   list: [],
+  fireBaseServer: {},
 };
 
 export const userSlice = createSlice({
@@ -43,6 +44,7 @@ export const userSlice = createSlice({
     setItemPhone: (state, action) => {
       state.list[action.payload.id - 1].phone = action.payload.phone;
     },
+
     addItem: (state) => {
       state.list.push({
         id: state.list.length + 1,
@@ -68,6 +70,9 @@ export const userSlice = createSlice({
     setSocket: (state, action) => {
       state.socket = action.payload;
     },
+    setFireBaseServer: (state, action) => {
+      state.fireBaseServer = action.payload;
+    },
   },
 });
 
@@ -84,6 +89,7 @@ export const {
   setItemPhone,
   setPhone,
   setType,
+  setFireBaseServer,
   setSocket,
 } = userSlice.actions;
 

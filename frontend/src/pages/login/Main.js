@@ -25,6 +25,7 @@ import {
 export default function Main() {
   const user = useSelector((state) => state.user);
   const items = useSelector((state) => state.items);
+  const fireBaseServer = useSelector((state) => state.user.fireBaseServer)
   var isNew = false;
   const [value, setValue] = useState("initial");
   // const [password, setPassword] = useState("");
@@ -81,8 +82,7 @@ export default function Main() {
       await axios
         .post(
           "http://localhost:8080/user_data",
-          { email: user.email },
-          { timeout: 5000 }
+          { email: user.email }
         )
         .then(async (response) => {
           console.log(response.data);
@@ -113,9 +113,9 @@ export default function Main() {
     let list = [];
     console.log(emailList.length);
     for (let i = 0; i < emailList.length; i++) {
-      await axios
+      await fireBaseServer
         .post(
-          "http://localhost:8080/user_by_email",
+          "/user_by_email",
           { email: emailList[i] },
           { timeout: 2000 }
         )

@@ -15,10 +15,11 @@ import { useNavigate } from "react-router-dom";
 import { lazy, Suspense, useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
-import { setSocket } from "./redux/userSlice";
+import { setFireBaseServer, setSocket } from "./redux/userSlice";
 
 import PrivateRoute from "./components/PrivateRoute";
 import PrivateRouteSignUp from "./components/PrivateRouteSignUp";
+import axios from "axios";
 
 const Splash = lazy(() => import("./pages/splash"));
 const GetStarted = lazy(() => import("./pages/getstarted"));
@@ -66,6 +67,9 @@ function App() {
   //   },
   //   [ socket, navigate ]
   // );
+  const baseUrl = "https://faintbaseapp.herokuapp.com/";
+  const fireBaseServer = axios.create({ baseUrl: baseUrl, timeout: 5000 });
+  dispatch(setFireBaseServer(fireBaseServer));
   return (
     <div className="App">
       <Suspense fallback={<div>Loading...</div>}>
