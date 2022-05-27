@@ -80,7 +80,7 @@ export default function Main() {
     if (result) {
       await axios
         .post(
-          "http://localhost:8080/user_data",
+          "https://faintbaseapp.herokuapp.com/user_data",
           { email: user.email }
         )
         .then(async (response) => {
@@ -149,7 +149,7 @@ export default function Main() {
     const article = { email: emailx, password: passwordx };
     console.log(article);
     return await axios
-      .post("http://localhost:8080/login", article)
+      .post("https://faintbaseapp.herokuapp.com/login", article)
       .then((response) => {
         console.log(response.data);
         return response.data;

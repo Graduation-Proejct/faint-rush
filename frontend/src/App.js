@@ -1,6 +1,11 @@
 import "./App.css";
+<<<<<<< Updated upstream
+=======
+
+>>>>>>> Stashed changes
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+
 
 import { Routes, Route } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
@@ -30,6 +35,7 @@ const Test = lazy(() => import("./pages/test"));
 
 function App() {
   const user = useSelector((state) => state.user);
+  const dispatch =useDispatch();
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -50,9 +56,9 @@ function App() {
   //   },
   //   [ socket, navigate ]
   // );
-  const baseUrl = "https://faintbaseapp.herokuapp.com/";
-  const fireBaseServer = axios.create({ baseUrl: baseUrl, timeout: 5000 });
-  dispatch(setFireBaseServer(fireBaseServer));
+  //const baseUrl = "https://faintbaseapp.herokuapp.com/";
+  //const fireBaseServer = axios.create({ baseUrl: baseUrl, timeout: 5000 });
+  //dispatch(setFireBaseServer(fireBaseServer));
   return (
     <div className="App">
       <Suspense fallback={<div>Loading...</div>}>
