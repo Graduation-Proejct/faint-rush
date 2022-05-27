@@ -9,7 +9,7 @@ const initialState = {
   phone: "",
   valid: false,
   list: [],
-  fireBaseServer: {},
+  UID:"",
 };
 
 export const userSlice = createSlice({
@@ -18,6 +18,9 @@ export const userSlice = createSlice({
   reducers: {
     setUsername: (state, action) => {
       state.username = action.payload;
+    },
+    setUID: (state, action) => {
+      state.UID = action.payload;
     },
     setType: (state, action) => {
       state.type = action.payload;
@@ -90,6 +93,7 @@ export const {
   setType,
   setFireBaseServer,
   setSocket,
+  setUID,
 } = userSlice.actions;
 
 export default userSlice.reducer;

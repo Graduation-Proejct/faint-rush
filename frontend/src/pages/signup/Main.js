@@ -14,6 +14,7 @@ import {
   setItemRlation,
   setItemPhone,
   setPhone,
+  setUID,
 } from "../../redux/userSlice";
 import { ReactComponent as Spinner } from "../../assets/svgs/spinner.svg";
 import {
@@ -54,12 +55,17 @@ export default function Main() {
       localStorage.setItem('password', user.password)
       ///////////
       await axios
-        .post("http://localhost:8080/signup", article)
+        .post("https://faintbaseapp.herokuapp.com/signup", article)
         .then((response) => {
           console.log("returned value is " + response.data);
           console.log("is loading or not?"+items.loading);
+          var bb= false
+          if(response.data.UID!="error"){
+            bb=true; 
+            dispatch(setUID(response.data.UID));
+          }
 
-          if (response.data === true) {
+          if (bb=== true) {
             if (user.type == "caretaker") {
               dispatch(setValid(true));
               navigate("/caretaker");
@@ -78,7 +84,7 @@ export default function Main() {
         list: user.list,
       };
       await axios
-        .post("http://localhost:8080/signupdata", article)
+        .post("https://faintbaseapp.herokuapp.com/signup", article)
         .then((response) => {
           console.log("d " + response.data);
 

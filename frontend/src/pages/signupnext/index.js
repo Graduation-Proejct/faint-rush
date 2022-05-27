@@ -44,37 +44,26 @@ export default function SignUpNext() {
   };
   //handle all input and send to server
   const handlesAll = (e) => {
-    e.preventDefault();
-    if (files.length <= 10) {
-      console.log(files);
-      const data = new FormData();
-      const len = files.length;
-
-      if (len > 10) {
-        len = 10;
-      }
-
-      for (let i = 0; i < len; i++) {
-        data.append("file", files[i]);
-      }
 
       //  send files to server
+   // user.questions=items.list;
+     axios.post('https://faintbaseapp.herokuapp.com/signup_patient_user',user)
+           .then((response)=>{
+            if(response.data.UID!="error"){
+              navigate("/patienthome");
+            }
 
-      // axios.post('localhost:8000/upload',data)
-      //     .then((e)=>{
-      //       console.log('Success')
-      //     })
-      //     .catch((e)=>{
+             console.log('Success')
+           })
+           .catch((e)=>{
 
-      //       console.log('Error',e)
+             console.log('Error',e)
 
-      //     })
+         })
 
-      navigate("/patienthome");
-    } else {
-      toast.success("max number of files is 10 files");
-    }
-  };
+      
+    } 
+
 
   return (
     <div className="pt-10 h-screen font-mon flex flex-col  items-center  ">

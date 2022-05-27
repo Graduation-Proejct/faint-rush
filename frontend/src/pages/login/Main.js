@@ -14,6 +14,7 @@ import {
   setUsername,
   setValid,
   setList,
+  setUID,
 } from "../../redux/userSlice";
 import { ReactComponent as Spinner } from "../../assets/svgs/spinner.svg";
 import {
@@ -24,9 +25,10 @@ import {
 
 export default function Main() {
   const user = useSelector((state) => state.user);
+  console.log("000user" , user)
   const items = useSelector((state) => state.items);
   const fireBaseServer = useSelector((state) => state.user.fireBaseServer)
-  var isNew = false;
+  var isNew = true;
   const [value, setValue] = useState("initial");
   // const [password, setPassword] = useState("");
 
@@ -38,14 +40,14 @@ export default function Main() {
     const loggedInUserPass = localStorage.getItem("password");
     console.log("useEffect");
     if (loggedInUser && loggedInUserPass) {
-      isNew = false;
+      isNew = true;
       console.log(loggedInUser);
       console.log(loggedInUserPass);
 
       dispatch(setEmail(loggedInUser));
       dispatch(setPassword(loggedInUserPass));
 
-      check();
+      //check();
       //const foundUser = JSON.parse(loggedInUser.toString);
       //const foundUser2 = JSON.parse(loggedInUserPass.toString);
 
@@ -68,6 +70,7 @@ export default function Main() {
     let result = await isValid();
     if (!result) {
       toast.error("something wrong");
+      return;
     }
     console.log("is login valid? " + result);
     dispatch(setValid(result));
@@ -77,7 +80,9 @@ export default function Main() {
       localStorage.setItem("email", user.email);
       localStorage.setItem("password", user.password);
     }
+
     if (result) {
+      console.log("jjkdfkjj" + user.email);
       await axios
         .post(
           "https://faintbaseapp.herokuapp.com/user_data",
@@ -112,9 +117,9 @@ export default function Main() {
     let list = [];
     console.log(emailList.length);
     for (let i = 0; i < emailList.length; i++) {
-      await fireBaseServer
+      await axios
         .post(
-          "/user_by_email",
+          "https://faintbaseapp.herokuapp.com/user_by_email",
           { email: emailList[i] },
           { timeout: 2000 }
         )
@@ -145,6 +150,7 @@ export default function Main() {
     if (!isNew) {
       emailx = localStorage.getItem("email");
       passwordx = localStorage.getItem("password");
+     dispatch(setEmail(emailx))
     }
     const article = { email: emailx, password: passwordx };
     console.log(article);
@@ -152,7 +158,11 @@ export default function Main() {
       .post("https://faintbaseapp.herokuapp.com/login", article)
       .then((response) => {
         console.log(response.data);
-        return response.data;
+        if(response.data.UID!="error"){
+          dispatch(setUID(response.data.UID))
+          return true}
+        else{return false}
+        
       });
   }
 
