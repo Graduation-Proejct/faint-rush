@@ -1,6 +1,6 @@
 import React from "react";
-
-import check from "../../assets/svgs/check.png";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCheck } from "@fortawesome/free-solid-svg-icons";
 import Header from "./Header";
 import {
   setSignUpValue,
@@ -46,10 +46,11 @@ export default function Main() {
           }}
           id="check-box-1"
           className="appearance-none rounded border-2 border-prim h-5 w-5 "
+        ></input>
+        <FontAwesomeIcon
+          icon={faCheck}
+          className="text-8xl h-5 w-5 text-prim  absolute left-0 top-0 text-opacity-0 check-1"
         />
-        <div className="text-8xl h-5 w-5 text-prim  absolute left-0 top-0 opacity-0 check-1">
-          <img src={check} />
-        </div>
         <span className="ml-2 relative bottom-1">Arrhythmia</span>
       </label>
       <label className=" relative rounded-xl text-crazyblue pb-2">
@@ -60,10 +61,11 @@ export default function Main() {
           }}
           id="check-box-1"
           className="appearance-none rounded border-2 border-prim h-5 w-5 "
+        ></input>
+        <FontAwesomeIcon
+          icon={faCheck}
+          className="text-8xl h-5 w-5 text-prim  absolute left-0 top-0 text-opacity-0 check-1"
         />
-        <div className="text-8xl h-5 w-5 text-prim  absolute left-0 top-0 opacity-0 check-1">
-          <img src={check} />
-        </div>
         <span className="ml-2 relative bottom-1">Diabetes</span>
       </label>
 
@@ -78,10 +80,11 @@ export default function Main() {
           }}
           id="check-box-1"
           className="appearance-none rounded border-2 border-prim h-5 w-5 "
+        ></input>
+        <FontAwesomeIcon
+          icon={faCheck}
+          className="text-8xl h-5 w-5 text-prim  absolute left-0 top-0 text-opacity-0 check-1"
         />
-        <div className="text-8xl h-5 w-5 text-prim  absolute left-0 top-0 opacity-0 check-1">
-          <img src={check} />
-        </div>
         <span className="ml-2 relative bottom-1">Diabetes type 1</span>
       </label>
 
@@ -96,10 +99,11 @@ export default function Main() {
           }}
           id="check-box-1"
           className="appearance-none rounded border-2 border-prim h-5 w-5 "
+        ></input>
+        <FontAwesomeIcon
+          icon={faCheck}
+          className="text-8xl h-5 w-5 text-prim  absolute left-0 top-0 text-opacity-0 check-1"
         />
-        <div className="text-8xl h-5 w-5 text-prim  absolute left-0 top-0 opacity-0 check-1">
-          <img src={check} />
-        </div>
         <span className="ml-2 relative bottom-1">Diabetes type 2</span>
       </label>
       <label className=" relative rounded-xl text-crazyblue pb-2">
@@ -110,10 +114,11 @@ export default function Main() {
           }}
           id="check-box-1"
           className="appearance-none rounded border-2 border-prim h-5 w-5 "
+        ></input>
+        <FontAwesomeIcon
+          icon={faCheck}
+          className="text-8xl h-5 w-5 text-prim  absolute left-0 top-0 text-opacity-0 check-1"
         />
-        <div className="text-8xl h-5 w-5 text-prim  absolute left-0 top-0 opacity-0 check-1">
-          <img src={check} />
-        </div>
         <span className="ml-2 relative bottom-1">Seizure</span>
       </label>
       <label className=" relative rounded-xl text-crazyblue pb-2">
@@ -127,10 +132,11 @@ export default function Main() {
           }}
           id="check-box-1"
           className="appearance-none rounded border-2 border-prim h-5 w-5 "
+        ></input>
+        <FontAwesomeIcon
+          icon={faCheck}
+          className="text-8xl h-5 w-5 text-prim  absolute left-0 top-0 text-opacity-0 check-1"
         />
-        <div className="text-8xl h-5 w-5 text-prim  absolute left-0 top-0 opacity-0 check-1">
-          <img src={check} />
-        </div>
         <span className="ml-2 relative bottom-1">Heart Problems</span>
       </label>
       <label className=" relative rounded-xl text-crazyblue pb-2">
@@ -144,10 +150,11 @@ export default function Main() {
           }}
           id="check-box-1"
           className="appearance-none rounded border-2 border-prim h-5 w-5 "
+        ></input>
+        <FontAwesomeIcon
+          icon={faCheck}
+          className="text-8xl h-5 w-5 text-prim  absolute left-0 top-0 text-opacity-0 check-1"
         />
-        <div className="text-8xl h-5 w-5 text-prim  absolute left-0 top-0 opacity-0 check-1">
-          <img src={check} />
-        </div>
         <span className="ml-2 relative bottom-1">Hyperventilation</span>
       </label>
 

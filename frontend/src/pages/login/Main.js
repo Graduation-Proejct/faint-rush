@@ -34,7 +34,6 @@ export default function Main() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    console.count("inUseEffect");
     const loggedInUser = localStorage.getItem("email");
     const loggedInUserPass = localStorage.getItem("password");
     console.log("useEffect");
@@ -102,7 +101,7 @@ export default function Main() {
           //console.log("55" + err.code);
           //console.log("33" + err.message);
           //console.log("111" + err.stack);
-          if (err.code === "ECONNABORTED") {
+          if (err.code == "ECONNABORTED") {
             dispatch(setLoading(false));
             toast.error("Connection Timed out");
           }

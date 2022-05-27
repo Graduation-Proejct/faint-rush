@@ -1,18 +1,12 @@
 import "./App.css";
-
-//! @MohamedKhaled999 this line is error prone. fix it or consider using an alternative library!
-// import "@material-tailwind/react/tailwind.css";
-
+import "@material-tailwind/react/tailwind.css";
 import { ToastContainer } from "react-toastify";
-
-//! @MohamedKhaled999 this line is error prone. fix it or consider using an alternative library!
 import "react-toastify/dist/ReactToastify.css";
 
-import { io } from "socket.io-client";
 import { Routes, Route } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 
-import { lazy, Suspense, useEffect, useState } from "react";
+import { lazy, Suspense } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
 import { setFireBaseServer, setSocket } from "./redux/userSlice";
@@ -38,17 +32,6 @@ const Test = lazy(() => import("./pages/test"));
 function App() {
   const user = useSelector((state) => state.user);
   const navigate = useNavigate();
-  const dispatch = useDispatch();
-  const [ localSocket, setLocalSocket ] = useState(null);
-  const socket = useSelector((state) => state.user.socket);
-  // useEffect(
-  //   () => {
-  //     const newSocket = io("https://faintrush.herokuapp.com/");
-  //     dispatch(setSocket(newSocket));
-  //     return () => newSocket.close();
-  //   },
-  //   [ setLocalSocket, dispatch ]
-  // );
 
   // useEffect(
   //   (socket) => {
