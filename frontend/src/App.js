@@ -1,5 +1,4 @@
 import "./App.css";
-import "@material-tailwind/react/tailwind.css";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -32,6 +31,7 @@ const Test = lazy(() => import("./pages/test"));
 function App() {
   const user = useSelector((state) => state.user);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   // useEffect(
   //   (socket) => {
