@@ -1,16 +1,16 @@
 import { createSlice } from "@reduxjs/toolkit";
-import axios from "axios";
+import axios from 'axios';
 
 const initialState = {
-  socket: {},
   email: "",
   username: "",
-  password: "",
-  type: "",
-  phone: "",
-  valid: false,
-  list: [],
+  password:"",
+  type:"",
+  phone:"", 
+  valid:false,
+  list:[],
 };
+
 
 export const userSlice = createSlice({
   name: "user",
@@ -35,56 +35,30 @@ export const userSlice = createSlice({
       state.phone = action.payload;
     },
     setItemName: (state, action) => {
-      state.list[action.payload.id - 1].name = action.payload.name;
+      state.list[action.payload.id-1].name = action.payload.name;
     },
     setItemRlation: (state, action) => {
-      state.list[action.payload.id - 1].email = action.payload.email;
+      state.list[action.payload.id-1].email = action.payload.email;
     },
     setItemPhone: (state, action) => {
-      state.list[action.payload.id - 1].phone = action.payload.phone;
+      state.list[action.payload.id-1].phone = action.payload.phone;
     },
     addItem: (state) => {
-      state.list.push({
-        id: state.list.length + 1,
-        email: "youremail@gmail.com",
-        name: "ahmed",
-        phone: "0123",
-      });
-      const article = {
-        name: state.username,
-        email: state.email,
-        password: state.password,
-        phone: state.phone,
-        type: state.type,
-        list: state.list,
-      };
-      axios.put("http://localhost:8080/signupdata/", article);
+     
+      state.list.push({id:state.list.length+1,email: 'youremail@gmail.com', name: 'ahmed', phone:'0123',});
+      const article = { name:state.username, email:state.email ,password:state.password , phone:state.phone , type:state.type, list:state.list};
+      axios.put('http://localhost:8080/signupdata/', article)
     },
 
-    setList: (state, action) => {
+    setList:(state, action) => {
       state.list = action.payload;
     },
-
-    setSocket: (state, action) => {
-      state.socket = action.payload;
-    },
+    
+   
   },
 });
 
 // Action creators are generated for each case reducer function
-export const {
-  setList,
-  setEmail,
-  setUsername,
-  setValid,
-  setPassword,
-  setItemName,
-  setItemRlation,
-  addItem,
-  setItemPhone,
-  setPhone,
-  setType,
-  setSocket,
-} = userSlice.actions;
+export const { setList,setEmail, setUsername,setValid,setPassword,setItemName,setItemRlation,addItem,setItemPhone,setPhone ,setType} = userSlice.actions;
 
 export default userSlice.reducer;

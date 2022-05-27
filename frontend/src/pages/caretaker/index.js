@@ -20,7 +20,7 @@ export default function Caretaker() {
 
   return (
     <div className="h-screen font-mon flex flex-col items-center   ">
-      <Header />
+    <Header />
       {list.length > 0 && (
         <ul>
           {list.map((item) => (

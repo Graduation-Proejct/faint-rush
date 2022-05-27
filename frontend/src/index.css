@@ -3,5 +3,5 @@
 @tailwind utilities;
 
 #check-box-1:checked~.check-1{
-    @apply opacity-100;
+    @apply text-opacity-100;
 }
