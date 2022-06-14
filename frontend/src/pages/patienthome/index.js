@@ -2,6 +2,7 @@ import React from "react";
 
 import Header from "./Header";
 import Modal from "../../components/library/Modal";
+import axios from "axios";
 
 //import ListItem from "./ListItem";
 import ListItem from "../../components/library/ListItem";
@@ -17,6 +18,7 @@ import {
   addItem,
   setUsername,
   setValid,
+  delCareTaker,
 } from "../../redux/userSlice";
 
 export default function PatientHome() {
@@ -39,8 +41,24 @@ export default function PatientHome() {
   };
 
   // nev to edit page
-  const PatientEdit = (item) => {
-    navigate("/edit", { state: { id: item.id } });
+  const PatientEdit =async (item) => {
+    const temp= {UID:user.UID, emailCaretaker:item.email}
+    console.log("dsa"+temp.emailCaretaker)
+    await axios.post("https://faintbaseapp.herokuapp.com/delete_caretaker", temp)
+    .then((response) => {
+
+      console.log("before"+response.data);
+      if(response.data){
+        console.log("after"+response.data);
+        dispatch(delCareTaker(item))
+      }
+     
+    });
+    //https://faintbaseapp.herokuapp.com/
+   
+    //list.splice(state.list.indexOf(action.payload), 1)
+
+   // navigate("/edit", { state: { id: item.id } });
     //todo dispatch action to set user type to caretaker
   };
 
@@ -56,7 +74,7 @@ export default function PatientHome() {
                 relation={item.email}
                 name={item.name}
                 phone={item.phone}
-                buttonName="Edit"
+                buttonName="DEL"
                 handles={() => PatientEdit(item)}
               />
             </li>

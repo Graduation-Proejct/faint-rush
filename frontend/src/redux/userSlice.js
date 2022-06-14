@@ -41,19 +41,29 @@ export const userSlice = createSlice({
       state.list[action.payload.id - 1].name = action.payload.name;
     },
     setItemRlation: (state, action) => {
+      state.list[action.payload.id - 1].relation = action.payload.email;
+    },
+    setItemEmail: (state, action) => {
       state.list[action.payload.id - 1].email = action.payload.email;
     },
     setItemPhone: (state, action) => {
       state.list[action.payload.id - 1].phone = action.payload.phone;
+    },
+    delCareTaker: (state, action) => {
+      state.list.splice(state.list.indexOf(action.payload)-1, 1)
     },
 
     addItem: (state) => {
       state.list.push({
         id: state.list.length + 1,
         email: "youremail@gmail.com",
+        relation:"",
         name: "ahmed",
         phone: "0123",
       });
+
+      
+      
       const article = {
         name: state.username,
         email: state.email,
@@ -62,11 +72,24 @@ export const userSlice = createSlice({
         type: state.type,
         list: state.list,
       };
-      axios.put("http://localhost:8080/signupdata/", article);
+     // axios.put("http://localhost:8080/signupdata/", article);
     },
 
     setList: (state, action) => {
-      state.list = action.payload;
+
+      for (let index = 0; index < action.payload.length; index++) {
+         ;
+        state.list.push({
+          id:index+1,
+          UID: action.payload[index]._UID,
+          relation:"",
+          email:action.payload[index]._email,
+          name: action.payload[index]._name,
+          phone:action.payload[index]._phone,
+        });
+        
+      }
+      
     },
 
     setSocket: (state, action) => {
@@ -92,7 +115,9 @@ export const {
   setPhone,
   setType,
   setFireBaseServer,
+  setItemEmail,
   setSocket,
+  delCareTaker,
   setUID,
 } = userSlice.actions;
 

@@ -21,6 +21,7 @@ import {
   setSignUpValue,
   setEditValue,
   setLoading,
+  setCancel,
 } from "../../redux/counterSlice";
 
 export default function Main() {
@@ -35,123 +36,41 @@ export default function Main() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  useEffect(() => {
-    const loggedInUser = localStorage.getItem("email");
-    const loggedInUserPass = localStorage.getItem("password");
-    console.log("useEffect");
-    if (loggedInUser && loggedInUserPass) {
-      isNew = true;
-      console.log(loggedInUser);
-      console.log(loggedInUserPass);
-
-      dispatch(setEmail(loggedInUser));
-      dispatch(setPassword(loggedInUserPass));
-
-      //check();
-      //const foundUser = JSON.parse(loggedInUser.toString);
-      //const foundUser2 = JSON.parse(loggedInUserPass.toString);
-
-      // console.log(foundUser)
-      // setUser({username:loggedInUser,password:loggedInUserPass});
-    }
-  }, [value]);
+ 
 
   const navigateToPatientHome = (e) => {
     e.preventDefault();
     isNew = true;
-    console.log("in" + isNew);
-    check();
-  };
-
-  //  if user valid  set props of user
-  async function check() {
-    dispatch(setLoading(true));
-
-    let result = await isValid();
-    if (!result) {
-      toast.error("something wrong");
-      return;
-    }
-    console.log("is login valid? " + result);
-    dispatch(setValid(result));
-    console.log("is it new data? " + isNew);
-
-    if (isNew) {
+    //navigate("/getstarted");
+     
       localStorage.setItem("email", user.email);
       localStorage.setItem("password", user.password);
-    }
+    
+    console.log("in" + isNew);
+    isValid();
+      //isValid();
+  };
 
-    if (result) {
-      console.log("jjkdfkjj" + user.email);
-      await axios
-        .post(
-          "https://faintbaseapp.herokuapp.com/user_data",
-          { email: user.email }
-        )
-        .then(async (response) => {
-          console.log(response.data);
-          dispatch(setUsername(response.data.name));
-          dispatch(setEmail(response.data.email));
-          dispatch(setPassword(response.data.password));
 
-          dispatch(setPhone(response.data.phone));
-          dispatch(setType(response.data.type));
-
-          const list = [];
-          const emailList = response.data.emailList;
-          await getUsers(emailList,response);
-
-        })
-        .catch((err) => {
-          //console.log("55" + err.code);
-          //console.log("33" + err.message);
-          //console.log("111" + err.stack);
-          if (err.code == "ECONNABORTED") {
-            dispatch(setLoading(false));
-            toast.error("Connection Timed out");
-          }
-        });
-    }
-  }
-  async function getUsers(emailList, oldRes) {
-    let list = [];
-    console.log(emailList.length);
-    for (let i = 0; i < emailList.length; i++) {
-      await axios
-        .post(
-          "https://faintbaseapp.herokuapp.com/user_by_email",
-          { email: emailList[i] },
-          { timeout: 2000 }
-        )
-        .then((response) => {
-          console.log(i + " user");
-          console.log(response.data);
-          list[i] = response.data;
-        });
-    }
-    console.log("returning list");
-    dispatch(setList(list));
-    dispatch(setLoading(false));
-    console.log("user returned:\n" + oldRes.data.name);
-    navigating(oldRes);
-  }
   function navigating(response) {
-    if (response.data.type === "patient") {
-      navigate("/patienthome");
-    } else {
-      navigate("/caretaker");
-    }
+    
   }
   // check  if user valid in login page
   async function isValid() {
+
+   // console.log("cdjknj")
+    dispatch(setLoading(true));
+
     var emailx = user.email;
     var passwordx = user.password;
+    //console.log("dxc"+emailx)
 
     if (!isNew) {
       emailx = localStorage.getItem("email");
       passwordx = localStorage.getItem("password");
-     dispatch(setEmail(emailx))
+      // dispatch(setEmail(emailx))
     }
+
     const article = { email: emailx, password: passwordx };
     console.log(article);
     return await axios
@@ -159,10 +78,34 @@ export default function Main() {
       .then((response) => {
         console.log(response.data);
         if(response.data.UID!="error"){
+          console.log("sadcfvdefvdsa")
           dispatch(setUID(response.data.UID))
-          return true}
-        else{return false}
-        
+          dispatch(setUsername(response.data.name));
+          dispatch(setEmail(response.data.email));
+          dispatch(setPassword(response.data.password));
+          dispatch(setPhone(response.data.phone));
+          dispatch(setType(response.data.type));
+          dispatch(setList(response.data.list))
+
+          dispatch(setValid(true))
+          navigating(response);
+          console.log(response.data.type)
+          dispatch(setLoading(false));
+          if (response.data.type == "patient") {
+            console.log("in if")
+            navigate("/patienthome");
+          } else {
+            navigate("/caretaker");
+          }
+          
+         
+          }
+          
+
+        else
+        {  dispatch(setLoading(false));  
+          return false;}
+
       });
   }
 

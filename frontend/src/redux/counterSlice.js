@@ -4,6 +4,7 @@ const initialState = {
   signUpValue: false,
   editValue:false,
   loading:false,
+   cancel :true,
   list:[],
 }
 
@@ -24,6 +25,9 @@ export const counterSlice = createSlice({
     setLoading: (state, action) => {
       state.loading = action.payload
     },
+    setCancel: (state, action) => {
+      state.loading = action.payload
+    },
     addItem: (state,action) => {
      
       state.list.push(action.payload);
@@ -39,6 +43,6 @@ export const counterSlice = createSlice({
 })
 
 // Action creators are generated for each case reducer function
-export const {  setSignUpValue,setEditValue,setLoading,setList,addItem,delItem } = counterSlice.actions
+export const {  setSignUpValue,setEditValue,setLoading,setList,addItem,delItem,setCancel } = counterSlice.actions
 
 export default counterSlice.reducer

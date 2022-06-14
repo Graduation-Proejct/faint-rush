@@ -38,18 +38,36 @@ export default function SignUpNext() {
 
   //console.log(",mm"+items.list)
   //console.log("mm"+items.list.length)
+    console.log(",mm"+history)
+
 
   const handleAttach = (e) => {
     setFiles(e.target.files);
   };
   //handle all input and send to server
   const handlesAll = (e) => {
+    const temp={
+      name:user.username,
+      email:user.email,
+      password:user.password,
+      phone:user.phone ,
+      type:user.type,
+      questions:items.list,
+      medicalHistory:history,
+
+    }
+    console.log(",mm"+temp.name)
+    console.log(",mm"+temp)
+
+
+
 
       //  send files to server
    // user.questions=items.list;
-     axios.post('https://faintbaseapp.herokuapp.com/signup_patient_user',user)
+     axios.post('https://faintbaseapp.herokuapp.com/signup_patient_user',temp)
            .then((response)=>{
             if(response.data.UID!="error"){
+              console.log(response.data.UID)
               navigate("/patienthome");
             }
 

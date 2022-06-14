@@ -57,7 +57,7 @@ export default function Main() {
       await axios
         .post("https://faintbaseapp.herokuapp.com/signup", article)
         .then((response) => {
-          console.log("returned value is " + response.data);
+          console.log("returned value is " + response.data.UID);
           console.log("is loading or not?"+items.loading);
           var bb= false
           if(response.data.UID!="error"){

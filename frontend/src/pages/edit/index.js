@@ -19,6 +19,7 @@ import {
   setItemRlation,
   setItemPhone,
   setPhone,
+  setItemEmail,
 } from "../../redux/userSlice";
 
 export default function GetStarted() {
@@ -29,21 +30,6 @@ export default function GetStarted() {
 
   const navigate = useNavigate();
 
-  const navigateToPatientHome = async (e) => {
-    e.preventDefault();
-    const patient_user = {
-      name: user.username,
-      email: user.email,
-      password: user.password,
-      phone: user.phone,
-      type: user.type,
-      list: user.list,
-    };
-    console.log(patient_user);
-    await axios.post("http://localhost:8080/add_caretaker", patient_user);
-    //catch
-    navigate("/patienthome");
-  };
 
   let idc;
   if (location.state == null) {
@@ -55,6 +41,31 @@ export default function GetStarted() {
   } else {
     idc = location.state.id;
   }
+
+  
+  const navigateToPatientHome = async (e) => {
+    e.preventDefault();
+    const patient_user = {
+
+      name: user.username,
+      email: user.email,
+      UID:user.UID,
+      emailCaretaker:user.list[idc - 1].email,
+    };
+    console.log(patient_user);
+    await axios.post("https://faintbaseapp.herokuapp.com/add_caretaker", patient_user)
+    .then((response) => {
+
+      console.log("before"+response.data);
+      if(response.data){
+        console.log("after"+response.data);
+        navigate("/patienthome");
+      }
+     
+    });
+    //catch
+   
+  };
 
   return (
     <>
@@ -75,9 +86,9 @@ export default function GetStarted() {
               className=" border-4 mb-3  justify-center text-center placeholder:italic placeholder:text-slate-400 block w-80 h-14 drop-shadow-md rounded-2xl"
               type="email"
               id="relation_edit"
-              value={user.list[idc - 1].relation}
+              value={user.list[idc - 1].email}
               onChange={(e) =>
-                dispatch(setItemRlation({ id: idc, email: e.target.value }))
+                dispatch(setItemEmail({ id: idc, email: e.target.value }))
               }
               name="email"
               placeholder="Enter the relation"
