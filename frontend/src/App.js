@@ -28,6 +28,8 @@ const Faint = lazy(() => import("./pages/faint"));
 const SOS = lazy(() => import("./pages/sos"));
 
 const Test = lazy(() => import("./pages/test"));
+const Info = lazy(() => import("./pages/info"));
+
 
 function App() {
   const user = useSelector((state) => state.user);
@@ -97,6 +99,7 @@ function App() {
           />
 
           <Route path="/test" element={<Test />} />
+          <Route path="/info" element={<Info />} />
           <Route path="/faint" element={<Faint />} />
           <Route
             path="/sos"

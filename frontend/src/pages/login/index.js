@@ -48,7 +48,7 @@ export default function Login() {
       <Header />
 
       <Main />
-      <Footer />
+     
     </div>
   );
 }

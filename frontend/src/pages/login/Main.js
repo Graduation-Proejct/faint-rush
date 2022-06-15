@@ -26,9 +26,9 @@ import {
 
 export default function Main() {
   const user = useSelector((state) => state.user);
-  console.log("000user" , user)
+  console.log("000user", user);
   const items = useSelector((state) => state.items);
-  const fireBaseServer = useSelector((state) => state.user.fireBaseServer)
+  const fireBaseServer = useSelector((state) => state.user.fireBaseServer);
   var isNew = true;
   const [value, setValue] = useState("initial");
   // const [password, setPassword] = useState("");
@@ -36,29 +36,22 @@ export default function Main() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
- 
-
   const navigateToPatientHome = (e) => {
     e.preventDefault();
     isNew = true;
     //navigate("/getstarted");
-     
-      localStorage.setItem("email", user.email);
-      localStorage.setItem("password", user.password);
-    
+
+    localStorage.setItem("email", user.email);
+    localStorage.setItem("password", user.password);
+
     console.log("in" + isNew);
     isValid();
-      //isValid();
+    //isValid();
   };
 
-
-  function navigating(response) {
-    
-  }
   // check  if user valid in login page
   async function isValid() {
-
-   // console.log("cdjknj")
+    // console.log("cdjknj")
     dispatch(setLoading(true));
 
     var emailx = user.email;
@@ -77,35 +70,29 @@ export default function Main() {
       .post("https://faintbaseapp.herokuapp.com/login", article)
       .then((response) => {
         console.log(response.data);
-        if(response.data.UID!="error"){
-          console.log("sadcfvdefvdsa")
-          dispatch(setUID(response.data.UID))
+        if (response.data.UID != "error") {
+          dispatch(setUID(response.data.UID));
           dispatch(setUsername(response.data.name));
           dispatch(setEmail(response.data.email));
           dispatch(setPassword(response.data.password));
           dispatch(setPhone(response.data.phone));
           dispatch(setType(response.data.type));
-          dispatch(setList(response.data.list))
+          dispatch(setList(response.data.list));
 
-          dispatch(setValid(true))
-          navigating(response);
-          console.log(response.data.type)
+          dispatch(setValid(true));
+
+          console.log(response.data.type);
           dispatch(setLoading(false));
           if (response.data.type == "patient") {
-            console.log("in if")
+            //console.log("in if")
             navigate("/patienthome");
           } else {
             navigate("/caretaker");
           }
-          
-         
-          }
-          
-
-        else
-        {  dispatch(setLoading(false));  
-          return false;}
-
+        } else {
+          dispatch(setLoading(false));
+          return false;
+        }
       });
   }
 
@@ -115,9 +102,9 @@ export default function Main() {
         onSubmit={(e) => {
           navigateToPatientHome(e);
         }}
-        className=" flex justify-center  flex-col  items-center   gap-4"
+        className=" pt-8 flex justify-center  flex-col  items-center   gap-12"
       >
-        <div>
+        <div className=" flex flex-col  gap-5">
           <input
             required
             className=" border-4 justify-center text-center placeholder:italic placeholder:text-slate-400 block w-80 h-14 drop-shadow-md rounded-2xl"

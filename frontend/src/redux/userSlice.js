@@ -53,14 +53,8 @@ export const userSlice = createSlice({
       state.list.splice(state.list.indexOf(action.payload)-1, 1)
     },
 
-    addItem: (state) => {
-      state.list.push({
-        id: state.list.length + 1,
-        email: "youremail@gmail.com",
-        relation:"",
-        name: "ahmed",
-        phone: "0123",
-      });
+    addItem: (state,action) => {
+      state.list.push(action.payload);
 
       
       

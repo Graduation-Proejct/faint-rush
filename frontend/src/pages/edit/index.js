@@ -20,6 +20,7 @@ import {
   setItemPhone,
   setPhone,
   setItemEmail,
+  addItem,
 } from "../../redux/userSlice";
 
 export default function GetStarted() {
@@ -27,6 +28,11 @@ export default function GetStarted() {
   const dispatch = useDispatch();
 
   const location = useLocation();
+  const [email, setEmail] = useState("");
+  const [phone, setPhone] = useState(0);
+  const [name, setName] = useState(" ");
+
+
 
   const navigate = useNavigate();
 
@@ -45,12 +51,13 @@ export default function GetStarted() {
   
   const navigateToPatientHome = async (e) => {
     e.preventDefault();
+//
     const patient_user = {
 
       name: user.username,
       email: user.email,
       UID:user.UID,
-      emailCaretaker:user.list[idc - 1].email,
+      emailCaretaker:email,
     };
     console.log(patient_user);
     await axios.post("https://faintbaseapp.herokuapp.com/add_caretaker", patient_user)
@@ -59,6 +66,8 @@ export default function GetStarted() {
       console.log("before"+response.data);
       if(response.data){
         console.log("after"+response.data);
+        dispatch(addItem({id:user.list.length+1,name:response.data.name,
+          email:response.data.email,phone:response.data.phone}));
         navigate("/patienthome");
       }
      
@@ -72,7 +81,7 @@ export default function GetStarted() {
       <div className="pt-10 h-screen flex flex-col items-center">
         <Logo />
         <Header />
-        <h2>{user.list[idc - 1].relation}</h2>
+        <h2></h2>
 
         <form
           onSubmit={(e) => {
@@ -86,32 +95,32 @@ export default function GetStarted() {
               className=" border-4 mb-3  justify-center text-center placeholder:italic placeholder:text-slate-400 block w-80 h-14 drop-shadow-md rounded-2xl"
               type="email"
               id="relation_edit"
-              value={user.list[idc - 1].email}
+              value={email}
               onChange={(e) =>
-                dispatch(setItemEmail({ id: idc, email: e.target.value }))
+                dispatch(setEmail(e.target.value))
               }
               name="email"
               placeholder="Enter the relation"
             />
             <input
               required
-              className=" border-4 mb-3 justify-center text-center placeholder:italic placeholder:text-slate-400 block w-80 h-14 drop-shadow-md rounded-2xl"
+              className="hidden border-4 mb-3 justify-center text-center placeholder:italic placeholder:text-slate-400  w-80 h-14 drop-shadow-md rounded-2xl"
               type="text"
               name="name"
-              value={user.list[idc - 1].name}
+              value={name}
               onChange={(e) =>
-                dispatch(setItemName({ id: idc, name: e.target.value }))
+                dispatch(setName(e.target.value))
               }
               placeholder="Enter name"
             />
             <input
               required
-              className="border-4 mb-3 justify-center text-center placeholder:italic placeholder:text-slate-400 block w-80 h-14 drop-shadow-md rounded-2xl"
+              className=" hidden border-4 mb-3 justify-center text-center placeholder:italic placeholder:text-slate-400  w-80 h-14 drop-shadow-md rounded-2xl"
               type="number"
               name="phone"
-              value={user.list[idc - 1].phone}
+              value={phone}
               onChange={(e) =>
-                dispatch(setItemPhone({ id: idc, phone: e.target.value }))
+                dispatch(setPhone(e.target.value))
               }
               placeholder="Enter phone"
             />

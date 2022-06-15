@@ -28,12 +28,13 @@ export default function PatientHome() {
 
   let list = user.list;
 
+  console.log(user.list)
   // window.alert(user.list.length);
   // add caretaker to list
   const addTakecarer = () => {
     // window.alert(user.list.length);
 
-    dispatch(addItem());
+    
     //console.log(user.list);
 
     navigate("/edit");
@@ -84,7 +85,7 @@ export default function PatientHome() {
 
       {list.length < 4 && (
         <Button
-          text="add"
+          text="Add"
           handles={addTakecarer}
           type="button"
           data-modal-toggle="defaultModal"

@@ -16,7 +16,7 @@ export default function Header() {
 
   //notify every one in the list
   const notifyEmergencylist =()=>{
-    window.alert("hi mo")
+   // window.alert("hi mo")
     navigate("/sos")
     
   }
@@ -36,7 +36,7 @@ export default function Header() {
            
             <img src={dd} className="  rounded-full border-white  w-12 h-12 border-4 m-auto absolute  right-5 top-5"></img>
 
-            <button className=" pl-2 rounded-full  w-12 h-12 m-auto absolute  left-5 top-5">
+            <button className=" hidden pl-2 rounded-full  w-12 h-12 m-auto absolute  left-5 top-5">
               <TG/></button>
 
           </div>
@@ -55,12 +55,12 @@ export default function Header() {
             
 
           </div>
-          <div className="mt-4 mb-6 flex flex-row">
+          <div className="mt-4 mb-6 flex flex-row justify-center">
            
             <button className="  rounded-2xl w-40 h-10 bg-red-700 text-white text-xs font-bold " 
             onClick={() => setShowModal(true)}> Not feeling well?</button>
 
-            <button className= "ml-2  rounded-2xl  w-52 h-10 bg-crazyblue text-white text-xs  font-bold "
+            <button className= "hidden ml-2  rounded-2xl  w-52 h-10 bg-crazyblue text-white text-xs  font-bold "
             >EDIT EMERGENGY LIST</button>
 
           </div>

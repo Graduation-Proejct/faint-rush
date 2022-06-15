@@ -2,6 +2,8 @@ import React from "react";
 
 import check from "../../assets/svgs/check.png";
 import Header from "./Header";
+import { useState } from "react";
+
 import {
   setSignUpValue,
   setEditValue,
@@ -15,8 +17,13 @@ export default function Main() {
   const items = useSelector((state) => state.items);
   const dispatch = useDispatch();
   const qestions = [];
+  const [haveDiabetes, setHaveDiabetes] = useState(-1);
+  const [haveDiabetes1, setHaveDiabetes1] = useState(-1);
+  const [haveDiabetes2, setHaveDiabetes2] = useState(-1);
+
   //console.log(qestions);
   //handles checked box then add to list
+
   const handlesCheckedBox = (obj) => {
     if (obj.checked) {
       dispatch(addItem(obj.txt));
@@ -31,6 +38,14 @@ export default function Main() {
     console.log("qqq:" + qestions);
     console.log("qqq:" + qestions.length);
   };
+
+  const handlesCheckedDiabase=()=>{
+    dispatch(delItem("Diabetes type 1"));
+    dispatch(delItem("Diabetes type 2"));
+
+  }
+
+  console.log("haveDiabetes " + haveDiabetes);
   return (
     <div className="flex flex-col  max-w-md w-full items-start px-5 ">
       <label className=" relative rounded-xl text-crazyblue pb-2">
@@ -51,7 +66,9 @@ export default function Main() {
         <input
           type="checkbox"
           onChange={(e) => {
-            handlesCheckedBox({ checked: e.target.checked, txt: "Diabetes" });
+            setHaveDiabetes(haveDiabetes * -1);
+            handlesCheckedDiabase();
+
           }}
           id="check-box-1"
           className="appearance-none rounded border-2 border-prim h-5 w-5 "
@@ -62,41 +79,49 @@ export default function Main() {
         <span className="ml-2 relative bottom-1">Diabetes</span>
       </label>
 
-      <label className=" relative  left-4 rounded-xl text-crazyblue pb-2">
-        <input
-          type="checkbox"
-          onChange={(e) => {
-            handlesCheckedBox({
-              checked: e.target.checked,
-              txt: "Diabetes type 1",
-            });
-          }}
-          id="check-box-1"
-          className="appearance-none rounded border-2 border-prim h-5 w-5 "
-        />
-        <div className="text-8xl h-5 w-5 text-prim  absolute left-0 top-0 opacity-0 check-1">
-          <img src={check} />
-        </div>
-        <span className="ml-2 relative bottom-1">Diabetes type 1</span>
-      </label>
+      {haveDiabetes == 1 && (
+        <div className="flex flex-col">
+          <label className=" relative  left-4 rounded-xl text-crazyblue pb-2">
+            <input
+              type="checkbox"
+              onChange={(e) => {
+                setHaveDiabetes1(haveDiabetes1 * -1);
+                handlesCheckedBox({
+                  checked: e.target.checked,
+                  txt: "Diabetes type 1",
+                });
+              }}
+              id="check-box-1"
+              className="appearance-none rounded border-2 border-prim h-5 w-5 "
+            />
+            <div className="text-8xl h-5 w-5 text-prim  absolute left-0 top-0 opacity-0 check-1">
+              <img src={check} />
+            </div>
+            <span className="ml-2 relative bottom-1">Diabetes type 1</span>
+          </label>
 
-      <label className=" relative left-4 rounded-xl text-crazyblue pb-2">
-        <input
-          type="checkbox"
-          onChange={(e) => {
-            handlesCheckedBox({
-              checked: e.target.checked,
-              txt: "Diabetes type 2",
-            });
-          }}
-          id="check-box-1"
-          className="appearance-none rounded border-2 border-prim h-5 w-5 "
-        />
-        <div className="text-8xl h-5 w-5 text-prim  absolute left-0 top-0 opacity-0 check-1">
-          <img src={check} />
+          { (
+            <label className=" relative left-4 rounded-xl text-crazyblue pb-2">
+              <input
+                type="checkbox"
+                onChange={(e) => {
+                  handlesCheckedBox({
+                    checked: e.target.checked,
+                    txt: "Diabetes type 2",
+                  });
+                }}
+                id="check-box-1"
+                className="appearance-none rounded border-2 border-prim h-5 w-5 "
+              />
+              <div className="text-8xl h-5 w-5 text-prim  absolute left-0 top-0 opacity-0 check-1">
+                <img src={check} />
+              </div>
+              <span className="ml-2 relative bottom-1">Diabetes type 2</span>
+            </label>
+          )}
         </div>
-        <span className="ml-2 relative bottom-1">Diabetes type 2</span>
-      </label>
+      )}
+
       <label className=" relative rounded-xl text-crazyblue pb-2">
         <input
           type="checkbox"

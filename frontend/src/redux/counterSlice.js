@@ -35,8 +35,10 @@ export const counterSlice = createSlice({
     },
     delItem: (state,action) => {
      
-      
-      state.list.splice(state.list.indexOf(action.payload), 1)
+      if(state.list.indexOf(action.payload)>=0){
+        state.list.splice(state.list.indexOf(action.payload), 1)
+      }
+     
       
     },
   },
