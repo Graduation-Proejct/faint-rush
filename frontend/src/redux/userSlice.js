@@ -54,18 +54,12 @@ export const userSlice = createSlice({
     },
 
     addItem: (state,action) => {
-      state.list.push(action.payload);
+      if(state.list.indexOf(action.payload)<0){
+        state.list.push(action.payload);}
 
       
       
-      const article = {
-        name: state.username,
-        email: state.email,
-        password: state.password,
-        phone: state.phone,
-        type: state.type,
-        list: state.list,
-      };
+      
      // axios.put("http://localhost:8080/signupdata/", article);
     },
 
@@ -83,6 +77,7 @@ export const userSlice = createSlice({
         });
         
       }
+
       
     },
 

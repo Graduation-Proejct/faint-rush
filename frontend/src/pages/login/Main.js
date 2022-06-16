@@ -26,27 +26,24 @@ import {
 
 export default function Main() {
   const user = useSelector((state) => state.user);
-  console.log("000user", user);
   const items = useSelector((state) => state.items);
   const fireBaseServer = useSelector((state) => state.user.fireBaseServer);
   var isNew = true;
-  const [value, setValue] = useState("initial");
-  // const [password, setPassword] = useState("");
-
+  const [value, setValue] = useState(true);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const navigateToPatientHome = (e) => {
+  const navigateToPatientHome = async(e) => {
     e.preventDefault();
     isNew = true;
     //navigate("/getstarted");
 
-    localStorage.setItem("email", user.email);
-    localStorage.setItem("password", user.password);
+   
 
     console.log("in" + isNew);
-    isValid();
-    //isValid();
+   const x= await isValid();
+   // console.log("ddd"+ x.data.email)
+    setData(x)
   };
 
   // check  if user valid in login page
@@ -71,30 +68,69 @@ export default function Main() {
       .then((response) => {
         console.log(response.data);
         if (response.data.UID != "error") {
-          dispatch(setUID(response.data.UID));
-          dispatch(setUsername(response.data.name));
-          dispatch(setEmail(response.data.email));
-          dispatch(setPassword(response.data.password));
-          dispatch(setPhone(response.data.phone));
-          dispatch(setType(response.data.type));
-          dispatch(setList(response.data.list));
-
-          dispatch(setValid(true));
-
-          console.log(response.data.type);
-          dispatch(setLoading(false));
-          if (response.data.type == "patient") {
-            //console.log("in if")
-            navigate("/patienthome");
-          } else {
-            navigate("/caretaker");
-          }
+          localStorage.setItem("email", user.email);
+          localStorage.setItem("password", user.password);
+          localStorage.setItem("flib",true);
+         return response;
         } else {
           dispatch(setLoading(false));
           return false;
         }
       });
   }
+function setData(response){
+  dispatch(setUID(response.data.UID));
+  dispatch(setUsername(response.data.name));
+  dispatch(setEmail(response.data.email));
+  dispatch(setPassword(response.data.password));
+  dispatch(setPhone(response.data.phone));
+  dispatch(setType(response.data.type));
+  dispatch(setList(response.data.list));
+
+  dispatch(setValid(true));
+  //dispatch(setLoading(false));
+  console.log(response.data.type);
+  
+  if (response.data.type == "patient") {
+    //console.log("in if")
+    navigate("/patienthome");
+  } else {
+    navigate("/caretaker");
+  }
+}
+
+
+  useEffect(() => {
+    
+
+    const handleChange = async () => {
+      
+     // await timeout(1000);
+     const loggedInUser = localStorage.getItem("email");
+    const loggedInUserPass = localStorage.getItem("password");
+    const flib= localStorage.getItem("flib");
+
+    
+    console.log("useEffect");
+    if (loggedInUser && loggedInUserPass) {
+      isNew = false;
+      console.log(loggedInUser);
+      console.log(loggedInUserPass);
+      console.log(flib);
+     if(flib!=false){
+      localStorage.setItem("flib",false);
+      var data = await isValid();
+      setData(data)
+      
+
+     }
+    }
+    };
+
+    handleChange();
+    //Cleanup function is called when useEffect is called again or on unmount
+    
+  }, [value]);
 
   return (
     <>
