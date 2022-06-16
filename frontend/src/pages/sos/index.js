@@ -1,9 +1,26 @@
-import React from "react";
+import React, { Component } from "react";
 
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import ar from "../../assets/alarm.mp3"
+
 
 export default function SOS() {
+  const [audio] = useState(new Audio(ar));
+  const [playing, setPlaying] = useState(true);
+useEffect(() => {
+  audio.loop=true;
+  
+  playing ? audio.play() : audio.pause();
+  console.log("sdcdcszx")
+  window.onpopstate = function(event){
+    //window.alert("sd")
+    audio.pause();
+};
+ 
+}, [playing]);
+
   const user = useSelector((state) => state.user);
   const navigate = useNavigate();
 
@@ -13,9 +30,11 @@ export default function SOS() {
     date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
 // navigate to home
   const accessINFO=()=>{
+        audio.pause();
         navigate("/info")
                     }
    const  goHOME=()=>{
+    audio.pause();
     if(user.type=="patient")
     {navigate("/patienthome") }
     else{navigate("/caretaker")}  }
@@ -28,7 +47,7 @@ export default function SOS() {
           S.O.S
         </span>
         <span className=" pt-5 block text-white font-bold font[Helvetica] text-[23px]">
-          Mahmoud fainted on: {showTime}
+          The Patient Fainted on: {showTime}
         </span>
         
 
