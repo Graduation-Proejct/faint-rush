@@ -32,7 +32,8 @@ export default function PatientHome() {
 
   let list = user.list;
   //notify every one in the list
-  const notifyEmergencylist = () => {
+  const notifyEmergencyList = () => {
+    socket.emit("sos");
     navigate("/sos");
   };
 
@@ -121,7 +122,7 @@ export default function PatientHome() {
         />
       )}
       {items.showModelx && (
-        <Modal2 handlesNotify={notifyEmergencylist} handlesCancel={cancel} />
+        <Modal2 handlesNotify={notifyEmergencyList} handlesCancel={cancel} />
       )}
     </div>
   );

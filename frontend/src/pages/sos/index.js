@@ -4,20 +4,24 @@ import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import ar from "../../assets/alarm.mp3";
+import { socket } from "../../services/Socket";
 
 export default function SOS() {
-  const [audio] = useState(new Audio(ar));
-  const [playing, setPlaying] = useState(true);
-  useEffect(() => {
-    audio.loop = true;
+  const [ audio ] = useState(new Audio(ar));
+  const [ playing, setPlaying ] = useState(true);
+  useEffect(
+    () => {
+      audio.loop = true;
 
-    playing ? audio.play() : audio.pause();
-    console.log("sdcdcszx");
-    window.onpopstate = function (event) {
-      //window.alert("sd")
-      audio.pause();
-    };
-  }, [playing]);
+      playing ? audio.play() : audio.pause();
+      console.log("sdcdcszx");
+      window.onpopstate = function(event) {
+        //window.alert("sd")
+        audio.pause();
+      };
+    },
+    [ playing ]
+  );
 
   const user = useSelector((state) => state.user);
   const navigate = useNavigate();
@@ -40,7 +44,10 @@ export default function SOS() {
     }
   };
   // do reset
-  const reset = () => {};
+  const reset = () => {
+    socket.emit("reset", { message: "reset" });
+    goHOME();
+  };
   return (
     <div className="flex flex-col items-center ">
       <div className=" pt-8  pb-6 h-screen font-mon flex flex-col items-center max-w-md w-full bg-[#F75010]">
