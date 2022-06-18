@@ -89,7 +89,7 @@ export default function GetStarted() {
           }}
           className=" flex justify-center  flex-col    m-4"
         >
-          <div>
+          <div className=" flex  flex-col flex-grow pt-8">
             <input
               required
               className=" border-4 mb-3  justify-center text-center placeholder:italic placeholder:text-slate-400 block w-80 h-14 drop-shadow-md rounded-2xl"
@@ -100,7 +100,7 @@ export default function GetStarted() {
                 dispatch(setEmail(e.target.value))
               }
               name="email"
-              placeholder="Enter the relation"
+              placeholder="Enter the email"
             />
             <input
               required
@@ -126,7 +126,9 @@ export default function GetStarted() {
             />
           </div>
 
-          <Button text="Done" />
+          <div className="pt-4">
+          <Button   text="Done" />
+          </div>
         </form>
       </div>
     </>

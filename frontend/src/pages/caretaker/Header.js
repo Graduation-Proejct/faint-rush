@@ -1,6 +1,6 @@
 import React from "react";
 import { ReactComponent as TG } from "../../assets/svgs/togglex.svg";
-import dd from "../../assets/svgs/patient.png";
+import dd from "../../assets/svgs/takecarerV2.png";
 import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import {
@@ -14,15 +14,15 @@ export default function Header() {
   const user = useSelector((state) => state.user);
   return (
     <>
-      <div className="flex justify-center   h-auto  max-w-xl w-full relative  bg-patienthome rounded-b-3xl">
+      <div className="flex justify-center  pb-3 h-auto  max-w-xl w-full relative  bg-patienthome rounded-b-3xl ">
         <div className=" flex flex-col pt-20  ">
           <div className="">
             <img
               src={dd}
-              className="  rounded-full border-white bg-black w-12 h-12 border-4 m-auto absolute  right-5 top-5"
+              className="  rounded-full border-white bg-green-300 w-12 h-12 border-4 m-auto absolute  right-5 top-5"
             ></img>
 
-            <button className=" pl-2 rounded-full  w-12 h-12 m-auto absolute  left-5 top-5">
+            <button className="hidden  pl-2 rounded-full  w-12 h-12 m-auto absolute  left-5 top-5">
               <TG />
             </button>
           </div>

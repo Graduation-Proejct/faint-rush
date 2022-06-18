@@ -3,11 +3,11 @@ import dd from "../../assets/svgs/takecarer.png"
 
 export default function ListItem(props) {
   
-  const { relation,name,phone,buttonName ,handles  } = props;
+  const { relation,name,phone,buttonName ,handles ,photo } = props;
   return (
     <>
       <div className="flex flex-row relative">
-        <img src={dd} className=" z-50 rounded-xl bg-green-300 w-12 h-12 border-4 m-auto relative "></img>
+        <img src={photo} className=" z-50 rounded-xl bg-green-300 w-12 h-12 border-4 m-auto relative "></img>
         <div className="pl-3 flex flex-row  w-80 rounded-2xl z-30  shadow-md relative">
           <div className="flex flex-col p-2 w-7/12">
             <span className="block text text-gray-400 text-ellipsis overflow-hidden  ">{relation}</span>

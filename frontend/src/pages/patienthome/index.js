@@ -3,6 +3,11 @@ import React from "react";
 import Header from "./Header";
 import Modal from "../../components/library/Modal";
 import axios from "axios";
+import Modal2 from "../../components/library/Modal2";
+import dd from "../../assets/svgs/takecarer.png"
+
+
+
 
 //import ListItem from "./ListItem";
 import ListItem from "../../components/library/ListItem";
@@ -20,13 +25,30 @@ import {
   setValid,
   delCareTaker,
 } from "../../redux/userSlice";
+import{  setSignUpValue,setEditValue,setLoading,setList,delItem,setCancel,setShowModel }from"../../redux/counterSlice"
+
 
 export default function PatientHome() {
+  
+
   const user = useSelector((state) => state.user);
+  const items = useSelector((state) => state.items);
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   let list = user.list;
+  //notify every one in the list
+  const notifyEmergencylist =()=>{
+    // window.alert("hi mo")
+     navigate("/sos")
+     
+   }
+   
+   const cancel =()=>{
+     dispatch(setShowModel(false))
+    
+   }
 
   console.log(user.list)
   // window.alert(user.list.length);
@@ -62,9 +84,11 @@ export default function PatientHome() {
    // navigate("/edit", { state: { id: item.id } });
     //todo dispatch action to set user type to caretaker
   };
-
+console.log("sdf"+items.showModelx);
   return (
     <div className=" h-screen font-mon flex flex-col items-center w-auto gap-5 2xs:gap-10 bg-scroll">
+              
+
       <Header />
 
       {list.length > 0 && (
@@ -76,6 +100,7 @@ export default function PatientHome() {
                 name={item.name}
                 phone={item.phone}
                 buttonName="DEL"
+                photo={dd}
                 handles={() => PatientEdit(item)}
               />
             </li>
@@ -88,9 +113,11 @@ export default function PatientHome() {
           text="Add"
           handles={addTakecarer}
           type="button"
+         
           data-modal-toggle="defaultModal"
         />
       )}
+       {(items.showModelx)&& <Modal2 handlesNotify={notifyEmergencylist} handlesCancel={cancel}/>}
     </div>
   );
 }

@@ -6,28 +6,18 @@ import { Navigate, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from 'react-redux'
 import { setEmail,setPassword, setUsername,setValid } from "../../redux/userSlice"
 
-import Modal2 from "../../components/library/Modal2";
-
+import{setShowModel}from"../../redux/counterSlice"
 
 export default function Header() {
-  const [showModal, setShowModal] = React.useState(false);
   const user = useSelector((state) => state.user);
+  const items = useSelector((state) => state.items);
+  const dispatch = useDispatch();
+
   const navigate = useNavigate();
 
-  //notify every one in the list
-  const notifyEmergencylist =()=>{
-   // window.alert("hi mo")
-    navigate("/sos")
-    
-  }
   
-  const cancel =()=>{
-    setShowModal(false);
-   
-  }
   return (
     <>
-         {(showModal)&& <Modal2 handlesNotify={notifyEmergencylist} handlesCancel={cancel}/>}
 
       <div className="flex justify-center   h-auto  max-w-xl w-full relative  bg-patienthome rounded-b-3xl">
 
@@ -58,7 +48,8 @@ export default function Header() {
           <div className="mt-4 mb-6 flex flex-row justify-center">
            
             <button className="  rounded-2xl w-40 h-10 bg-red-700 text-white text-xs font-bold " 
-            onClick={() => setShowModal(true)}> Not feeling well?</button>
+            onClick={() =>{dispatch(setShowModel(true));
+            console.log("xcdvfbgfv")}}> Not feeling well?</button>
 
             <button className= "hidden ml-2  rounded-2xl  w-52 h-10 bg-crazyblue text-white text-xs  font-bold "
             >EDIT EMERGENGY LIST</button>

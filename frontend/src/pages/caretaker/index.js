@@ -11,17 +11,21 @@ import {
 //import Doctor from "../../components/SVG/NoOne";
 import { ReactComponent as FemaleDoctor } from "../../assets/svgs/noOne.svg";
 import ListItem from "../../components/library/ListItem";
+import dd from "../../assets/svgs/patient.png";
 
 export default function Caretaker() {
   const user = useSelector((state) => state.user);
   const dispatch = useDispatch();
-  const ping = (item) => {};
+  const ping = (item) => {
+    console.log(item)
+  };
   const list = user.list;
 
   return (
-    <div className="h-screen font-mon flex flex-col items-center   ">
+    <div className="h-screen font-mon flex flex-col items-center ">
     <Header />
-      {list.length > 0 && (
+     <div className="pt-8 h-auto items-center flex flex-grow flex-col">
+     {list.length > 0 && (
         <ul>
           {list.map((item) => (
             <li key={item.id}>
@@ -30,12 +34,15 @@ export default function Caretaker() {
                 name={item.name}
                 phone={item.phone}
                 buttonName="PING"
+                photo={dd}
                 handles={() => ping(item)}
               />
             </li>
           ))}
         </ul>
       )}
+
+     </div>
 
       {list.length == 0 && (
         <div className="flex flex-grow flex-col justify-center items-center ">

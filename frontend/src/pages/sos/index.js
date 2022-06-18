@@ -3,43 +3,44 @@ import React, { Component } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
-import ar from "../../assets/alarm.mp3"
-
+import ar from "../../assets/alarm.mp3";
 
 export default function SOS() {
   const [audio] = useState(new Audio(ar));
   const [playing, setPlaying] = useState(true);
-useEffect(() => {
-  audio.loop=true;
-  
-  playing ? audio.play() : audio.pause();
-  console.log("sdcdcszx")
-  window.onpopstate = function(event){
-    //window.alert("sd")
-    audio.pause();
-};
- 
-}, [playing]);
+  useEffect(() => {
+    audio.loop = true;
+
+    playing ? audio.play() : audio.pause();
+    console.log("sdcdcszx");
+    window.onpopstate = function (event) {
+      //window.alert("sd")
+      audio.pause();
+    };
+  }, [playing]);
 
   const user = useSelector((state) => state.user);
   const navigate = useNavigate();
 
   const date = new Date();
-  // show time 
+  // show time
   const showTime =
     date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
-// navigate to home
-  const accessINFO=()=>{
-        audio.pause();
-        navigate("/info")
-                    }
-   const  goHOME=()=>{
+  // navigate to home
+  const accessINFO = () => {
     audio.pause();
-    if(user.type=="patient")
-    {navigate("/patienthome") }
-    else{navigate("/caretaker")}  }
-// do reset
-    const reset=()=>{}
+    navigate("/info");
+  };
+  const goHOME = () => {
+    audio.pause();
+    if (user.type == "patient") {
+      navigate("/patienthome");
+    } else {
+      navigate("/caretaker");
+    }
+  };
+  // do reset
+  const reset = () => {};
   return (
     <div className="flex flex-col items-center ">
       <div className=" pt-8  pb-6 h-screen font-mon flex flex-col items-center max-w-md w-full bg-[#F75010]">
@@ -49,7 +50,6 @@ useEffect(() => {
         <span className=" pt-5 block text-white font-bold font[Helvetica] text-[23px]">
           The Patient Fainted on: {showTime}
         </span>
-        
 
         <div className=" ml-6 pt-16 pb-4  flex flex-col items-start gap-2 ">
           <span className=" block pb-2 text-white font-bold font[Helvetica] text-[40px]">
@@ -59,26 +59,34 @@ useEffect(() => {
           <span className=" text-left text-white font-bold font[Helvetica] text-[23px]">
             -Call an Ambulance 911
           </span>
-          
+
           <span className="text-left text-white font-bold font[Helvetica] text-[23px]">
             -Notify the rest of the emergency list
           </span>
 
-          <span className="hover:text-slate-500 text-left text-white font-bold font[Helvetica] text-[23px]"onClick={accessINFO}>
+          <span
+            className="hover:text-slate-500 text-left text-white font-bold font[Helvetica] text-[23px]"
+            onClick={accessINFO}
+          >
             - Access Patient's medical history
           </span>
         </div>
         <div className="flex flex-row gap-5 pt-32">
-        
-          <button className="w-24 h-10 rounded-2xl bg-red-900  text-white font-bold font-mon mr-7" onClick={goHOME}>
+          <button
+            className="w-24 h-10 rounded-2xl bg-red-900  text-white font-bold font-mon mr-7"
+            onClick={goHOME}
+          >
             Cancel
           </button>
-        
-        {user.type == "patient" && (
-          <button className="w-24 h-10 rounded-2xl bg-red-900  text-white font-bold font-mon" onClick={reset}>
-            Reset
-          </button>
-        )}
+
+          {user.type == "patient" && (
+            <button
+              className="w-24 h-10 rounded-2xl bg-red-900  text-white font-bold font-mon"
+              onClick={reset}
+            >
+              Reset
+            </button>
+          )}
         </div>
       </div>
     </div>

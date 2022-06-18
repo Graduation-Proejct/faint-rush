@@ -2,25 +2,21 @@ import React from "react";
 
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import ar from "../../assets/alarm.mp3"
+import ar from "../../assets/alarm.mp3";
 import { useEffect, useState } from "react";
-
 
 export default function Faint() {
   const [audio] = useState(new Audio(ar));
   const [playing, setPlaying] = useState(true);
-  
+
   useEffect(() => {
-
-    
     audio.loop = true;
-      
-      audio.autoplay=true;
-      
-      audio.muted=false;
 
-     audio.play() ;
+    audio.autoplay = true;
 
+    audio.muted = false;
+
+    playing ? audio.play() : audio.pause();
 
     //console.log("sdcdcszx");
     window.onpopstate = function (event) {
@@ -47,9 +43,8 @@ export default function Faint() {
     }
   };
   // do reset
-  const reset = () => { 
-  };
-  navigate('/faint');
+  const reset = () => {};
+  navigate("/faint");
   return (
     <div className="flex flex-col items-center ">
       <div className=" pt-8  pb-6 h-screen font-mon flex flex-col items-center max-w-md w-full bg-[#F75010]">
@@ -79,16 +74,15 @@ export default function Faint() {
             - Access Patient's medical history
           </span>
         </div>
-        <div className="flex flex-row gap-5">
+        <div className="flex flex-row gap-5 pt-32">
           <button
             className="w-24 h-10 rounded-2xl bg-red-900  text-black font-bold font-mon"
             onClick={goHOME}
           >
             Cancel
           </button>
-          
 
-          {user.type == "patient" && (
+          {user.type != "patient" && (
             <button
               className="w-24 h-10 rounded-2xl bg-red-900  text-black font-bold font-mon"
               onClick={reset}
@@ -96,7 +90,6 @@ export default function Faint() {
               Reset
             </button>
           )}
-          
         </div>
       </div>
     </div>
