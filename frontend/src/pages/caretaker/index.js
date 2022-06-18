@@ -65,14 +65,16 @@ export default function Caretaker() {
           <ul>
             {list.map((item) => (
               <li key={item.id}>
-                <ListItem
-                  relation={item.relation}
-                  name={item.name}
-                  phone={item.phone}
-                  buttonName="PING"
-                  photo={dd}
-                  handles={() => ping(item)}
-                />
+                {item?.name && (
+                  <ListItem
+                    relation={item.relation}
+                    name={item.name}
+                    phone={item.phone}
+                    buttonName="PING"
+                    photo={dd}
+                    handles={() => ping(item)}
+                  />
+                )}
               </li>
             ))}
           </ul>
