@@ -26,25 +26,27 @@ import {
 } from "../../redux/counterSlice";
 
 export default function Main() {
+  const [notify, setNotify] = useState(false);
+
+  console.log(notify);
   const user = useSelector((state) => state.user);
   const items = useSelector((state) => state.items);
   const fireBaseServer = useSelector((state) => state.user.fireBaseServer);
   var isNew = true;
+  var HH=true;
   const [value, setValue] = useState(true);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const navigateToPatientHome = async(e) => {
+  const navigateToPatientHome = async (e) => {
     e.preventDefault();
     isNew = true;
     //navigate("/getstarted");
 
-   
-
     console.log("in" + isNew);
-   const x= await isValid();
-   // console.log("ddd"+ x.data.email)
-    setData(x)
+    const x = await isValid();
+    // console.log("ddd"+ x.data.email)
+    setData(x);
   };
 
   // check  if user valid in login page
@@ -69,72 +71,81 @@ export default function Main() {
       .then((response) => {
         console.log(response.data);
         if (response.data.UID != "error") {
-          if(isNew){
-
-          localStorage.setItem("email", user.email);
-          localStorage.setItem("password", user.password);
-          localStorage.setItem("flib",true);
+          if (isNew) {
+            localStorage.setItem("email", user.email);
+            localStorage.setItem("password", user.password);
+            localStorage.setItem("flib", true);
           }
-         return response;
+          return response;
         } else {
           dispatch(setLoading(false));
+          setNotify(true)
+          showNotification();
           return false;
         }
       });
   }
-function setData(response){
-  dispatch(setUID(response.data.UID));
-  dispatch(setUsername(response.data.name));
-  dispatch(setEmail(response.data.email));
-  dispatch(setPassword(response.data.password));
-  dispatch(setPhone(response.data.phone));
-  dispatch(setType(response.data.type));
-  dispatch(setList(response.data.list));
+  function setData(response) {
+    dispatch(setUID(response.data.UID));
+    dispatch(setUsername(response.data.name));
+    dispatch(setEmail(response.data.email));
+    dispatch(setPassword(response.data.password));
+    dispatch(setPhone(response.data.phone));
+    dispatch(setType(response.data.type));
+    dispatch(setList(response.data.list));
 
-  dispatch(setValid(true));
-  //dispatch(setLoading(false));
-  console.log(response.data.type);
-  
-  if (response.data.type == "patient") {
-    //console.log("in if")
-    navigate("/patienthome");
-  } else {
-    navigate("/caretaker");
+    dispatch(setValid(true));
+    //dispatch(setLoading(false));
+    console.log(response.data.type);
+
+    if (response.data.type == "patient") {
+      //console.log("in if")
+      navigate("/patienthome");
+    } else {
+      
+      navigate("/caretaker");
+    }
   }
-}
-
 
   useEffect(() => {
-    
-
     const handleChange = async () => {
-      
-     // await timeout(1000);
-    const loggedInUser = localStorage.getItem("email");
-    const loggedInUserPass = localStorage.getItem("password");
-    const flib= localStorage.getItem("flib");
+      // await timeout(1000);
+      const loggedInUser = localStorage.getItem("email");
+      const loggedInUserPass = localStorage.getItem("password");
+      const flib = localStorage.getItem("flib");
 
-    
-    console.log("useEffect");
-    if (loggedInUser && loggedInUserPass) {
-      isNew = false;
-      console.log(loggedInUser);
-      console.log(loggedInUserPass);
-      console.log(flib);
-     if(flib!=false){
-      localStorage.setItem("flib",false);
-      var data = await isValid();
-      setData(data)
+      console.log("useEffect");
       
+        console.log("useEffectssss");
 
-     }
-    }
+        if (loggedInUser && loggedInUserPass) {
+          isNew = false;
+          console.log(loggedInUser);
+          console.log(loggedInUserPass);
+          console.log(flib);
+          if (flib != false) {
+            localStorage.setItem("flib", false);
+            var data = await isValid();
+            setData(data);
+          }
+        }
+      
     };
 
     handleChange();
     //Cleanup function is called when useEffect is called again or on unmount
-    
   }, [value]);
+
+  const showNotification = () => {
+  
+    setTimeout(()=>{
+      HH=false;
+    },3000)
+    console.log("inside showNot");
+    
+    console.log("setNot : " + HH);
+
+  };
 
   return (
     <>
@@ -170,6 +181,7 @@ function setData(response){
 
         <Button text="LOGIN" />
       </form>
+      <Notification notify={HH} />
     </>
   );
 }

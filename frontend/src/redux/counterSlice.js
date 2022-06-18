@@ -5,7 +5,7 @@ const initialState = {
   editValue:false,
   loading:false,
   showModelx:false,
-   cancel :true,
+   cancel :false,
   list:[],
 }
 

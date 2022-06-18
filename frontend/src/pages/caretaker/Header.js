@@ -10,8 +10,18 @@ import {
   setValid,
 } from "../../redux/userSlice";
 
+
 export default function Header() {
   const user = useSelector((state) => state.user);
+  const dispatch = useDispatch();
+
+  const logout=()=>{
+    
+    localStorage.clear(); 
+    dispatch(setValid(false))
+  
+    window.location.reload()
+  }
   return (
     <>
       <div className="flex justify-center  pb-3 h-auto  max-w-xl w-full relative  bg-patienthome rounded-b-3xl ">
@@ -22,9 +32,9 @@ export default function Header() {
               className="  rounded-full border-white bg-green-300 w-12 h-12 border-4 m-auto absolute  right-5 top-5"
             ></img>
 
-            <button className="hidden  pl-2 rounded-full  w-12 h-12 m-auto absolute  left-5 top-5">
-              <TG />
-            </button>
+<button onClick={logout} className="  pl-2 rounded-full  w-10 h-12 m-auto absolute  left-5 top-5">
+              <TG/></button>
+
           </div>
 
           <div className="flex flex-col  ">

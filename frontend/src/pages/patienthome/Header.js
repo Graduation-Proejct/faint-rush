@@ -7,6 +7,12 @@ import { useSelector, useDispatch } from 'react-redux'
 import { setEmail,setPassword, setUsername,setValid } from "../../redux/userSlice"
 
 import{setShowModel}from"../../redux/counterSlice"
+import {
+  setSignUpValue,
+  setEditValue,
+  setLoading,
+} from "../../redux/counterSlice";
+
 
 export default function Header() {
   const user = useSelector((state) => state.user);
@@ -15,7 +21,13 @@ export default function Header() {
 
   const navigate = useNavigate();
 
+  const logout=()=>{
+    
+    localStorage.clear(); 
+    dispatch(setValid(false))
   
+    window.location.reload()
+  }
   return (
     <>
 
@@ -26,7 +38,7 @@ export default function Header() {
            
             <img src={dd} className="  rounded-full border-white  w-12 h-12 border-4 m-auto absolute  right-5 top-5"></img>
 
-            <button className=" hidden pl-2 rounded-full  w-12 h-12 m-auto absolute  left-5 top-5">
+            <button onClick={logout} className="  pl-2 rounded-full  w-10 h-12 m-auto absolute  left-5 top-5">
               <TG/></button>
 
           </div>
