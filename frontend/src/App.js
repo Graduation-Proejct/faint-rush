@@ -8,8 +8,8 @@ import { useNavigate } from "react-router-dom";
 import { lazy, Suspense } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
-import { SocketContext, setFireBaseServer, setSocket } from "./redux/userSlice";
-import { socket } from "./services/Socket";
+import { setFireBaseServer, setSocket } from "./redux/userSlice";
+import { SocketContext, socket } from "./services/Socket";
 
 import PrivateRoute from "./components/PrivateRoute";
 import PrivateRouteSignUp from "./components/PrivateRouteSignUp";

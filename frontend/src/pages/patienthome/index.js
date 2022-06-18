@@ -55,10 +55,15 @@ export default function PatientHome() {
 
   useEffect(
     () => {
+      socket.emit("join", {
+        name: user.name,
+        type: user.type,
+        token: user.UID,
+      });
       return () => {
         // before the component is destroyed
         // unbind all event handlers used in this component
-        socket.off("JOIN_REQUEST_ACCEPTED", handleInviteAccepted);
+        socket.off("join", handleInviteAccepted);
       };
     },
     [ socket, handleInviteAccepted ]
