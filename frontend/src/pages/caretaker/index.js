@@ -49,17 +49,21 @@ export default function Caretaker() {
         navigate("/sos");
       });
       // HANDLERS
+      let go;
       socket.on("faint-alarm", () => {
-        setTimeout(function() {
+       go = setTimeout(function() {
           navigate("/faint");
           
         }, 5000);
+      });
+      socket.on("reset", () => {
+       clearTimeout(go)
       });
       return () => {
         // before the component is destroyed
         // unbind all event handlers used in this component
         socket.off("faint-alarm");
-
+        socket.off("reset");
         socket.off("join");
       };
     },
