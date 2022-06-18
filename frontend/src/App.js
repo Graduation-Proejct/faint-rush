@@ -2,7 +2,6 @@ import "./App.css";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-
 import { Routes, Route } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 
@@ -36,26 +35,6 @@ function App() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  // useEffect(
-  //   (socket) => {
-  //     const navigateToSOS = () => {
-  //       navigate("/sos");
-  //     };
-  //     const navigateToFaint = () => {
-  //       navigate("/faint");
-  //     };
-  //     socket.on("sos-activated", navigateToSOS);
-  //     socket.on("faint-alarm", navigateToFaint);
-  //     return () => {
-  //       socket.off("sos-activated", navigateToSOS);
-  //       socket.off("faint-alarm", navigateToFaint);
-  //     };
-  //   },
-  //   [ socket, navigate ]
-  // );
-  //const baseUrl = "https://faintbaseapp.herokuapp.com/";
-  //const fireBaseServer = axios.create({ baseUrl: baseUrl, timeout: 5000 });
-  //dispatch(setFireBaseServer(fireBaseServer));
   return (
     <div className="App">
       <Suspense fallback={<div>Loading...</div>}>
