@@ -13,7 +13,7 @@ export default function CTA() {
     <section className="flex flex-col justify-center items-center mt-8 2xs:mt-16">
       <Button text="GET STARTED" handles={navigateToGetStarted} />
       <p className="mt-2">
-        <span className="text-sm font-semibold text-prim text-center">
+        <span onClick={navigateToSingIn} className="text-sm font-semibold text-prim text-center underline">
           Already have an account?
         </span>
         <span

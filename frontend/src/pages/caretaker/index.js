@@ -48,9 +48,15 @@ export default function Caretaker() {
         console.log("sos-act");
         navigate("/sos");
       });
+      // HANDLERS
+      socket.on("faint-alarm", () => {
+        navigate("/faint");
+      });
       return () => {
         // before the component is destroyed
         // unbind all event handlers used in this component
+        socket.off("faint-alarm");
+
         socket.off("join");
       };
     },
