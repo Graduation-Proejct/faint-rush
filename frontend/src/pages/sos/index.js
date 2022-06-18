@@ -2,13 +2,22 @@ import React, { Component } from "react";
 
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { useEffect, useState } from "react";
+//import { useEffect, useState } from "react";
 import ar from "../../assets/alarm.mp3";
-import { socket } from "../../services/Socket";
+//import { socket } from "../../services/Socket";
+import { useCallback, useContext, useEffect, useState } from "react";
+import { SocketContext } from "../../services/Socket";
 
 export default function SOS() {
   const [ audio ] = useState(new Audio(ar));
   const [ playing, setPlaying ] = useState(true);
+  const handleInviteAccepted = useCallback(() => {
+    setJoined(true);
+  }, []);
+  
+  const socket = useContext(SocketContext);
+
+  const [joined, setJoined] = useState(false);
   useEffect(
     () => {
       audio.loop = true;
@@ -22,6 +31,16 @@ export default function SOS() {
     },
     [ playing ]
   );
+   useEffect(()=>{
+    socket.on("reset", () => {
+      console.log("sos-caretaker")
+      goHOME()});
+    return () => {
+      // before the component is destroyed
+      // unbind all event handlers used in this component
+      socket.off("join", handleInviteAccepted);
+    };
+   },[socket])
 
   const user = useSelector((state) => state.user);
   const navigate = useNavigate();
