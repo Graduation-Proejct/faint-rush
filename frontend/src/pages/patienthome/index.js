@@ -126,7 +126,7 @@ export default function PatientHome() {
       )}
 
       <div
-        className={`alert alert-success shadow-lg transition opacity-${false
+        className={`alert alert-error shadow-lg transition opacity-${true
           ? "1"
           : "0"}`}
       >
