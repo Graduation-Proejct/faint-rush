@@ -1,6 +1,5 @@
 import "./App.css";
-import { ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+
 
 import { Routes, Route } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
@@ -102,7 +101,6 @@ function App() {
             />
           </Routes>
         </Suspense>
-        <ToastContainer />
       </SocketContext.Provider>
     </div>
   );

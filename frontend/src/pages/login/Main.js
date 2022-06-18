@@ -4,7 +4,6 @@ import axios from "axios";
 import Button from "../../components/library/Button";
 import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { toast } from "react-toastify";
 
 import {
   setEmail,

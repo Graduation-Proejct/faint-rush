@@ -1,32 +1,13 @@
-import React from "react";
 
+import axios from "axios";
 import Logo from "../../components/SVG/Logo";
 import Header from "./Header";
 import Main from "./Main";
-import axios from "axios";
-import { toast } from "react-toastify";
 
 import { useNavigate } from "react-router-dom";
 
-import { useSelector, useDispatch } from "react-redux";
-import {
-  setEmail,
-  setPassword,
-  setUsername,
-  setValid,
-  setItemName,
-  setItemRlation,
-  setItemPhone,
-  setPhone,
-  setType,
-} from "../../redux/userSlice";
 import { useState } from "react";
-import {
-  setSignUpValue,
-  setEditValue,
-  setLoading,
-  setList,
-} from "../../redux/counterSlice";
+import { useDispatch, useSelector } from "react-redux";
 
 export default function SignUpNext() {
   const items = useSelector((state) => state.items);

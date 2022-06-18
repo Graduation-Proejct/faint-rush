@@ -23,7 +23,6 @@ import {
   setLoading,
   setList,
 } from "../../redux/counterSlice";
-import { toast } from "react-toastify";
 
 export default function Main() {
   const user = useSelector((state) => state.user);
@@ -71,7 +70,7 @@ export default function Main() {
               navigate("/caretaker");
             }
           } else {
-            toast.error("Minimum Password length should be 6 characters ");
+           // toast.error("Minimum Password length should be 6 characters ");
           }
         });
     } else {
