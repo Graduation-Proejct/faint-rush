@@ -51,6 +51,17 @@ export default function Faint() {
   //     socket.off("faint-alarm");
   //   };
   // }, []);
+  useEffect(
+    () => {
+      socket.on("reset", () => {
+        goHOME();
+      });
+      return () => {
+        socket.off("reset");
+      };
+    },
+    [ socket, goHOME ]
+  );
 
   const showTime =
     date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
