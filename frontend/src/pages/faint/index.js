@@ -1,30 +1,54 @@
-import React from "react";
+import React, { useContext } from "react";
 
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import ar from "../../assets/alarm.mp3";
 import { useEffect, useState } from "react";
+import { SocketContext } from "../../services/Socket";
 
 export default function Faint() {
-  const [audio] = useState(new Audio(ar));
-  const [playing, setPlaying] = useState(true);
-
-  useEffect(() => {
-    audio.loop = true;
-
-    audio.autoplay = true;
-
-    audio.muted = false;
-
-    playing ? audio.play() : audio.pause();
-
-    //console.log("sdcdcszx");
-    window.onpopstate = function (event) {
-      //window.alert("sd")
-      audio.pause();
-    };
-  }, [playing]);
+  console.count("Faint");
+  const [ audio ] = useState(new Audio(ar));
+  const [ playing, setPlaying ] = useState(true);
+  const [ faintActivated, setFaintActivated ] = useState(false);
+  const socket = useContext(SocketContext);
   const user = useSelector((state) => state.user);
+  console.log("🚀 ~ file: index.js ~ line 16 ~ Faint ~ user", user);
+
+  useEffect(
+    () => {
+      audio.loop = true;
+
+      playing ? audio.play() : audio.pause();
+      console.log("sdcdcszx");
+      window.onpopstate = function(event) {
+        //window.alert("sd")
+        audio.pause();
+      };
+    },
+    [ playing ]
+  );
+  useEffect(() => {
+    socket.on("faint-alarm", () => {
+      setFaintActivated(true);
+    });
+
+    return () => {
+      // before the component is destroyed
+      // unbind all event handlers used in this component
+      socket.off("faint-alarm", () => {
+        goHOME();
+      });
+      return () => {
+        // before the component is destroyed
+        // unbind all event handlers used in this component
+        socket.off("join");
+        socket.off("faint-alarm");
+        socket.off("are-you-ok");
+      };
+    };
+  }, []);
+
   const date = new Date();
   const navigate = useNavigate();
 
@@ -43,7 +67,14 @@ export default function Faint() {
     }
   };
   // do reset
-  const reset = () => {};
+  const reset = () => {
+    socket.emit("reset");
+    goHOME();
+  };
+  const IAmFine = () => {
+    socket.emit("i-am-fine");
+    goHOME();
+  };
   navigate("/faint");
   return (
     <div className="flex flex-col items-center ">
@@ -82,7 +113,7 @@ export default function Faint() {
             Cancel
           </button>
 
-          {user.type != "patient" && (
+          {user.type === "patient" && (
             <button
               className="w-24 h-10 rounded-2xl bg-red-900  text-black font-bold font-mon"
               onClick={reset}
@@ -90,6 +121,14 @@ export default function Faint() {
               Reset
             </button>
           )}
+          {user.type === "patient" && !faintActivated ? (
+            <button
+              className="w-24 h-10 rounded-2xl bg-red-900  text-black font-bold font-mon"
+              onClick={IAmFine}
+            >
+              I'm Fine
+            </button>
+          ) : null}
         </div>
       </div>
     </div>

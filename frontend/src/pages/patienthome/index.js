@@ -66,10 +66,15 @@ export default function PatientHome() {
       socket.on("faint-alarm", () => {
         navigate("/faint");
       });
+      socket.on("are-you-ok", () => {
+        navigate("/faint");
+      });
       return () => {
         // before the component is destroyed
         // unbind all event handlers used in this component
         socket.off("join");
+        socket.off("faint-alarm");
+        socket.off("are-you-ok");
       };
     },
     [ socket, user ]
