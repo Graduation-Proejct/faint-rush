@@ -29,15 +29,15 @@ export default function Header() {
           <div className="">
             <img
               src={dd}
-              className="  rounded-full border-white bg-green-300 w-12 h-12 border-4 m-auto absolute  right-5 top-20"
+              className="  rounded-full border-white bg-green-300 w-12 h-12 border-4 m-auto absolute  right-5 top-10"
             ></img>
 
-<button onClick={logout} className="  pl-2 rounded-full  w-10 h-12 m-auto absolute  left-5 top-20">
+<button onClick={logout} className="  pl-2 rounded-full  w-10 h-12 m-auto absolute  left-5 top-10">
               <TG/></button>
 
           </div>
-
-          <div className="flex flex-col  ">
+ 
+          <div className="flex flex-col mt-4 ">
             <h4 className="flex font-mono text-3xl font-extrabold text-crazyblue mb-2 items-start">
               Good Evening,
               <br></br>

@@ -47,7 +47,7 @@ export default function Login() {
   }
 
   return (
-    <div className="pt-10 h-screen font-mon flex flex-col gap-5 2xs:gap-10 items-center  ">
+    <div className="pt-16 h-screen font-mon flex flex-col gap-5 2xs:gap-10 items-center  ">
       <Logo />
       <Header />
 
