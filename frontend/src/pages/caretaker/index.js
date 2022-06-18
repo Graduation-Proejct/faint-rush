@@ -24,7 +24,7 @@ export default function Caretaker() {
 
   const socket = useContext(SocketContext);
 
-  const [joined, setJoined] = useState(false);
+  const [ joined, setJoined ] = useState(false);
 
   const handleInviteAccepted = useCallback(() => {
     setJoined(true);
@@ -35,23 +35,27 @@ export default function Caretaker() {
     console.log(item);
   };
   const list = user.list;
-  useEffect(() => {
-    socket.emit("join", {
-      name: user.username,
-      type: user.type,
-      token: user.UID,
-    });
+  useEffect(
+    () => {
+      socket.emit("join", {
+        name: user.username,
+        type: user.type,
+        token: user.UID,
+      });
 
-    console.log("USER SHOULD BE JOINED BY NOW", user);
-    socket.on("sos-activated", () => {
-      console.log("sos-act")
-      navigate('/sos')});
-    return () => {
-      // before the component is destroyed
-      // unbind all event handlers used in this component
-      socket.off("join", handleInviteAccepted);
-    };
-  }, [socket, handleInviteAccepted, user]);
+      console.log("USER SHOULD BE JOINED BY NOW", user);
+      socket.on("sos-activated", () => {
+        console.log("sos-act");
+        navigate("/sos");
+      });
+      return () => {
+        // before the component is destroyed
+        // unbind all event handlers used in this component
+        socket.off("join");
+      };
+    },
+    [ socket, user, navigate ]
+  );
 
   return (
     <div className="h-screen font-mon flex flex-col items-center ">
