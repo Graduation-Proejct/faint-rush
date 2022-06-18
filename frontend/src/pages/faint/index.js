@@ -113,14 +113,14 @@ export default function Faint() {
             Cancel
           </button>
 
-          {user.type === "patient" && (
+          {user.type === "patient" && faintActivated ? (
             <button
               className="w-24 h-10 rounded-2xl bg-red-900  text-black font-bold font-mon"
               onClick={reset}
             >
               Reset
             </button>
-          )}
+          ) : null}
           {user.type === "patient" && !faintActivated ? (
             <button
               className="w-24 h-10 rounded-2xl bg-red-900  text-black font-bold font-mon"
