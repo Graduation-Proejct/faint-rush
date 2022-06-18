@@ -146,7 +146,7 @@ export default function Main() {
           <input
             required
             className="border-4 text-center placeholder:italic placeholder:text-slate-400 block  w-80 h-14 drop-shadow-md mt-4	rounded-2xl  "
-            type="number"
+            type="tel"
             name="phone"
             onChange={(e) => dispatch(setPhone(e.target.value))}
             placeholder="Phone"
