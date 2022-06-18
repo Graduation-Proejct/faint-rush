@@ -33,7 +33,6 @@ export default function PatientHome() {
   let list = user.list;
   //notify every one in the list
   const notifyEmergencylist = () => {
-    // window.alert("hi mo")
     navigate("/sos");
   };
 
@@ -56,10 +55,11 @@ export default function PatientHome() {
   useEffect(
     () => {
       socket.emit("join", {
-        name: user.name,
+        name: user.username,
         type: user.type,
         token: user.UID,
       });
+
       console.log("USER SHOULD BE JOINED BY NOW", user);
       return () => {
         // before the component is destroyed
