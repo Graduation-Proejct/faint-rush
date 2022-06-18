@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useCallback, useContext } from "react";
 
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -13,7 +13,8 @@ export default function Faint() {
   const [ faintActivated, setFaintActivated ] = useState(false);
   const socket = useContext(SocketContext);
   const user = useSelector((state) => state.user);
-  console.log("🚀 ~ file: index.js ~ line 16 ~ Faint ~ user", user);
+  const date = new Date();
+  const navigate = useNavigate();
 
   useEffect(
     () => {
@@ -28,29 +29,28 @@ export default function Faint() {
     },
     [ playing ]
   );
-  useEffect(() => {
-    socket.on("faint-alarm", () => {
-      setFaintActivated(true);
-    });
 
-    return () => {
-      // before the component is destroyed
-      // unbind all event handlers used in this component
-      socket.off("faint-alarm", () => {
-        goHOME();
-      });
-      return () => {
-        // before the component is destroyed
-        // unbind all event handlers used in this component
-        socket.off("join");
-        socket.off("faint-alarm");
-        socket.off("are-you-ok");
-      };
-    };
+  const updateFaintActivated = useCallback(() => {
+    setFaintActivated(true);
   }, []);
+  const goHOME = useCallback(
+    () => {
+      audio.pause();
+      if (user.type == "patient") {
+        navigate("/patienthome");
+      } else {
+        navigate("/caretaker");
+      }
+    },
+    [ user, audio, navigate ]
+  );
+  // useEffect(() => {
+  //   socket.on("faint-alarm", updateFaintActivated);
 
-  const date = new Date();
-  const navigate = useNavigate();
+  //   return () => {
+  //     socket.off("faint-alarm");
+  //   };
+  // }, []);
 
   const showTime =
     date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
@@ -58,14 +58,7 @@ export default function Faint() {
     audio.pause();
     navigate("/info");
   };
-  const goHOME = () => {
-    audio.pause();
-    if (user.type == "patient") {
-      navigate("/patienthome");
-    } else {
-      navigate("/caretaker");
-    }
-  };
+
   // do reset
   const reset = () => {
     socket.emit("reset");
@@ -113,22 +106,22 @@ export default function Faint() {
             Cancel
           </button>
 
-          {user.type === "patient" && faintActivated ? (
+          {user.type === "patient" ? (
             <button
               className="w-24 h-10 rounded-2xl bg-red-900  text-black font-bold font-mon"
               onClick={reset}
             >
-              Reset
+              {user.type === "patient" ? "I'm Fine" : "reset"}
             </button>
           ) : null}
-          {user.type === "patient" && !faintActivated ? (
+          {/* {user.type === "patient" && !faintActivated ? (
             <button
               className="w-24 h-10 rounded-2xl bg-red-900  text-black font-bold font-mon"
               onClick={IAmFine}
             >
               I'm Fine
             </button>
-          ) : null}
+          ) : null} */}
         </div>
       </div>
     </div>

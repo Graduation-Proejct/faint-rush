@@ -63,10 +63,8 @@ export default function PatientHome() {
       console.log("USER SHOULD BE JOINED BY NOW", user);
 
       // HANDLERS
+
       socket.on("faint-alarm", () => {
-        navigate("/faint");
-      });
-      socket.on("are-you-ok", () => {
         navigate("/faint");
       });
       return () => {

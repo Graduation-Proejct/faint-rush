@@ -50,7 +50,10 @@ export default function Caretaker() {
       });
       // HANDLERS
       socket.on("faint-alarm", () => {
-        navigate("/faint");
+        setTimeout(function() {
+          navigate("/faint");
+          
+        }, 5000);
       });
       return () => {
         // before the component is destroyed
