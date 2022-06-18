@@ -36,9 +36,9 @@ export default function Header() {
         <div className=" flex flex-col pt-20 items-center " >
           <div className="">
            
-            <img src={dd} className="  rounded-full border-white  w-12 h-12 border-4 m-auto absolute  right-5 top-5"></img>
+            <img src={dd} className="  rounded-full border-white  w-12 h-12 border-4 m-auto absolute  right-5 top-20"></img>
 
-            <button onClick={logout} className="  pl-2 rounded-full  w-10 h-12 m-auto absolute  left-5 top-5">
+            <button onClick={logout} className="  pl-2 rounded-full  w-10 h-12 m-auto absolute  left-5 top-20">
               <TG/></button>
 
           </div>

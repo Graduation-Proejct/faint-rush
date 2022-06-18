@@ -102,7 +102,7 @@ export default function Faint() {
           <span className="text-left text-white font-bold font[Helvetica] text-[23px]">
             -Notify the rest of the emergency list
           </span>
-          {(user.type === "patient")&&<span
+          {(user.type != "patient")&&<span
             className="text-left hover:bg-slate-50 text-white font-bold font[Helvetica] text-[23px] underline"
             onClick={accessINFO}
           >
