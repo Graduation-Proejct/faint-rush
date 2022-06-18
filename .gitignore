@@ -7,3 +7,4 @@ frontend/package.json
 frontend/yarn.lock
 *.json
 node_modules/.yarn-integrity
+node_modules
