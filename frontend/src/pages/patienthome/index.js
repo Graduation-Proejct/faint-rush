@@ -60,13 +60,14 @@ export default function PatientHome() {
         type: user.type,
         token: user.UID,
       });
+      console.log("USER SHOULD BE JOINED BY NOW", user);
       return () => {
         // before the component is destroyed
         // unbind all event handlers used in this component
         socket.off("join", handleInviteAccepted);
       };
     },
-    [ socket, handleInviteAccepted ]
+    [ socket, handleInviteAccepted, user ]
   );
 
   // nev to edit page
