@@ -68,9 +68,12 @@ export default function Main() {
       .then((response) => {
         console.log(response.data);
         if (response.data.UID != "error") {
+          if(isNew){
+
           localStorage.setItem("email", user.email);
           localStorage.setItem("password", user.password);
           localStorage.setItem("flib",true);
+          }
          return response;
         } else {
           dispatch(setLoading(false));
@@ -106,7 +109,7 @@ function setData(response){
     const handleChange = async () => {
       
      // await timeout(1000);
-     const loggedInUser = localStorage.getItem("email");
+    const loggedInUser = localStorage.getItem("email");
     const loggedInUserPass = localStorage.getItem("password");
     const flib= localStorage.getItem("flib");
 
