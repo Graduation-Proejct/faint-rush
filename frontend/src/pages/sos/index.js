@@ -75,8 +75,8 @@ export default function SOS() {
         console.log( response.data.questions);
         console.log( "ssss"+response.data.medicalHistory);
       // after fix uncommet code and then put data at  info page  
-       //   dispatch(setQuestions(questions));
-         // dispatch(setMedicalHistory(medicalHistory))
+          dispatch(setQuestions(response.data.questions));
+          dispatch(setMedicalHistory(response.data.medicalHistory))
 
        
       }
@@ -136,7 +136,7 @@ export default function SOS() {
           </span>
 
           {(user.type != "patient")&&<span
-            className="text-left hover:bg-slate-50 text-white font-bold font[Helvetica] text-[23px] underline"
+            className="text-left  text-white font-bold font[Helvetica] text-[23px] underline"
             onClick={accessINFO}
           >
             - Access Patient's medical history

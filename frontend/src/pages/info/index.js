@@ -2,11 +2,20 @@ import React from "react";
 
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import {
+  setSignUpValue,
+  setEditValue,
+  setLoading,
+  setCancel,
+  setIsNot,
+  setMedicalHistory,
+  setQuestions,
+} from "../../redux/counterSlice";
 
 export default function INFO() {
   const user = useSelector((state) => state.user);
   const navigate = useNavigate();
-
+  const items = useSelector((state) => state.items);
   const date = new Date();
   const showTime =
     date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
@@ -21,8 +30,7 @@ export default function INFO() {
   // do reset
 
   const reset = () => {};
- var text="I suffer from high blood sugar and sometimes and I have had Coronavirus disease (COVID-19)"
-          
+  var text="I suffer from high blood sugar and sometimes and I have had Coronavirus disease (COVID-19)"
   var list = [
     "Arrhythmia",
     "daibase type 2",
@@ -30,6 +38,13 @@ export default function INFO() {
     "Seizure",
     " Hyperventilation",
   ];
+  if(items.list.length!=0){
+      list=items.list
+  }
+  if(items.medicalHistory!=""){
+    text=items.medicalHistory
+}
+
   return (
     <div className="flex justify-center">
       <div className="pl-2 pt-10 h-screen  flex items-start  flex-col    max-w-xl w-full relative ">
