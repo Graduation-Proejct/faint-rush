@@ -41,7 +41,7 @@ function App() {
       <SocketContext.Provider value={socket}>
         <Suspense fallback={<div>Loading...</div>}>
           <Routes>
-            <Route path="/" element={<Splash />} />
+            
             <Route path="/getstarted" element={<GetStarted />} />
             <Route path="/login" element={<Login />} />
 
@@ -99,6 +99,9 @@ function App() {
                 </PrivateRoute>
               }
             />
+            <Route path="/" element={<Splash />} />
+            <Route path="*" element={<Splash />} />
+
           </Routes>
         </Suspense>
       </SocketContext.Provider>
