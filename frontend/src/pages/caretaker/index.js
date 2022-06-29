@@ -17,6 +17,7 @@ import { SocketContext } from "../../services/Socket";
 
 import ListItem from "../../components/library/ListItem";
 import dd from "../../assets/svgs/patient.png";
+import { setLoading, setShowModel } from "../../redux/counterSlice";
 import { Navigate } from "react-router-dom";
 
 export default function Caretaker() {
@@ -30,7 +31,10 @@ export default function Caretaker() {
     setJoined(true);
   }, []);
   const user = useSelector((state) => state.user);
+  const items = useSelector((state) => state.items);
   const dispatch = useDispatch();
+  
+  dispatch(setLoading(false))
   const ping = (item) => {
     console.log(item);
   };

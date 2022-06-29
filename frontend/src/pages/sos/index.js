@@ -3,12 +3,24 @@ import React, { Component } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 //import { useEffect, useState } from "react";
+import axios from "axios";
+
 import ar from "../../assets/alarm.mp3";
 //import { socket } from "../../services/Socket";
 import { useCallback, useContext, useEffect, useState } from "react";
 import { SocketContext } from "../../services/Socket";
+import { ReactComponent as Spinner } from "../../assets/svgs/spinner.svg";
+import {
+  setSignUpValue,
+  setEditValue,
+  setLoading,
+  setMedicalHistory,
+  setQuestions,
+} from "../../redux/counterSlice";
 
 export default function SOS() {
+  const items = useSelector((state) => state.items);
+
   const [ audio ] = useState(new Audio(ar));
   const [ playing, setPlaying ] = useState(true);
   const handleInviteAccepted = useCallback(() => {
@@ -44,14 +56,32 @@ export default function SOS() {
 
   const user = useSelector((state) => state.user);
   const navigate = useNavigate();
-
+  const dispatch = useDispatch();
   const date = new Date();
   // show time
   const showTime =
     date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
   // navigate to home
-  const accessINFO = () => {
+  const accessINFO =async () => {
     audio.pause();
+    dispatch(setLoading(true))
+    var temp ={UID :user.UID}
+    await axios
+    .post("https://faintbaseapp.herokuapp.com/sos_patient", temp)
+    .then((response) => {
+      console.log("before" + response.data);
+      if (response.data) {
+        console.log("-------------")
+        console.log( response.data.questions);
+        console.log( "ssss"+response.data.medicalHistory);
+      // after fix uncommet code and then put data at  info page  
+       //   dispatch(setQuestions(questions));
+         // dispatch(setMedicalHistory(medicalHistory))
+
+       
+      }
+    }); 
+    setLoading(false)
     navigate("/info");
   };
   const goHOME = () => {
@@ -67,6 +97,21 @@ export default function SOS() {
     socket.emit("reset", { message: "reset" });
     goHOME();
   };
+
+  
+  if (items.loading) {
+    return (
+      <div className=" flex flex-col gap-5">
+        <div className="flex h-screen flex-col  justify-center  ">
+          <div className="  justify-center">
+            <Spinner />
+          </div>
+        </div>
+       
+      </div>
+    );
+  }
+
   return (
     <div className="flex flex-col items-center ">
       <div className=" pt-8  pb-6 h-screen font-mon flex flex-col items-center max-w-md w-full bg-[#F75010]">

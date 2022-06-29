@@ -6,7 +6,7 @@ export default function Header() {
       <header>
         <h1>
           <span className="text-xl font-bold text-sec">
-            <span className="text-prim text-1.5xl">Edit</span>
+            <span className="text-prim text-1.5xl">Add</span>
           </span>
         </h1>
       </header>

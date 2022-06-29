@@ -11,7 +11,7 @@ import Button from "../../components/library/Button";
 
 import { useCallback, useContext, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { setShowModel } from "../../redux/counterSlice";
+import { setLoading, setShowModel } from "../../redux/counterSlice";
 import { delCareTaker } from "../../redux/userSlice";
 import { SocketContext } from "../../services/Socket";
 
@@ -32,6 +32,7 @@ export default function PatientHome() {
 
   let list = user.list;
   //notify every one in the list
+  dispatch(setLoading(false))
   const notifyEmergencyList = () => {
     socket.emit("sos");
     navigate("/sos");
@@ -80,7 +81,7 @@ export default function PatientHome() {
 
   // nev to edit page
   const PatientEdit = async (item) => {
-    const temp = { UID: user.UID, emailCaretaker: item.email };
+     const temp = { UID: user.UID, emailCaretaker: item.email };
     console.log("dsa" + temp.emailCaretaker);
     await axios
       .post("https://faintbaseapp.herokuapp.com/delete_caretaker", temp)
@@ -90,9 +91,13 @@ export default function PatientHome() {
           console.log("after" + response.data);
           dispatch(delCareTaker(item));
         }
-      });
+      }); 
+      
+     //dispatch(delCareTaker(item));
     //https://faintbaseapp.herokuapp.com/
+   // console.log("out list");
 
+console.log(user.list);
     //list.splice(state.list.indexOf(action.payload), 1)
 
     // navigate("/edit", { state: { id: item.id } });
@@ -132,28 +137,10 @@ export default function PatientHome() {
         <Modal2 handlesNotify={notifyEmergencyList} handlesCancel={cancel} />
       )}
 
-      <div
-        className={`alert alert-error shadow-lg transition absolute bottom-5 opacity-${true
-          ? "1"
-          : "0"}`}
-      >
-        <div>
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            class="stroke-current flex-shrink-0 h-6 w-6"
-            fill="none"
-            viewBox="0 0 24 24"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth="2"
-              d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
-            />
-          </svg>
-          <span>Your purchase has been confirmed!</span>
-        </div>
-      </div>
+
+
+      
+
     </div>
   );
 }

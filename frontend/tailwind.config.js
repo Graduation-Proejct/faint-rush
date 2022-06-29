@@ -22,6 +22,16 @@ module.exports = {
       screens: {
         "2xs": "389px",
       },
+      keyframes: {
+        wave: {
+          '0%': {transform: 'translateX(-100%)' },
+          '100%': {transform: 'translateX(10%)' },
+        },
+      },
+     
+      animation: {
+        'waving-hand': 'pulse 1s linear ',
+      },
     },
   },
   plugins: [ require("daisyui") ],

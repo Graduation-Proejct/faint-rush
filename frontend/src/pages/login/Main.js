@@ -23,17 +23,19 @@ import {
   setEditValue,
   setLoading,
   setCancel,
+  setIsNot,
 } from "../../redux/counterSlice";
 
 export default function Main() {
   const [notify, setNotify] = useState(false);
+  const [test, setTest] = useState(0);
 
-  console.log(notify);
+
   const user = useSelector((state) => state.user);
   const items = useSelector((state) => state.items);
   const fireBaseServer = useSelector((state) => state.user.fireBaseServer);
   var isNew = true;
-  var HH=true;
+  var HH = true;
   const [value, setValue] = useState(true);
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -78,13 +80,17 @@ export default function Main() {
           }
           return response;
         } else {
+          console.log("---------------else-------");
           dispatch(setLoading(false));
-          setNotify(true)
-          showNotification();
+          //setNotify(true);
+          dispatch(setIsNot(true))
+         showNotification();
+
           return false;
         }
       });
   }
+
   function setData(response) {
     dispatch(setUID(response.data.UID));
     dispatch(setUsername(response.data.name));
@@ -102,7 +108,6 @@ export default function Main() {
       //console.log("in if")
       navigate("/patienthome");
     } else {
-      
       navigate("/caretaker");
     }
   }
@@ -115,36 +120,36 @@ export default function Main() {
       const flib = localStorage.getItem("flib");
 
       console.log("useEffect");
-      
-        console.log("useEffectssss");
 
-        if (loggedInUser && loggedInUserPass) {
-          isNew = false;
-          console.log(loggedInUser);
-          console.log(loggedInUserPass);
-          console.log(flib);
-          if (flib != false) {
-            localStorage.setItem("flib", false);
-            var data = await isValid();
-            setData(data);
-          }
+      console.log("useEffectssss");
+
+      if (loggedInUser && loggedInUserPass) {
+        isNew = false;
+        console.log(loggedInUser);
+        console.log(loggedInUserPass);
+        console.log(flib);
+        if (flib != false) {
+          localStorage.setItem("flib", false);
+          var data = await isValid();
+          setData(data);
         }
-      
+      }
     };
 
     handleChange();
     //Cleanup function is called when useEffect is called again or on unmount
   }, [value]);
 
-  const showNotification = () => {
+  const showNotification =async () => {
   
-    setTimeout(()=>{
-      HH=false;
-    },3000)
-    console.log("inside showNot");
+   setTimeout(() => {
+      console.log("setNot : " + test);
+     dispatch(setIsNot(false))
+    }, 3000);
     
-    console.log("setNot : " + HH);
+    console.log("inside showNot");
 
+    console.log("setNot : " + test);
   };
 
   return (
@@ -159,7 +164,7 @@ export default function Main() {
           <input
             required
             className=" border-4 justify-center text-center placeholder:italic placeholder:text-slate-400 block w-80 h-14 drop-shadow-md rounded-2xl"
-            type="text"
+            type="email"
             name="email"
             onChange={(e) => {
               dispatch(setEmail(e.target.value));
@@ -174,6 +179,7 @@ export default function Main() {
             }}
             type="password"
             name="password"
+            minLength="6"
             placeholder="Password"
             start
           />
@@ -181,7 +187,7 @@ export default function Main() {
 
         <Button text="LOGIN" />
       </form>
-      <Notification notify={HH} />
+      <Notification notify={items.isNot} text={" Invalid email or password!"}></Notification>
     </>
   );
 }

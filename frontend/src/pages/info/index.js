@@ -19,15 +19,16 @@ export default function INFO() {
     }
   };
   // do reset
+
   const reset = () => {};
- var text="What more would you like to know? Enter 0 for Skills,1 for Qualifications,2 for About, 3 for Projects and for Contact details."
+ var text="I suffer from high blood sugar and sometimes and I have had Coronavirus disease (COVID-19)"
+          
   var list = [
+    "Arrhythmia",
     "daibase type 2",
-    "daibase type 2",
-    "daibase type 2",
-    "MkKDSLA",
-    " kjndskj",
-    "klnj",
+    "Hyperventilation",
+    "Seizure",
+    " Hyperventilation",
   ];
   return (
     <div className="flex justify-center">

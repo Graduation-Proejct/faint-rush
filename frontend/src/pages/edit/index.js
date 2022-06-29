@@ -66,13 +66,13 @@ export default function GetStarted() {
       console.log("before"+response.data);
       if(response.data){
         console.log("after"+response.data);
-        dispatch(addItem({id:user.list.length+1,name:response.data.name,
-          email:response.data.email,phone:response.data.phone}));
+        dispatch(addItem({id:user.list.length+1,email:response.data.email,name:response.data.name,phone:response.data.phone}));
         navigate("/patienthome");
       }
      
     });
     //catch
+console.log(user.list)
    
   };
 

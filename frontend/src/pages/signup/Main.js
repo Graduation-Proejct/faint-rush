@@ -2,7 +2,10 @@ import React from "react";
 import axios from "axios";
 
 import Button from "../../components/library/Button";
+import Notification from "../../components/library/notification";
+
 import { useNavigate, useLocation } from "react-router-dom";
+import { useEffect, useState } from "react";
 
 import { useSelector, useDispatch } from "react-redux";
 import {
@@ -22,11 +25,13 @@ import {
   setEditValue,
   setLoading,
   setList,
+  setIsNot,
 } from "../../redux/counterSlice";
 
 export default function Main() {
   const user = useSelector((state) => state.user);
   const items = useSelector((state) => state.items);
+  const [test, setTest] = useState(0);
 
   const dispatch = useDispatch();
 
@@ -34,6 +39,7 @@ export default function Main() {
   const location = useLocation();
 
   //  navigate To sign up next  Or TakeCare Home and post data to user if is caretaker
+
   const navigateToPatienOrTakeCaretHome = async (e) => {
     e.preventDefault();
 
@@ -47,30 +53,33 @@ export default function Main() {
         list: user.list,
       };
 
-
-      // set local data 
-     // console.log(" jhjk"+response.data._password)
-      localStorage.setItem('email', user.email)
-      localStorage.setItem('password', user.password)
+      // set local data
+      // console.log(" jhjk"+response.data._password)
+      localStorage.setItem("email", user.email);
+      localStorage.setItem("password", user.password);
       ///////////
       await axios
         .post("https://faintbaseapp.herokuapp.com/signup", article)
         .then((response) => {
           console.log("returned value is " + response.data.UID);
-          console.log("is loading or not?"+items.loading);
-          var bb= false
-          if(response.data.UID!="error"){
-            bb=true; 
+          console.log("is loading or not?" + items.loading);
+          var bb = false;
+          if (response.data.UID != "error"&&response.data.UID !=false) {
+            bb = true;
+            console.log("---------------------------")
+            console.log(response.data.UID==false)
+
             dispatch(setUID(response.data.UID));
           }
 
-          if (bb=== true) {
+          if (bb === true) {
             if (user.type == "caretaker") {
               dispatch(setValid(true));
-              navigate("/caretaker");
+             // navigate("/caretaker");
             }
           } else {
-           // toast.error("Minimum Password length should be 6 characters ");
+            dispatch(setIsNot(true));
+            showNotification();
           }
         });
     } else {
@@ -93,11 +102,23 @@ export default function Main() {
               navigate("/signupnext");
             }
           } else {
+            dispatch(setIsNot(true));
+            showNotification();
           }
         });
       //dispatch(setValid(true));
       //navigate("/signupnext");
     }
+  };
+  const showNotification = async () => {
+    setTimeout(() => {
+      console.log("setNot : " + test);
+      dispatch(setIsNot(false));
+    }, 3000);
+
+    console.log("inside showNot");
+
+    console.log("setNot : " + test);
   };
   // set text of button based on type of user
   function getText() {
@@ -159,12 +180,15 @@ export default function Main() {
             name="password"
             onChange={(e) => dispatch(setPassword(e.target.value))}
             placeholder="Password"
+            minLength="6"
             start
           />
         </div>
 
         <Button text={getText()} />
       </form>
+
+      <Notification notify={items.isNot} text={" Invalid email address !"}></Notification>
     </>
   );
 }

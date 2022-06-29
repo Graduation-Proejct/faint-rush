@@ -15,7 +15,7 @@ export default function ListItem(props) {
             <span className="block text-gray-400 text-ellipsis overflow-hidden">{phone}</span>
 
           </div>
-          <button className="rounded-2xl float-right border-2 ml-12 w-20 h-10 m-auto mr-2 hover:bg-lime-50" onClick={handles}>{buttonName}</button>
+          { (buttonName!="PING")&&<button className="rounded-2xl float-right border-2 ml-12 w-20 h-10 m-auto mr-2 hover:bg-lime-50" onClick={handles}>{buttonName}</button>}
         </div>
 
       </div>

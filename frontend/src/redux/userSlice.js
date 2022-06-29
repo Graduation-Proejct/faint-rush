@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, current } from "@reduxjs/toolkit";
 import axios from "axios";
 
 const initialState = {
@@ -50,7 +50,12 @@ export const userSlice = createSlice({
       state.list[action.payload.id - 1].phone = action.payload.phone;
     },
     delCareTaker: (state, action) => {
-      state.list.splice(state.list.indexOf(action.payload)-1, 1)
+      console.log("-----------------------------")
+      console.log(action.payload)
+      console.log(state.list)
+      console.log(current(state).list.indexOf(action.payload))
+      var a=current(state).list.indexOf(action.payload)
+                  state.list.splice(a, 1)
     },
 
     addItem: (state,action) => {
