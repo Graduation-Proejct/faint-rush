@@ -2,9 +2,20 @@ import React, { useCallback, useContext } from "react";
 
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
+
 import ar from "../../assets/alarm.mp3";
 import { useEffect, useState } from "react";
 import { SocketContext } from "../../services/Socket";
+import { ReactComponent as Spinner } from "../../assets/svgs/spinner.svg";
+
+import {
+  setSignUpValue,
+  setEditValue,
+  setLoading,
+  setMedicalHistory,
+  setQuestions,
+} from "../../redux/counterSlice";
 
 export default function Faint() {
   console.count("Faint");
@@ -13,7 +24,9 @@ export default function Faint() {
   const [ faintActivated, setFaintActivated ] = useState(false);
   const socket = useContext(SocketContext);
   const user = useSelector((state) => state.user);
+  const items = useSelector((state) => state.items);
   const date = new Date();
+  const dispatch = useDispatch();
   const navigate = useNavigate();
 
   useEffect(
@@ -65,8 +78,26 @@ export default function Faint() {
 
   const showTime =
     date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
-  const accessINFO = () => {
+  const accessINFO = async() => {
     audio.pause();
+    dispatch(setLoading(true))
+    var temp ={UID :user.UID}
+    await axios
+    .post("https://faintbaseapp.herokuapp.com/sos_patient", temp)
+    .then((response) => {
+      console.log("before" + response.data);
+      if (response.data) {
+        console.log("-------------")
+        console.log( response.data.questions);
+        console.log( "ssss"+response.data.medicalHistory);
+      // after fix uncommet code and then put data at  info page  
+          dispatch(setQuestions(response.data.questions));
+          dispatch(setMedicalHistory(response.data.medicalHistory))
+
+       
+      }
+    }); 
+    setLoading(false)
     navigate("/info");
   };
 
@@ -79,7 +110,20 @@ export default function Faint() {
     socket.emit("i-am-fine");
     goHOME();
   };
-  navigate("/faint");
+ // navigate("/faint");
+  
+  if (items.loading) {
+    return (
+      <div className=" flex flex-col gap-5">
+        <div className="flex h-screen flex-col  justify-center  ">
+          <div className="  justify-center">
+            <Spinner />
+          </div>
+        </div>
+       
+      </div>
+    );
+  }
   return (
     <div className="flex flex-col items-center ">
       <div className=" pt-8  pb-6 h-screen font-mon flex flex-col items-center max-w-md w-full bg-[#F75010]">
