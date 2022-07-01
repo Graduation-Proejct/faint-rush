@@ -85,9 +85,9 @@ function App() {
             <Route
               path="/sos"
               element={
-                <PrivateRoute>
+               
                   <SOS />
-                </PrivateRoute>
+               
               }
             />
 
