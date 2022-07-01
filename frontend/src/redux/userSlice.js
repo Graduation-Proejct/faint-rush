@@ -69,7 +69,7 @@ export const userSlice = createSlice({
     },
 
     setList: (state, action) => {
-
+      state.list= [];
       for (let index = 0; index < action.payload.length; index++) {
          ;
         state.list.push({

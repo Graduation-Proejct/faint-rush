@@ -62,8 +62,12 @@ export default function SOS() {
   const showTime =
     date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
   // navigate to home
+
+
   const accessINFO =async () => {
     audio.pause();
+    console.log("gfcvhbjkl;kjhmgfbcnjmkl,khbgfvbnjkm,gvfbbm,.bv")
+    console.log(user.UID)
     dispatch(setLoading(true))
     var temp ={UID :user.UID}
     await axios
