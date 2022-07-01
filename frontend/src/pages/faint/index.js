@@ -81,7 +81,14 @@ export default function Faint() {
   const accessINFO = async() => {
     audio.pause();
     dispatch(setLoading(true))
-    var temp ={UID :user.UID}
+    var vv= user.UID;
+
+    if(user.UID==false||user.UID==""){
+     vv=localStorage.getItem("UID");
+     console.log(vv)
+    }
+    var temp ={UID :vv}
+   // var temp ={UID :user.UID}
     await axios
     .post("https://faintbaseapp.herokuapp.com/sos_patient", temp)
     .then((response) => {

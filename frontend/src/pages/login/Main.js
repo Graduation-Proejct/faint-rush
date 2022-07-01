@@ -93,6 +93,7 @@ export default function Main() {
 
   function setData(response) {
     dispatch(setUID(response.data.UID));
+    localStorage.setItem("UID", response.data.UID);
     dispatch(setUsername(response.data.name));
     dispatch(setEmail(response.data.email));
     dispatch(setPassword(response.data.password));

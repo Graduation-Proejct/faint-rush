@@ -67,13 +67,21 @@ export default function SOS() {
   const accessINFO =async () => {
     audio.pause();
     console.log("gfcvhbjkl;kjhmgfbcnjmkl,khbgfvbnjkm,gvfbbm,.bv")
-    console.log(user.UID)
+    console.log(user.UID==false)
     dispatch(setLoading(true))
-    var temp ={UID :user.UID}
+    var vv= user.UID;
+
+    if(user.UID==false||user.UID==""){
+     vv=localStorage.getItem("UID");
+     console.log(vv)
+    }
+    var temp ={UID :vv}
     await axios
     .post("https://faintbaseapp.herokuapp.com/sos_patient", temp)
     .then((response) => {
       console.log("before" + response.data);
+      console.log(response.data);
+
       if (response.data) {
         console.log("-------------")
         console.log( response.data.questions);
